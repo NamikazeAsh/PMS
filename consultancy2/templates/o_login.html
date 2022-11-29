@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-In</title>
+</head>
+
+<style>
+    *{
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    
+    {%for msg in errormsg%}
+    {{msg}}
+    {%endfor%}
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="email">Username </label>
+        <input type="email" name="email">
+        <br><br>
+        <label for="password">Password </label>
+        <input type="password" name="password">
+        <br><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="{% url 'signup' %}">Sign In</a> <br>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <h1>
+        <a href="http://127.0.0.1:8000/admin">Admin Login</a>
+    </h1>
+
+</body>
+</html>

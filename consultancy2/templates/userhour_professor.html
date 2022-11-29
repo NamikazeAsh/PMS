@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Hours</title>
+</head>
+
+<style>
+    table, th, td {
+        border: 1px solid;
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    
+    Professor
+
+    {% extends "userhour.html" %}
+
+    {% block professor %}
+
+    Hello, {{request.user}}<br>
+
+    <form  method="post">
+        {% csrf_token %}
+
+        <label for="team">Choose team</label>
+        <select name="team" id="" required>
+            <option value="none" selected disabled hidden>Select an option</option>
+            {% for team in teams %}
+            <option>{{team}}</option>
+            {%endfor%}
+        </select><br>
+
+        <label for="hours">Hours worked</label>
+        <input type="number" name="hours" required><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+
+    <h2>Student Hour Approval</h2>
+
+    <table>
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Team</th>
+            <th>Hours Claimed</th>
+            <th>Date Claimed</th>
+            <th>Approve</th>
+            <th>Deny</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for x in details %}  
+            <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.email}}</td>
+            <td>{{x.team}}</td>
+            <td>{{x.hours_claimed}}</td>
+            <td>{{x.date_claimed}}</td>
+            <td ><a href="/userhours-p/approve/{{x.id}}" style="color:green;text-decoration: none;">Approve</a></td>
+            <td><a href="/userhours-p/deny/{{x.id}}" style="color:red;text-decoration: none;">Deny</a></td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+
+    {% endblock %}
+
+</body>
+</html>
+

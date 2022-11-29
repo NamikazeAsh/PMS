@@ -1,0 +1,50 @@
+{% extends temp %}
+{% load static %}
+
+{% block breadcrumb %}
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Tasks</li>
+{% endblock breadcrumb%}
+
+{% block content %}
+<link href="{% static 'core/css/teamstyle.css' %}" rel="stylesheet">
+
+
+<div class="container-fluid">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+
+                    {%for tk in tasks%}
+                <div class="courses-container">
+                    <div class="course">
+                        <div class="course-preview">
+                            <h6>Status -</h6>
+                            <h2>Task Name</h2>
+                            <h6>{{tk.project}}</h6>
+                        </div>
+                        <div class="course-info">
+
+                            {% if tk.status == '1' %}
+                            <h6>Stuck</h6>
+                            {% elif tk.status == '2' %}
+                            <h6>Working</h6>
+                            {%else%}
+                            <h6>Done</h6>
+                            {% endif %}
+                            <h2>{{tk.task_name}}</h2>
+                            <h6>{{tk.project}}</h6>
+                            <a href="{% url 'projects:viewtask' task=tk.id %}"><button class="btnview">View More</button></a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,210 @@
+{% load static %}
+<!--
+ * CoreUI - Open Source Bootstrap Admin Template
+ * @version v1.0.10
+ * @link http://coreui.io
+ * Copyright (c) 2018 creativeLabs Łukasz Holeczek
+ * @license MIT
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147225311-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-147225311-2');
+    </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+  <meta name="author" content="Christ Project">
+  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
+  <meta name="google-site-verification" content="83fcqoPn-YTkXathQiicW-x3U2RWZh4PaPUzk91wtjY" />
+  <title>Project System</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+  <link href="{% static 'core/css/simple-line-icons.min.css' %}" rel="stylesheet">
+
+  <!-- Main styles for this application -->
+  <link href="{% static 'core/css/estilo.css' %}" rel="stylesheet">
+  <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+
+  {% block extracss %}
+        {% endblock extracss %}
+
+</head>
+{% block body %}
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+
+  <header class="app-header navbar">
+    <img src="{% static 'core/img/logos/title.png' %}" alt="" class="brand-gui ml-2 d-none d-sm-block p-2" style="width:100px;">
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="nav navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+      <li class="text-muted">Hello, {{ user.first_name }}</li>
+      {% else %}
+      <li class="text-muted">
+        <a href="{% url 'core:login' %}">sign in</a>
+      </li>
+      {% endif %}
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          {% if user.is_authenticated %}
+          <img src="{{ logged_user.img.url }}" class="img-avatar" alt="{{ user }}">
+          {% else %}
+          <img src="{% static 'core/img/avatar/blank_profile.png' %}" class="img-avatar" alt="{{ user }}">
+          {% endif %}
+        </a>
+        
+      </li>
+
+    </ul>
+
+  </header>
+
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i> Views</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:projects'%}"><i class="fa fa-paper-plane ml-2"></i> Project's View</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:users'%}"><i class="fa fa-user ml-2"></i> Users Views</a>
+              </li>
+            </ul>
+          </li>
+          </li>
+          <li class="nav-title">
+            Register
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-industry"></i> Company</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:new-company'%}"><i class="fa fa-plus ml-2"></i> New Company</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-puzzle-piece"></i> Projects</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:new-project'%}"><i class="fa fa-plus ml-2"></i> New Project</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:new-task'%}"><i class="fa fa-plus ml-2"></i> New Task</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-user"></i> Users</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:friends' %}"><i class="fa fa-users ml-2"></i> members</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-calendar"></i> Milestones</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'calendarapp:calendar'%}"><i class="fa fa-plus ml-2"></i>Calendar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'calendarapp:running_events'%}"><i class="fa fa-plus ml-2"></i> Running</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'calendarapp:all_events'%}"><i class="fa fa-plus ml-2"></i> All</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-user"></i>Users</a>
+            <ul class="nav-dropdown-items">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:invites'%}"><i class="fa fa-plus ml-2"></i>Invites<span class="badge badge-success">{{ logged_user.received_invites.count }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><i class="fa fa-plus ml-2"></i> Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:profile'%}"><i class="fa fa-plus ml-2"></i> Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}"><i class="fa fa-plus ml-2"></i> Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login'%}"><i class="fa fa-plus ml-2"></i> Login</a>
+              </li>
+              {% endif %}
+            </ul>
+              {% comment %} nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn {% endcomment %}
+      </nav>
+      
+    </div>
+
+    <!-- Main content -->
+    <main class="main">
+      <!-- Breadcrumb -->
+      <ol class="breadcrumb">
+        {% block breadcrumb %}
+        <li class="breadcrumb-item active">Home</li>
+        <li class="breadcrumb-item">Dashboard</li>
+        {% endblock breadcrumb%}
+
+        <!-- Breadcrumb Menu-->
+        {% comment %} <li class="breadcrumb-menu d-md-down-none">
+          <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="#"><i class="fa fa-comments"></i></a>
+            <a class="btn" href="./"><i class="fa fa-tachometer-alt"></i> &nbsp;Dashboard</a>
+            <a class="btn" href="#"><i class="fa fa-cog"></i> &nbsp;Settings</a>
+          </div>
+        </li> {% endcomment %}
+      </ol>
+{% block content %}
+{% endblock %}
+    </main>
+        {% include 'core/js.html' %}
+        {% block extrascripts %}
+        {% endblock extrascripts %}
+
+  </div>
+
+  <footer class="app-footer">
+    <span><a href="#">Copyright</a> © 2023 Christ consultancy.</span>
+  </footer>
+
+  <!-- Bootstrap and necessary plugins -->
+    <script src="{% static 'core/vendors/js/jquery.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/popper.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/pace.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/Chart.min.js'%}"></script>
+
+  <!-- CoreUI main scripts -->
+
+    <script src="{% static 'core/js/app.js'%}"></script>
+
+  <!-- Plugins and scripts required by this views -->
+
+  <!-- Custom scripts required by this view -->
+    <script src="{% static 'core/js/main.js'%}"></script>
+
+</body>
+{% endblock body %}
+</html>

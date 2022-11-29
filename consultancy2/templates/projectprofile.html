@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Profile</title>
+</head>
+<body>
+    
+    {% for project in projdet %}
+    {% if project.id == pid %}
+    
+    <h1>{{project.project_name}}</h1><br>
+    Start Date: {{project.start_date}}<br>
+    End Date : {{project.end_date}}<br>
+    Description : {{project.desc}}<br>
+    Budget : {{project.budget}}<br>
+    Incharge ID : {{project.incharge_id}}<br>
+    Client ID : {{project.client_id}}<br>
+    Active: 
+        {% if project.active == 0 %}
+        No<br>
+        {% elif project.active == 1 %}
+        Yes<br>
+        {% else %}
+        ----<br>
+        {% endif %}
+    Project Team : {{ project.team_for_project }}
+
+    {% endif %}
+    {% endfor %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    
+    {% block content %}
+    
+    <img src="{{ user.profile.image.url }}"><br>
+    
+    <h1>Email ID</h1><br>
+    {{user.email}}
+
+    <h1>Teams</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+                <th>Team Role</th>
+                <th>Project Assigned</th>
+                <th>Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams  %}
+            {% if team.team_member == user.email %}
+            <tr>
+                <td>{{team.id}}</td>
+                <td>{{team.team_name}}</td>
+                <td>{{team.role}}</td>
+                {% for project in projects %}
+                    {% if team.team_name == project.team_for_project %}
+                    <td>{{project.project_name}}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{team.hours}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock content %}
+
+    <br><a href="{% url 'home' %}">Home</a>
+    <br><a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
