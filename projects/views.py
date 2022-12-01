@@ -106,69 +106,7 @@ class edittask(generic.UpdateView):
         context["temp"] = var
         
         return context
-
-# def viewtask(request, pk):
-#     post = get_object_or_404(Task, id=pk)
-
-#     allcomments = post.comments.filter(status=True)
-#     page = request.GET.get('page', 1)
-
-#     paginator = Paginator(allcomments, 10)
-#     try:
-#         comments = paginator.page(page)
-#     except PageNotAnInteger:
-#         comments = paginator.page(1)
-#     except EmptyPage:
-#         comments = paginator.page(paginator.num_pages)
-
-#     user_comment = None
-
-#     if request.method == 'POST':
-#         comment_form = NewCommentForm(request.POST)
-#         if comment_form.is_valid():
-#             user_comment = comment_form.save(commit=False)
-#             user_comment.post = post
-#             user_comment.save()
-#             return HttpResponseRedirect('/' + post.id)
-#     else:
-#         comment_form = NewCommentForm()
-#     return render(request, 'projects/vtask.html', {'post': post, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, })
-
-
-# def viewtask(request, task):
-#     print('Here')
-#     task = get_object_or_404(Task, id=task)
-
-#     allcomments = task.comments.filter(status=True)
-    
-#     page = request.GET.get('page', 1)
-
-#     paginator = Paginator(allcomments, 10)
-#     try:
-#         comments = paginator.page(page)
-#     except PageNotAnInteger:
-#         comments = paginator.page(1)
-#     except EmptyPage:
-#         comments = paginator.page(paginator.num_pages)
-
-#     user_comment = None
-
-#     if request.method == 'POST':
-#         comment_form = NewCommentForm(request.POST)
-#         if comment_form.is_valid():
-#             user_comment = comment_form.save(commit=False)
-#             user_comment.username=request.user.username
-#             user_comment.task = task
-#             user_comment.save()
-#             # return HttpResponseRedirect('/' +'projects/etask'+'/'+task.slug)
-#             return redirect('projects:viewtask',task= task.id)
         
-#     else:
-#         comment_form = NewCommentForm()
-        
-#     return render(request, 'projects/etask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, })
-
-
 def taskprofile1(request):
     tasks = Task.objects.filter()
     context = {

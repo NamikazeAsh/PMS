@@ -31,13 +31,7 @@ class AdminValidation(models.Model):
         
     def __str__(self):
         return  f"{self.email}   |  {self.role}"
-    
-class Profile(models.Model):
-    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg',upload_to='profile_pics')
-    
-    def __str__(self):
-        return f"{self.user.username}'s Profile"
+
 
 class Team(models.Model):
     team_name = models.CharField(max_length=100)
@@ -55,9 +49,3 @@ class Team(models.Model):
     def __str__(self):
         return f"{self.team_name}"
     
-class HourVal(models.Model):
-
-    email = models.CharField(max_length=100)
-    team = models.CharField(max_length = 100)
-    hours_claimed = models.IntegerField()
-    date_claimed = models.DateTimeField()
