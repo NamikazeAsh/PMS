@@ -11,11 +11,6 @@ urlpatterns = [
     path('users/<int:profile_id>/', views.user_view, name='user'),
     path('users/invite/<int:profile_id>/', views.invite, name='invite'),
     path('users/invites/', views.invites, name='invites'),
-    path('users/invites/accept/<int:invite_id>/', views.acceptInvite, name='accept-invite'),
-    path('users/invites/delete/<int:invite_id>/', views.deleteInvite, name='delete-invite'),
-    path('users/friends/', views.friends, name='friends'),
-    path('users/friends/remove/<int:profile_id>/', views.remove_friend, name='remove-friend'),
 
-    
 ]
 

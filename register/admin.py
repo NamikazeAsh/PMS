@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company,Team
+from .models import Company
 from .models import UserProfile
 from .models import Invite
 
@@ -20,4 +20,3 @@ class InviteAdmin(admin.ModelAdmin):
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Invite, InviteAdmin)
-admin.site.register(Team)

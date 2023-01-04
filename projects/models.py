@@ -36,6 +36,9 @@ class Project(models.Model):
     class Meta:
         ordering = ['name']
 
+    def get_absolute_url(self):
+        return reverse("projects:editp", args=(self.id,))
+
     def __str__(self):
         return (self.name)
 

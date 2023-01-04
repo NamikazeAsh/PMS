@@ -10,7 +10,7 @@
 
 
 
-{% block excerpt %}
+{% block content %}
 <div class="container animated fadeIn">
         <div class="row justify-content-center">
             <div class="col-7">
@@ -106,7 +106,7 @@
                                         {% if form.due.errors %}
                                                 <ol>
                                                 {% for error in form.due.errors %}
-                                                    <li><strong>{{ error|escape }}</strong></li>
+                                                    <li ><strong>{{ error|escape }}</strong></li>
                                                 {% endfor %}
                                                 </ol>
                                             {% endif %}
@@ -124,6 +124,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}

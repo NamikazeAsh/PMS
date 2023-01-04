@@ -2,7 +2,7 @@ from django import forms
 from django.utils.text import slugify
 from .models import Task
 from .models import Project
-from register.models import Team
+from consultancy2.models import Team
 from register.models import Company
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
@@ -32,7 +32,7 @@ class TaskRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ('project','assign','task_name','status','due')
 
 
     def save(self, commit=True):

@@ -45,14 +45,27 @@ def taskprofile(request,id):
     }
     return render(request,'projects/tasks.html',context)
 
+
+
+def projectprofile(request,id):
+    proj = Project.objects.filter(assign = id)
+    var = findtemp(request)
+    context = {
+        'proj': proj,
+        'temp':var,
+    }
+    return render(request,'projects/allprojects.html',context)
+
+
 def newTask(request):
+    var = findtemp(request)
     if request.method == 'POST':
         form = TaskRegistrationForm(request.POST)
-        context = {'form': form}
+        context = {'form': form,
+        'temp':var,}
         if form.is_valid():
             form.save()
             created = True
-            var = findtemp(request)
             context = {
                 'created': created,
                 'form': form,
@@ -63,7 +76,6 @@ def newTask(request):
             return render(request, 'projects/new_task.html', context)
     else:
         form = TaskRegistrationForm()
-        var = findtemp(request)
         context = {
             'form': form,
             'temp': var,
@@ -107,6 +119,18 @@ class edittask(generic.UpdateView):
         
         return context
         
+
+class editproject(generic.UpdateView):
+    model = Project
+    fields = ["status","assign","efforts","dead_line"]
+    template_name = "projects/eproject.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        var = findtemp(self.request)
+        context["temp"] = var
+        
+        return context
+        
 def taskprofile1(request):
     tasks = Task.objects.filter()
     context = {
@@ -121,6 +145,7 @@ def comment(request):
 
 def viewtask(request, task):
 
+    var = findtemp(request)
     task = get_object_or_404(Task, id=task)
 
     allcomments = task.comments.filter(status=True)
@@ -150,9 +175,7 @@ def viewtask(request, task):
     else:
         comment_form = NewCommentForm()
         
-    return render(request, 'projects/etask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, })
-
-
+    return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
 
 
 @login_required(login_url='login')
