@@ -7,24 +7,115 @@
         <li class="breadcrumb-item active">Users View</li>
 {% endblock breadcrumb%}
 
+{% block extracss %}
+<link href="{% static 'core/css/filters.css' %}" rel="stylesheet">
+{% endblock extracss %}
+
+{% block extrascripts %}
+<script>
+    function search_name()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("users_table");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[1];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+            function option()
+            {
+                var ch=document.getElementById("choice");
+                if(ch.value=="id")
+                {
+                    se();
+                }
+                else if(ch.value=="name")
+                {
+                    search_name();
+                }
+                else if(ch.value=="role")
+                {
+                    se2();
+                }
+                else if(ch.value=="team")
+                {
+                    se3();
+                }
+                else
+                {
+                    se4();
+                }
+                
+            }
+</script>
+{% endblock extrascripts %}
+
+
 {% block content %}
 <div class="container-fluid">
     <div class="animated fade-in">
+        <div class = "Filters" style="text-align:center; margin: 20px;">
+            <p style="display:inline; color: #3e515b; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>
+                <select id="choice" style="text-align:center;margin-left: 20px;">
+                    <option >Select field</option>
+                    <option value="id">ID</option>
+                    <option value="name">Name</option>
+                    <option value="role">Role</option>
+                    <option value="team">Team</option>
+                    <option value="exp">Number of Projects</option>
+                </select>
+
+                <select id="roles" name='role' style="text-align:center" disabled>
+                    <option >---- Select role ---- </option>
+                    <option value="Intern">Intern</option>
+                    <option value="Senior Intern">Senior Intern</option>
+                    <option value="Professor">Professor</option>
+                    <option value="Lead Consultant">Lead Consultant</option>
+                    <option value="Head Consultant">Head Consultant</option>
+                </select>
+
+                <input type="submit" id="box" value="Search">
+                
+                <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
+
+                <input type="button" value="Clear" onclick="clear();">
+        </div>
         <div class="row">
-            <table class="table table-responsive-sm table-hover table-outline mb-5 ">
+            <table class="table table-responsive-sm table-hover table-outline mb-5 " id="users_table">
                 <thead class="thead-light">
                 <tr>
                     <th class="text-center"><i class="fa fa-user"></i></th>
                     <th>User</th>
+                    <th class="text-center">Role</th>
+                    <th class="text-center">Campus</th>
                     <th class="text-center">Assigned Projects</th>
-                    <th>Tasks</th>
+                    <th class="text-center">Tasks</th>
                     <th class="text-center">Assigned Tasks</th>
-                    <th>Activity</th>
+                    <th class="text-center">Activity</th>
                 </tr>
             </thead>
                     <tbody>
                         <!-- user1 -->
                         {% for user1 in users %}
+
                         <tr>
                             <td class="text-center">
                                 <div class="avatar">
@@ -39,13 +130,29 @@
                                 <div>{{ user1.user.username }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% endif %}
                                 <div class="small text-muted">
-                                <span>Joined:</span> | {{ user1.user.date_joined }}
+                                    <span>Email</span> | {{ user1.user.email }}
+                                    </div>
+                                <div class="small text-muted">
+                                <span>Joined </span> | {{ user1.user.date_joined }}
                                 </div>
                             </td>
                             <td class="text-center">
-                                <span class="badge badge-pill badge-dark">{{ user1.user.project_set.all.count }}</span>
+                                {% for user2 in users2 %}
+                                    {% if user1.user.email == user2.email %}
+                                <span>{{user2.role}}</span>
+                                {%endif%}
+                                {%endfor%}
                             </td>
-                            <td>
+
+                            <td class="text-center">
+                                {% for user2 in users2 %}
+                                    {% if user1.user.email == user2.email %}
+                                <span>{{user2.campus}}</span>
+                                {%endif%}
+                                {%endfor%}
+                            </td>
+
+                            <td class="text-center">
                                 <div class="clearfix">
                                 <div class="float-left">
                                 <strong>{% widthratio user1.user.task_set.values.count  tasks.count 100 %}%</strong>
@@ -62,7 +169,7 @@
                                 <span class="badge badge-pill badge-dark">{{ user1.user.task_set.values.count }}</span>
                                 <span class="badge badge-pill badge-dark"></span>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <div class="small text-muted">Last login</div>
                                 <strong>{{ user1.user.last_login }}</strong>
                             </td>

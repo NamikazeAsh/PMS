@@ -9,6 +9,7 @@ from .forms import RegistrationForm
 from .forms import CompanyRegistrationForm
 from .forms import ProfilePictureForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from consultancy2.models import *
 
 
 # Create your views here.
@@ -51,10 +52,12 @@ def register(request):
 
 def usersView(request):
     users = UserProfile.objects.all()
+    users2 = AdminValidation.objects.all()
     tasks = Task.objects.all()
     var = findtemp(request)
     context = {
         'users': users,
+        'users2':users2,
         'tasks': tasks,
         'temp':var,
     }
