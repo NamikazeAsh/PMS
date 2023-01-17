@@ -49,20 +49,20 @@
 
     <ul class="nav navbar-nav ml-auto">
       {% if user.is_authenticated %}
-      <li class="text-muted">Hello, {{ user.first_name }}</li>
+      <li class="text-muted"><b>{{ user.first_name }}</b> </li>
       {% else %}
       <li class="text-muted">
-        <a href="{% url 'core:login' %}">sign in</a>
+        <a href="{% url 'core:login' %}">Sign In</a>
       </li>
       {% endif %}
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <!-- <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           {% if user.is_authenticated %}
           <img src="{{ logged_user.img.url }}" class="img-avatar" alt="{{ user }}">
           {% else %}
           <img src="{% static 'core/img/avatar/blank_profile.png' %}" class="img-avatar" alt="{{ user }}">
           {% endif %}
-        </a>
+        </a> -->
         
       </li>
 
