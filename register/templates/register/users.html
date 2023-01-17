@@ -102,7 +102,6 @@
             <table class="table table-responsive-sm table-hover table-outline mb-5 " id="users_table">
                 <thead class="thead-light">
                 <tr>
-                    <th class="text-center"><i class="fa fa-user"></i></th>
                     <th>User</th>
                     <th class="text-center">Role</th>
                     <th class="text-center">Campus</th>
@@ -113,16 +112,9 @@
                 </tr>
             </thead>
                     <tbody>
-                        <!-- user1 -->
                         {% for user1 in users %}
 
                         <tr>
-                            <td class="text-center">
-                                <div class="avatar">
-                                <img src="{{ user1.img.url }}" class="img-avatar" alt="{{ user1.email }}">
-                                <span class="avatar-status badge-success"></span>
-                                </div>
-                            </td>
                             <td>
                                 {% if user1.user.get_full_name %}
                                 <div>{{ user1.user.get_full_name }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
