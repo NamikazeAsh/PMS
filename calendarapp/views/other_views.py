@@ -15,6 +15,8 @@ from calendarapp.models import EventMember, Event
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm
 
+from django.core.mail import send_mail
+
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
         return 'intern/tempintern.html'
@@ -208,7 +210,21 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             form = forms.save(commit=False)
             form.user = request.user
             form.save()
+            
+            print("Milestone created")
+            # ------------------------------- Email Section ------------------------------ #
+            send_mail(
+                    '[Christ Consulting] Milestone created!',
+                    'Milestone has been created, please check it out!',
+                    'ashwin.satish@science.christuniversity.in',
+                    ['pervnamisenpai@gmail.com'],
+                    fail_silently=False,
+                )
+            print("Email Sent")
             return redirect("calendarapp:calendar")
         var = findtemp(request)
         context = {"form": forms,'temp':var,}
+        
+
+        
         return render(request, self.template_name, context)

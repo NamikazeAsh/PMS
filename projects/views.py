@@ -9,6 +9,8 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.core.mail import send_mail
+
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
         return 'intern/tempintern.html'
@@ -71,6 +73,18 @@ def newTask(request):
                 'form': form,
                 'temp':var,
             }
+            
+            
+            # ------------------------------- Email Section ------------------------------ #
+            send_mail(
+                '[Christ Consulting] Task assigned!',
+                'Task has been assigned',
+                'ashwin.satish@science.christuniversity.in',
+                ['pervnamisenpai@gmail.com'],
+                fail_silently=False,
+            )
+            print("Email Sent")
+            
             return render(request, 'projects/new_task.html', context)
         else:
             return render(request, 'projects/new_task.html', context)
