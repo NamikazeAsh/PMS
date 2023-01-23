@@ -7,9 +7,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 status = (
-    ('1', 'Stuck'),
-    ('2', 'Working'),
-    ('3', 'Done'),
+    ('1', 'Easy'),
+    ('2', 'Mediocre'),
+    ('3', 'Hard'),
 )
 
 due = (

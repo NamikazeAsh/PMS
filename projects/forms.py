@@ -11,10 +11,11 @@ from mptt.forms import TreeNodeChoiceField
 
 
 status = (
-    ('1', 'Stuck'),
-    ('2', 'Working'),
-    ('3', 'Done'),
+    ('1', 'Easy'),
+    ('2', 'Mediocre'),
+    ('3', 'Hard'),
 )
+
 
 due = (
     ('1', 'On Due'),
