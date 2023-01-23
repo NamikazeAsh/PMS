@@ -26,9 +26,11 @@
   <meta name="google-site-verification" content="83fcqoPn-YTkXathQiicW-x3U2RWZh4PaPUzk91wtjY" />
   <title>Project System</title>
 
+
   <!-- Icons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
   <link href="{% static 'core/css/simple-line-icons.min.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="{% static 'core/css/all.min.css' %}"> -->
 
   <!-- Main styles for this application -->
   <link href="{% static 'core/css/estilo.css' %}" rel="stylesheet">
@@ -108,6 +110,18 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-puzzle-piece"></i> Teams</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:new-project'%}"><i class="fa fa-plus ml-2"></i> New Team</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'projects:new-task'%}"><i class="fa fa-plus ml-2"></i> Team Views</a>
+              </li>
+            </ul>
+          </li>
           
           <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-calendar"></i> Milestones</a>
@@ -138,15 +152,17 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i> Profile</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout'%}"><i class="fa fa-plus ml-2"></i> Logout</a>
-              </li>
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login'%}"><i class="fa fa-plus ml-2"></i> Login</a>
-              </li>
-              {% endif %}
+              
             </ul>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout'%}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login'%}"><i class="fa-solid fa-right-from-bracket"></i> Login</a>
+            </li>
+            {% endif %}
               {% comment %} nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn {% endcomment %}
       </nav>
       

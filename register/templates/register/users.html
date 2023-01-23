@@ -40,30 +40,88 @@
 
             }
 
+            function search_role()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("users_table");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[2];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+            function search_campus()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("users_table");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[3];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
             function option()
             {
                 var ch=document.getElementById("choice");
-                if(ch.value=="id")
-                {
-                    se();
-                }
-                else if(ch.value=="name")
+                if(ch.value=="name")
                 {
                     search_name();
                 }
                 else if(ch.value=="role")
                 {
-                    se2();
+                    search_role();
                 }
-                else if(ch.value=="team")
+                else if(ch.value=="campus")
                 {
-                    se3();
+                    search_campus();
                 }
                 else
                 {
                     se4();
                 }
                 
+            }
+            
+            function clear()
+            {
+                // var getVal=document.getElementById("search");
+                // if (getVal.value!="")
+                //     getVal.value="";
+                print("Working")
             }
 </script>
 {% endblock extrascripts %}
@@ -75,48 +133,41 @@
         <div class = "Filters" style="text-align:center; margin: 20px;">
             <p style="display:inline; color: #3e515b; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>
                 <select id="choice" style="text-align:center;margin-left: 20px;">
-                    <option >Select field</option>
-                    <option value="id">ID</option>
                     <option value="name">Name</option>
                     <option value="role">Role</option>
+                    <option value="campus">Campus</option>
                     <option value="team">Team</option>
-                    <option value="exp">Number of Projects</option>
+                    <option value="free">Free Hours</option>
+                    <option value="exp">Hours worked</option>
                 </select>
-
-                <select id="roles" name='role' style="text-align:center" disabled>
-                    <option >---- Select role ---- </option>
-                    <option value="Intern">Intern</option>
-                    <option value="Senior Intern">Senior Intern</option>
-                    <option value="Professor">Professor</option>
-                    <option value="Lead Consultant">Lead Consultant</option>
-                    <option value="Head Consultant">Head Consultant</option>
-                </select>
-
-                <input type="submit" id="box" value="Search">
                 
                 <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
-
-                <input type="button" value="Clear" onclick="clear();">
+                <input type="button" value="Clear" onclick= "clear();">
+                <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a>
         </div>
         <div class="row">
             <table class="table table-responsive-sm table-hover table-outline mb-5 " id="users_table">
                 <thead class="thead-light">
                 <tr>
+                    <th>ID</th>
                     <th>User</th>
                     <th class="text-center">Role</th>
                     <th class="text-center">Campus</th>
                     <th class="text-center">Assigned Projects</th>
                     <th class="text-center">Tasks</th>
                     <th class="text-center">Assigned Tasks</th>
-                    <th class="text-center">Activity</th>
                 </tr>
             </thead>
                     <tbody>
                         {% for user1 in users %}
 
                         <tr>
+
                             <td>
-                                {% if user1.user.get_full_name %}
+                                {{ user1.user.id }}
+                            </td>
+                            <td>
+                                <a href="{% url 'register:user' profile_id=user1.user.id %}">{% if user1.user.get_full_name %}
                                 <div>{{ user1.user.get_full_name }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% else %}
                                 <div>{{ user1.user.username }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
@@ -126,7 +177,8 @@
                                     </div>
                                 <div class="small text-muted">
                                 <span>Joined </span> | {{ user1.user.date_joined }}
-                                </div>
+                                </div></a>
+
                             </td>
                             <td class="text-center">
                                 {% for user2 in users2 %}

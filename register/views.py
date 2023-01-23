@@ -63,6 +63,8 @@ def usersView(request):
     }
     return render(request, 'register/users.html', context)
 
+
+
 def user_view(request, profile_id):
     user = UserProfile.objects.get(user_id=profile_id)
     var = findtemp(request)
