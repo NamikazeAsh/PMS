@@ -26,6 +26,8 @@ class AdminValidation(models.Model):
     password = models.CharField(max_length=100)
     campus = models.CharField(max_length = 100)
     role = models.CharField(max_length = 100)
+    hours = models.IntegerField(default=0)
+    
     class Meta:
         db_table = "val_users"
         

@@ -246,21 +246,25 @@ def UserHourTrackingAccept(request,id):
 
     team = Team.objects.all()
     hv = HourVal.objects.get(id=id)
+    av = AdminValidation.objects.get(id=id)
     
     teamvar = team.values('hours').filter(team_member=hv.email,team_name = hv.team)
     for a in teamvar:
         for b in a:
             thour = a[b]
-            
-                
+                        
     vhour = hv.hours_claimed
     newhour = vhour + thour
     
-    
     updhour = Team.objects.get(team_member = hv.email,team_name=hv.team)
     updhour.hours = newhour
-    
     updhour.save()
+    
+    hourvar = av.hours
+    hourvar = hourvar + vhour
+    av.hours = hourvar
+    av.save()
+    
     hv.delete()
     print("Successfully updated!")    
     
