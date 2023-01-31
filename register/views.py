@@ -4,10 +4,11 @@ from django.shortcuts import redirect
 from projects.models import Task
 from django.contrib.auth.models import User
 from .models import UserProfile
-from .models import Invite
+from .models import Invite,Team
 from .forms import RegistrationForm
 from .forms import CompanyRegistrationForm
 from .forms import ProfilePictureForm
+from .forms import TeamRegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
 
@@ -204,3 +205,29 @@ def friends(request):
             'temp':var,
         }
     return render(request, 'register/friends.html', context)
+
+def newTeam(request):
+    if request.method == 'POST':
+        form = TeamRegistrationForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            created = True
+            form = TeamRegistrationForm()
+            var = findtemp(request)
+            context = {
+                'created': created,
+                'form': form,
+                'temp':var,
+            }
+            return render(request, 'register/new_team.html', context)
+        else:
+            return render(request, 'register/new_team.html', context)
+    else:
+        form = TeamRegistrationForm()
+        var = findtemp(request)
+        context = {
+            'form': form,
+            'temp':var,
+        }
+        return render(request,'register/new_team.html', context)

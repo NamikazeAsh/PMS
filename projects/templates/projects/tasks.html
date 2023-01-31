@@ -19,16 +19,16 @@
                 <div class="courses-container">
                     <div class="course">
                         <div class="course-preview">
-                            <h6>Status -</h6>
+                            <h6>Status</h6>
                             <h2>Task Name</h2>
-                            <h6>{{tk.project}}</h6>
+                            <h6>Project</h6>
                         </div>
                         <div class="course-info">
 
                             {% if tk.status == '1' %}
-                            <h6>Stuck</h6>
-                            {% elif tk.status == '2' %}
                             <h6>Working</h6>
+                            {% elif tk.status == '2' %}
+                            <h6>Stuck</h6>
                             {%else%}
                             <h6>Done</h6>
                             {% endif %}

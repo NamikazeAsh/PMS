@@ -6,15 +6,15 @@ from mptt.models import MPTTModel,TreeForeignKey
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-status = (
+difficulty = (
     ('1', 'Easy'),
     ('2', 'Mediocre'),
     ('3', 'Hard'),
 )
 
-due = (
-    ('1', 'On Due'),
-    ('2', 'Overdue'),
+status = (
+    ('1', 'Working'),
+    ('2', 'Stuck'),
     ('3', 'Done'),
 )
 
@@ -48,8 +48,8 @@ class Task(models.Model):
     assign = models.ManyToManyField(User)
     task_name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=250)
+    difficulty = models.CharField(max_length=7, choices=difficulty, default=1)
     status = models.CharField(max_length=7, choices=status, default=1)
-    due = models.CharField(max_length=7, choices=due, default=1)
 
     class Meta:
         ordering = ['project', 'task_name']

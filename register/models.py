@@ -6,7 +6,6 @@ from mptt.models import MPTTModel,TreeForeignKey
 
 # Create your models here.
 class Company(models.Model):
-    social_name = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
     email = models.EmailField()
     city = models.CharField(max_length=50)
@@ -54,4 +53,11 @@ class Invite(models.Model):
     def __str__(self):
         return str(self.inviter)
 
+class Team(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True)
+    team_name = models.CharField(max_length=100, blank=True)
+    assign = models.ManyToManyField(User)
+    
+    def __str__(self):
+        return f"{self.team_name}"
 
