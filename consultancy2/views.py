@@ -81,9 +81,12 @@ def SignIn(request):
                 
         else:
             form = RegistrationForm()
+            var = findtemp(request)        
             context = {
                 'form' : form,
+                'temp' : var,
             }
+            
             return render(request,'signup.html',context)
 
 
@@ -216,23 +219,30 @@ def UserHourTrackingIntern(request):
     
     if request.method == "POST":
 
-        uhour = request.POST.get('hours')
-
         saverecord = HourVal()
-        saverecord.email = request.user
+        saverecord.email = request.user.email
         saverecord.hours_claimed = request.POST.get('hours')
         saverecord.date_claimed = datetime.datetime.now()
         saverecord.team = request.POST.get('team')
         saverecord.save()
         
-        print("Success!")
+        if request.POST.get('freehouri') == True:
+            print("checked")
+        else:
+            print("not checked")
+        
         return redirect('signup')
         
     var = findtemp(request)
+    
+    freehouro = AdminValidation.objects.get(email = request.user.email)
+    print(freehouro)
+    
     context = {
         "temp": var,
-        
+        "freehourso":freehouro,
     }
+    
     return render(request,"userhour_intern.html",context)
 
 
@@ -244,20 +254,24 @@ def UserHourTrackingProfessor(request):
         
         uhour = request.POST.get('hours')
         
-        # updhour = Team.objects.get(team_member = request.user,team_name = uteam)
-        # newhour = updhour.hours + int(uhour)
+        valusers = AdminValidation.objects.get(email = request.user.email)
+        updhour = valusers.hours
+        newhour = updhour + int(uhour)
         
-        # updhour.hours = newhour
-        # updhour.save()
+        valusers.hours = newhour
+        valusers.save()
         
         return redirect('signup') #home/signup autodirect home
         
     details = HourVal.objects.all()
+    freehouro = AdminValidation.objects.get(email = request.user.email)
+    print(freehouro)
     
     var = findtemp(request)
     context = {
         "temp": var,
         "details":details,
+        "freehourso":freehouro,
     }
     return render(request,"userhour_professor.html",context)
 
@@ -265,29 +279,15 @@ def UserHourTrackingProfessor(request):
 def UserHourTrackingAccept(request,id):
 
     hv = HourVal.objects.get(id=id)
-    av = AdminValidation.objects.get(id=id)
+
+    ave = hv.email
+    av = AdminValidation.objects.get(email = ave)
+
+    vhour = hv.hours_claimed
+    av.hours = vhour + av.hours
+    av.save()
     
-    # teamvar = team.values('hours').filter(team_member=hv.email,team_name = hv.team)
-    # for a in teamvar:
-    #     for b in a:
-    #         thour = a[b]
-                        
-    # vhour = hv.hours_claimed
-    # newhour = vhour + thour
-    
-    # updhour = Team.objects.get(team_member = hv.email,team_name=hv.team)
-    # updhour.hours = newhour
-    # updhour.save()
-    
-    # hourvar = av.hours
-    # hourvar = hourvar + vhour
-    # av.hours = hourvar
-    # av.save()
-    
-    # hv.delete()
-    
-    print(hv)
-    print(av)
+    hv.delete()
     
     print("Successfully updated!")    
     

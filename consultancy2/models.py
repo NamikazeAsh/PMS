@@ -30,9 +30,6 @@ class AdminValidation(models.Model):
     
     class Meta:
         db_table = "val_users"
-        
-    def __str__(self):
-        return  f"{self.email}   |  {self.role}"
 
 class HourVal(models.Model):
 
