@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from consultancy2 import models
 from register.forms import RegistrationForm
-from .models import AdminValidation, SignInInsert, Team, HourVal
+from .models import AdminValidation, SignInInsert,HourVal
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User,Group
@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from register.models import *
+
 
 import datetime
 

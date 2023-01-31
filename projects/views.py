@@ -79,8 +79,8 @@ def newTask(request):
             send_mail(
                 '[Christ Consulting] Task assigned!',
                 'Task has been assigned',
-                'ashwin.satish@science.christuniversity.in',
-                ['pervnamisenpai@gmail.com'],
+                'balakrishna.r@science.christuniversity.in',
+                ['balakrishnar120@gmail.com'],
                 fail_silently=False,
             )
             print("Email Sent")

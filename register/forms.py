@@ -2,7 +2,9 @@ from django import forms
 from register.models import Company as Comp
 from register.models import UserProfile
 from django.contrib.auth.models import User
+from projects.models import Project
 from django.contrib.auth.forms import UserCreationForm
+from register.models import Team
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(label='E-mail', required=True)
@@ -59,7 +61,6 @@ class RegistrationForm(UserCreationForm):
 
 
 class CompanyRegistrationForm(forms.Form):
-    social_name = forms.CharField(max_length=80)
     name = forms.CharField(max_length=80)
     email = forms.EmailField()
     city = forms.CharField(max_length=50)
@@ -71,7 +72,6 @@ class CompanyRegistrationForm(forms.Form):
 
     def save(self, commit=True):
         company = Comp()
-        company.social_name = self.cleaned_data['social_name']
         company.name = self.cleaned_data['name']
         company.email = self.cleaned_data['email']
         company.city = self.cleaned_data['city']
@@ -83,8 +83,6 @@ class CompanyRegistrationForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(CompanyRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['social_name'].widget.attrs['class'] = 'form-control'
-        self.fields['social_name'].widget.attrs['placeholder'] = 'Social Name'
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget.attrs['placeholder'] = 'Name'
         self.fields['email'].widget.attrs['class'] = 'form-control'
@@ -114,3 +112,34 @@ class ProfilePictureForm(forms.Form):
         super(ProfilePictureForm, self).__init__(*args, **kwargs)
         self.fields['img'].widget.attrs['class'] = 'custom-file-input'
         self.fields['img'].widget.attrs['id'] = 'validatedCustomFile'
+        
+class TeamRegistrationForm(forms.ModelForm):
+    project = forms.ModelChoiceField(queryset=Project.objects.all())
+    team_name = forms.CharField(max_length=100)
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+    
+    class Meta:
+        model = Team
+        fields = '__all__'
+        
+    def save(self, commit=True):
+        team=super(TeamRegistrationForm, self).save(commit=False)
+        team.project = self.cleaned_data['project']
+        team.team_name = self.cleaned_data['team_name']
+        team.save()
+        assigns = self.cleaned_data['assign']
+        for assign in assigns:
+            team.assign.add((assign))
+
+        if commit:
+            team.save()
+
+        return team
+    
+    def __init__(self, *args, **kwargs):
+        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['project'].widget.attrs['class'] = 'form-control'
+        self.fields['project'].widget.attrs['placeholder'] = 'Project Name'
+        self.fields['team_name'].widget.attrs['class'] = 'form-control'
+        self.fields['team_name'].widget.attrs['placeholder'] = 'Team Name'
+        self.fields['assign'].widget.attrs['class'] = 'form-control'

@@ -30,22 +30,7 @@
                                 {% csrf_token %}
                                 <h1>Register</h1>
                                 <p class="text-muted">Set up your company registration here</p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-industry"></i></span>
-                                        </div>
-                                        {{ form.social_name }}
-                                        {% if form.social_name.errors %}
-                                            <ol>
-                                            {% for error in form.social_name.errors %}
-                                                <li><strong>{{ error|escape }}</strong></li>
-                                            {% endfor %}
-                                            </ol>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="form-group">
+                                                                <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fa fa-industry"></i></span>

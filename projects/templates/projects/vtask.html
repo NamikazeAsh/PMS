@@ -48,7 +48,7 @@
           <div>{{ node.content }}</div>
           <hr />
           {% if node.level < 3 %}
-          <button class="button" onclick="myFunction({{ node.id }})">Reply</button>
+          <button class="button" onclick="myFunction({{node.id}})">Reply</button>
           {% endif %}
         </div>
         {% if not node.is_leaf_node %}
