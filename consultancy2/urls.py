@@ -42,6 +42,7 @@ urlpatterns = [
     path('projects/', include('projects.urls', namespace='projects')),
     path('core/', include('core.urls', namespace='core')),
     path("calendar/", include("calendarapp.urls")),
+    path("finance/", include("finance.urls")),
 
     # path('srintern/', include('srintern.urls', namespace='srintern')),
     # path('', include('core.urls', namespace='core')),
