@@ -142,8 +142,8 @@ print(MEDIA_ROOT)
 
 
 
-EMAIL_HOST_USER = "" #add email
+EMAIL_HOST_USER = "ashwin.satish@science.christuniversity.in" #add email
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "" #add password
+EMAIL_HOST_PASSWORD = "35315389" #add password
