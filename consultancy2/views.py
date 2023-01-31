@@ -103,6 +103,8 @@ def LogIn(request):
                 return render(request,'consultant/tempprof.html')
             elif request.user.groups.filter(name='Head Consultant').exists():
                 return render(request,'consultant/tempprof.html')
+            elif request.user.groups.filter(name='Finance Manager').exists():
+                return render(request,'financeHome.html')
             else:
                 return render(request,'admindashboard.html')
         else:
@@ -215,9 +217,9 @@ def UserHourTrackingIntern(request):
         print("Success!")
         return redirect('home')
         
-    teams = Team.objects.filter(team_member = request.user)
+    # teams = Team.objects.filter(team_member = request.user)
 
-    context = {"teams":teams}
+    context = {}
     return render(request,"userhour_intern.html",context)
 
 

@@ -151,8 +151,12 @@
                 <a class="nav-link" href="{% url 'projects:Project' id=user.id %}"><i class="fa fa-plus ml-2"></i>Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i> Profile</a>
+                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i>Profile</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i>Hours</a>
+              </li>
+              
               
             </ul>
 

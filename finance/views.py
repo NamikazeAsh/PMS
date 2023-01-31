@@ -5,4 +5,4 @@ from consultancy2.decorators import *
 
 @allowed_users(allowed_roles=["Finance Manager"])
 def finance(request):
-    return HttpResponse("Finance")
+    return render(request, "financeHome.html")
