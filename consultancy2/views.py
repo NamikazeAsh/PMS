@@ -215,9 +215,9 @@ def UserHourTrackingIntern(request):
         print("Success!")
         return redirect('home')
         
-    teams = Team.objects.filter(team_member = request.user)
+    # teams = Team.objects.filter(team_member = request.user)
 
-    context = {"teams":teams}
+    context = {}
     return render(request,"userhour_intern.html",context)
 
 
