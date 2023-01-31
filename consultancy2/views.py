@@ -101,6 +101,8 @@ def LogIn(request):
                 return render(request,'consultant/tempprof.html')
             elif request.user.groups.filter(name='Head Consultant').exists():
                 return render(request,'consultant/tempprof.html')
+            elif request.user.groups.filter(name='Finance Manager').exists():
+                return render(request,'financeHome.html')
             else:
                 return render(request,'admindashboard.html')
         else:
