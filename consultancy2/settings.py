@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'calendarapp',
     'mptt',
     'teamrecommender',
-
+    'finance',
 ]
 
 MIDDLEWARE = [
