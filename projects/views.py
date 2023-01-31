@@ -27,7 +27,7 @@ def projects(request):
     projects = Project.objects.all()
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
     tasks = Task.objects.all()
-    overdue_tasks = tasks.filter(due='2')
+    overdue_tasks = tasks.filter(status='2')
     var = findtemp(request)
     context = {
         'avg_projects' : avg_projects,
