@@ -140,7 +140,7 @@ MEDIA_URL = '/media/' # Included upload images
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'core/media') # Included upload images
 print(MEDIA_ROOT)
 
-<<<<<<< HEAD
+
 EMAIL_HOST_USER = "balakrishna.r@science.christuniversity.in" #add email
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -148,12 +148,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "63794773" #add password
 
 
-=======
 
-
-EMAIL_HOST_USER = "ashwin.satish@science.christuniversity.in" #add email
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "35315389" #add password
->>>>>>> 177a894571d18681d3c8566997c029d62a34fc09

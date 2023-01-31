@@ -3,10 +3,12 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from register.models import Project
-from projects.models import Task
+from projects.models import Task,Team
 from projects.forms import NewCommentForm
 from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
+from projects.forms import TeamRegistrationForm
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.core.mail import send_mail
@@ -202,3 +204,29 @@ def ProjectProfile(request,id):
     }
     
     return render(request,"projectprofile.html",context)
+
+def newTeam(request):
+    if request.method == 'POST':
+        form = TeamRegistrationForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            created = True
+            form = TeamRegistrationForm()
+            var = findtemp(request)
+            context = {
+                'created': created,
+                'form': form,
+                'temp':var,
+            }
+            return render(request, 'projects/new_team.html', context)
+        else:
+            return render(request, 'projects/new_team.html', context)
+    else:
+        form = TeamRegistrationForm()
+        var = findtemp(request)
+        context = {
+            'form': form,
+            'temp':var,
+        }
+        return render(request,'projects/new_team.html', context)

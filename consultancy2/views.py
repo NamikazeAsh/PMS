@@ -69,9 +69,7 @@ def SignIn(request):
                 saverecord.campus = request.POST.get('campus')
                 saverecord.role = request.POST.get('role')
                 saverecord.save()
-                user = form.save()
-                group = Group.objects.get(name=request.POST.get('role'))
-                user.groups.add(group)
+                
                 created = True
                 context = {'created' : created}
                 return render(request, 'signup.html', context)
@@ -140,6 +138,14 @@ def AdminValAcc(request,id):
     saverecord.campus = auser.campus
     saverecord.role = auser.role
     saverecord.save()
+    
+    user = User.objects.create_user(auser.email,auser.email,auser.password)
+    user.save()
+    print(user)
+    
+    group = Group.objects.get(name=auser.role)
+    user.groups.add(group)
+    
     auser.delete()
     
     return HttpResponseRedirect(reverse('adminval'))
@@ -285,11 +291,10 @@ def UserHourTrackingDeny(request,id):
 @login_required(login_url='admin:login')
 @allowed_users(allowed_roles=['Admin'])
 def AdminDashboard(request):
-    teams = Team.objects.all()
     projects = Project.objects.all()
             
-    context = {"teams":teams,"projects":projects}
-    return render(request,"admindashboard.html",context)
+    # context = {"teams":teams,"projects":projects}
+    return render(request,"admindashboard.html")
 
 
 

@@ -4,11 +4,8 @@ from django.shortcuts import redirect
 from projects.models import Task
 from django.contrib.auth.models import User
 from .models import UserProfile
-from .models import Invite,Team
 from .forms import RegistrationForm
 from .forms import CompanyRegistrationForm
-from .forms import ProfilePictureForm
-from .forms import TeamRegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
 
@@ -129,105 +126,4 @@ def newCompany(request):
         return render(request, 'register/new_company.html', context)
 
 
-def invites(request):
-    var = findtemp(request)
-    Invitee = Invite.objects.filter(invited_id= request.user.id).values()
-    print(Invitee)
-    
 
-    context = {
-        'Invitee':Invitee,
-        'temp':var,
-    }
-    return render(request, 'register/invites.html',context)
-
-
-def invite(request, profile_id):
-    profile_to_invite = User.objects.get(id=profile_id)
-    logged_profile = get_active_profile(request)
-    if not profile_to_invite in logged_profile.friends.all():
-        logged_profile.invite(profile_to_invite)
-    var = findtemp(request)
-    context = {
-        'temp':var,
-    }
-    return redirect('core:index',context)
-
-
-def deleteInvite(request, invite_id):
-    logged_user = get_active_profile(request)
-    logged_user.received_invites.get(id=invite_id).delete()
-    var = findtemp(request)
-    context = {
-        'temp':var,
-    }
-    return render(request, 'register/invites.html',context)
-
-
-def acceptInvite(request, invite_id):
-    invite = Invite.objects.get(id=invite_id)
-    invite.accept()
-    var = findtemp(request)
-    context = {
-        'temp':var,
-    }
-    return redirect('register:invites',context)
-
-def remove_friend(request, profile_id):
-    user = get_active_profile(request)
-    user.remove_friend(profile_id)
-    var = findtemp(request)
-    context = {
-        'temp':var,
-    }
-    return redirect('register:friends',context)
-
-
-def get_active_profile(request):
-    user_id = request.user.userprofile_set.values_list()[0][0]
-    return UserProfile.objects.get(id=user_id)
-
-
-def friends(request):
-    if request.user.is_authenticated:
-        user = get_active_profile(request)
-        friends = user.friends.all()
-        var = findtemp(request)
-        context = {
-            'friends' : friends,
-            'temp':var,
-        }
-    else:
-        users_prof = UserProfile.objects.all()
-        var = findtemp(request)
-        context= {
-            'users_prof' : users_prof,
-            'temp':var,
-        }
-    return render(request, 'register/friends.html', context)
-
-def newTeam(request):
-    if request.method == 'POST':
-        form = TeamRegistrationForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            created = True
-            form = TeamRegistrationForm()
-            var = findtemp(request)
-            context = {
-                'created': created,
-                'form': form,
-                'temp':var,
-            }
-            return render(request, 'register/new_team.html', context)
-        else:
-            return render(request, 'register/new_team.html', context)
-    else:
-        form = TeamRegistrationForm()
-        var = findtemp(request)
-        context = {
-            'form': form,
-            'temp':var,
-        }
-        return render(request,'register/new_team.html', context)

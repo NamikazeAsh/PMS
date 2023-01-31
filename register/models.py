@@ -29,35 +29,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return (str(self.user))
 
-    def invite(self, invite_profile):
-        invite = Invite(inviter=self, invited=invite_profile)
-        invites = invite_profile.received_invites.filter(inviter_id=self.id)
-        if not len(invites) > 0:    # don't accept duplicated invites
-            invite.save()
-
-    def remove_friend(self, profile_id):
-        friend = UserProfile.objects.filter(id=profile_id)[0]
-        self.friends.remove(friend)
 
 
 
-class Invite(models.Model):
-    inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='made_invites')
-    invited = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_invites')
-
-    def accept(self):
-        self.invited.friends.add(self.inviter)
-        self.inviter.friends.add(self.invited)
-        self.delete()
-
-    def __str__(self):
-        return str(self.inviter)
-
-class Team(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True)
-    team_name = models.CharField(max_length=100, blank=True)
-    assign = models.ManyToManyField(User)
-    
-    def __str__(self):
-        return f"{self.team_name}"
 
