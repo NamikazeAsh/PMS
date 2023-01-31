@@ -20,6 +20,8 @@ from django.urls import reverse
 from register.models import *
 
 
+
+
 import datetime
 
 from .decorators import unauthorized_users,allowed_users
@@ -186,8 +188,6 @@ def UserProfile(request):
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
-    
-    
     return render(request,"projectprofile.html",context)
 
 @login_required(login_url='login')
@@ -198,13 +198,18 @@ def UserHourTracking(request):
         return redirect('user-hours-i')
     elif request.user.groups.filter(name='Professor').exists():
         return redirect('user-hours-p')
+    elif request.user.groups.filter(name='Head Consultant').exists():
+        return redirect('user-hours-p')
+    elif request.user.groups.filter(name='Lead Consultant').exists():
+        return redirect('user-hours-p')
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Sr Intern','Intern'])
 def UserHourTrackingIntern(request):
     
     if request.method == "POST":
-        uteam = request.POST.get('team')
+
         uhour = request.POST.get('hours')
 
         saverecord = HourVal()
@@ -215,61 +220,69 @@ def UserHourTrackingIntern(request):
         saverecord.save()
         
         print("Success!")
-        return redirect('home')
+        return redirect('signup')
         
-    # teams = Team.objects.filter(team_member = request.user)
-
-    context = {}
+    var = findtemp(request)
+    context = {
+        "temp": var,
+        
+    }
     return render(request,"userhour_intern.html",context)
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Professor'])
+@allowed_users(allowed_roles=['Professor','Head Consultant','Lead Consultant'])
 def UserHourTrackingProfessor(request):
 
     if request.method == "POST":
-        uteam = request.POST.get('team')
+        
         uhour = request.POST.get('hours')
         
-        updhour = Team.objects.get(team_member = request.user,team_name = uteam)
-        newhour = updhour.hours + int(uhour)
+        # updhour = Team.objects.get(team_member = request.user,team_name = uteam)
+        # newhour = updhour.hours + int(uhour)
         
-        updhour.hours = newhour
-        updhour.save()
-        return redirect('home')
+        # updhour.hours = newhour
+        # updhour.save()
         
-    teams = Team.objects.filter(team_member = request.user)
+        return redirect('signup') #home/signup autodirect home
+        
     details = HourVal.objects.all()
     
-    
-    context = {"teams":teams,"details":details}
+    var = findtemp(request)
+    context = {
+        "temp": var,
+        "details":details,
+    }
     return render(request,"userhour_professor.html",context)
 
 @login_required(login_url='login')
 def UserHourTrackingAccept(request,id):
 
-    team = Team.objects.all()
     hv = HourVal.objects.get(id=id)
     av = AdminValidation.objects.get(id=id)
     
-    teamvar = team.values('hours').filter(team_member=hv.email,team_name = hv.team)
-    for a in teamvar:
-        for b in a:
-            thour = a[b]
+    # teamvar = team.values('hours').filter(team_member=hv.email,team_name = hv.team)
+    # for a in teamvar:
+    #     for b in a:
+    #         thour = a[b]
                         
-    vhour = hv.hours_claimed
-    newhour = vhour + thour
+    # vhour = hv.hours_claimed
+    # newhour = vhour + thour
     
-    updhour = Team.objects.get(team_member = hv.email,team_name=hv.team)
-    updhour.hours = newhour
-    updhour.save()
+    # updhour = Team.objects.get(team_member = hv.email,team_name=hv.team)
+    # updhour.hours = newhour
+    # updhour.save()
     
-    hourvar = av.hours
-    hourvar = hourvar + vhour
-    av.hours = hourvar
-    av.save()
+    # hourvar = av.hours
+    # hourvar = hourvar + vhour
+    # av.hours = hourvar
+    # av.save()
     
-    hv.delete()
+    # hv.delete()
+    
+    print(hv)
+    print(av)
+    
     print("Successfully updated!")    
     
     return HttpResponseRedirect(reverse('user-hours-p'))

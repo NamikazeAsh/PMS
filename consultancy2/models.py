@@ -34,11 +34,7 @@ class AdminValidation(models.Model):
     def __str__(self):
         return  f"{self.email}   |  {self.role}"
 
-  
-    
 class HourVal(models.Model):
 
     email = models.CharField(max_length=100)
-    team = models.CharField(max_length = 100)
     hours_claimed = models.IntegerField()
-    date_claimed = models.DateTimeField()

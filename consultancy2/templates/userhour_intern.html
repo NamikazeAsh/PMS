@@ -1,39 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    {% extends "userhour.html" %}
+{% extends temp %}
+{% load static %}
 
-    {% block intern %}
+{% block breadcrumb %}
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Projects</li>
+        <li class="breadcrumb-item active">New Team</li>
+{% endblock breadcrumb%}
 
-    Hello, {{request.user}}<br>
 
-    <form  method="post">
-        {% csrf_token %}
 
-        <label for="team">Choose team</label>
-        <select name="team" id="" required>
-            {% for team in teams %}
-            <option value="none" selected disabled hidden>Select an option</option>
-            <option>{{team}}</option>
-            {%endfor%}
-        </select><br>
 
-        <label for="hours">Hours worked</label>
-        <input type="number" name="hours" required><br>
 
-        <input type="submit" value="Submit">
+{% block content %}
+<div class="container animated fadeIn">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="card-group">
+                    <div class="card p-4 mb-5">
+                        <div class="card-body">
+                            {% if created %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                Congratulations, your team was created!
+                            </div>
+                            {% endif %}
+                                {% csrf_token %}
+                                <h1>Hour Tracking</h1>
+                                <p class="text-muted">Intern/Sr Intern</p>
+                        
 
-    </form>
+                            <form action="" method="post">
+                                {% csrf_token %}
 
-    {% endblock %}
+                                <div class="form-group">
+                                    <label class="col-form-label">Hour Tracking</label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-industry"></i></span>
+                                        </div>
+                                        
+                                        <input type="number" name="hours" id="" required>
 
-</body>
-</html>
+                                    </div>
+                                
+                                </div>
 
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        {{ form.team_name }}
+                                        {% if form.team_name.errors %}
+                                            <ol>
+                                            {% for error in form.team_name.errors %}
+                                                <li><strong>{{ error|escape }}</strong></li>
+                                            {% endfor %}
+                                            </ol>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+
+                                <div class="">
+                                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                                    <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                </div>
+                            </form>
+                            {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

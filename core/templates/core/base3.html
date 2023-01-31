@@ -96,20 +96,23 @@
               {% if user.is_authenticated %}
               
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><i class="fa fa-plus ml-2"></i> Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
+                <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><i class="fa fa-plus ml-2"></i>Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'projects:Project' id=user.id %}"><i class="fa fa-plus ml-2"></i>Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i> Profile</a>
+                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i>Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout'%}"><i class="fa fa-plus ml-2"></i> Logout</a>
+                <a class="nav-link" href="{% url 'user-hours' %}"><i class="fa fa-plus ml-2"></i>Hours</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}"><i class="fa fa-plus ml-2"></i>Logout</a>
               </li>
               {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'login'%}"><i class="fa fa-plus ml-2"></i> Login</a>
+                <a class="nav-link" href="{% url 'login'%}"><i class="fa fa-plus ml-2"></i>Login</a>
               </li>
               {% endif %}
             </ul>
