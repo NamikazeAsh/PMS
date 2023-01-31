@@ -4,7 +4,7 @@ from register.models import UserProfile
 from django.contrib.auth.models import User
 from projects.models import Project
 from django.contrib.auth.forms import UserCreationForm
-from register.models import Team
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(label='E-mail', required=True)
@@ -92,54 +92,4 @@ class CompanyRegistrationForm(forms.Form):
         self.fields['found_date'].widget.attrs['class'] = 'form-control'
         self.fields['found_date'].widget.attrs['placeholder'] = 'Found date'
 
-
-class ProfilePictureForm(forms.Form):
-    img = forms.ImageField()
-    class Meta:
-        model = UserProfile
-        fields = ['img']
-
-    def save(self, request, commit=True):
-        user = request.user.userprofile_set.first()
-        user.img = self.cleaned_data['img']
-
-        if commit:
-            user.save()
-
-        return user
-
-    def __init__(self, *args, **kwargs):
-        super(ProfilePictureForm, self).__init__(*args, **kwargs)
-        self.fields['img'].widget.attrs['class'] = 'custom-file-input'
-        self.fields['img'].widget.attrs['id'] = 'validatedCustomFile'
         
-class TeamRegistrationForm(forms.ModelForm):
-    project = forms.ModelChoiceField(queryset=Project.objects.all())
-    team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
-    
-    class Meta:
-        model = Team
-        fields = '__all__'
-        
-    def save(self, commit=True):
-        team=super(TeamRegistrationForm, self).save(commit=False)
-        team.project = self.cleaned_data['project']
-        team.team_name = self.cleaned_data['team_name']
-        team.save()
-        assigns = self.cleaned_data['assign']
-        for assign in assigns:
-            team.assign.add((assign))
-
-        if commit:
-            team.save()
-
-        return team
-    
-    def __init__(self, *args, **kwargs):
-        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['project'].widget.attrs['class'] = 'form-control'
-        self.fields['project'].widget.attrs['placeholder'] = 'Project Name'
-        self.fields['team_name'].widget.attrs['class'] = 'form-control'
-        self.fields['team_name'].widget.attrs['placeholder'] = 'Team Name'
-        self.fields['assign'].widget.attrs['class'] = 'form-control'

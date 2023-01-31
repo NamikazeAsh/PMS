@@ -3,6 +3,7 @@ from .models import Project
 from .models import Task
 from .models import Comment
 from mptt.admin import MPTTModelAdmin
+from .models import Team
 
 # Register your models here.
 
@@ -21,8 +22,12 @@ class TaskAdmin(admin.ModelAdmin):
     readonly_fields=('slug',)
     list_filter = ['project', ]
     search_fields = ['project']
+    
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ['team_name']
 
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Comment, MPTTModelAdmin)
+admin.site.register(Team, TeamAdmin)

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
 from .models import Comment
 from mptt.forms import TreeNodeChoiceField
+from projects.models import Team
 
 
 difficulty = (
@@ -68,7 +69,7 @@ class TaskRegistrationForm(forms.ModelForm):
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     # slug = forms.SlugField('shortcut')
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+    assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
     efforts = forms.DurationField()
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
@@ -143,3 +144,31 @@ class NewCommentForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         Comment.objects.rebuild()
         return super(NewCommentForm, self).save(*args, **kwargs)
+    
+class TeamRegistrationForm(forms.ModelForm):
+    team_name = forms.CharField(max_length=100)
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+    # /////////////
+    
+    class Meta:
+        model = Team
+        fields = '__all__'
+        
+    def save(self, commit=True):
+        team=super(TeamRegistrationForm, self).save(commit=False)
+        team.team_name = self.cleaned_data['team_name']
+        team.save()
+        assigns = self.cleaned_data['assign']
+        for assign in assigns:
+            team.assign.add((assign))
+
+        if commit:
+            team.save()
+
+        return team
+    
+    def __init__(self, *args, **kwargs):
+        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['team_name'].widget.attrs['class'] = 'form-control'
+        self.fields['team_name'].widget.attrs['placeholder'] = 'Team Name'
+        self.fields['assign'].widget.attrs['class'] = 'form-control'
