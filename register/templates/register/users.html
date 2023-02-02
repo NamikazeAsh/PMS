@@ -155,7 +155,8 @@
                     <th class="text-center">Campus</th>
                     <th class="text-center">Assigned Projects</th>
                     <th class="text-center">Tasks</th>
-                    <th class="text-center">Assigned Tasks</th>
+                    <th class="text-center">User Activity</th>
+                    <th class="text-center">Hours Worked</th>
                 </tr>
             </thead>
                     <tbody>
@@ -168,7 +169,7 @@
                             </td>
                             <td>
                                 <a href="{% url 'register:user' profile_id=user1.user.id %}">{% if user1.user.get_full_name %}
-                                <div>{{ user1.user.get_full_name }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
+                                <div><b>{{ user1.user.get_full_name }}{% if user1.user.is_staff %}</b> <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% else %}
                                 <div>{{ user1.user.username }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% endif %}
@@ -216,6 +217,13 @@
                             <td class="text-center">
                                 <div class="small text-muted">Last login</div>
                                 <strong>{{ user1.user.last_login }}</strong>
+                            </td>
+                            <td class="text-center">
+                                {% for user2 in users2 %}
+                                    {% if user1.user.email == user2.email %}
+                                <span><b>{{user2.hours}}</b></span>
+                                {%endif%}
+                                {%endfor%}
                             </td>
                         </tr>
                         {% endfor %}
