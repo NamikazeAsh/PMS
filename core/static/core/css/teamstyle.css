@@ -12282,7 +12282,7 @@ h5+.btn-round {
 .course-info {
   padding: 30px;
   position: relative;
-  width: 10%;
+  width: 100%;
 }
 
 
@@ -12294,10 +12294,14 @@ h5+.btn-round {
   color: #fff;
   font-size: 16px;
   padding: 12px 25px;
-  position: absolute;
-  bottom: 10px;
-  right: -245px;
   letter-spacing: 1px;
+  margin-left: 17rem;
+  margin-top: 20px;
+}
+
+.btndelete {
+  position: absolute;
+  right: 30px;
 }
 
 @media screen and (max-width: 480px) {

@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from . import views2
 
 app_name = "calendarapp"
 
@@ -23,4 +24,5 @@ urlpatterns = [
         views.RunningEventsListView.as_view(),
         name="running_events",
     ),
+    path('delete/<int:mileid>',views2.deleteMilestone,name="deleteMilestone"),
 ]
