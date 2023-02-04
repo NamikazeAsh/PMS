@@ -17,18 +17,13 @@ status = (
     ('2', 'Stuck'),
     ('3', 'Done'),
 )
-class Team(models.Model):
-    team_name = models.CharField(max_length=100, blank=True)
-    assign = models.ManyToManyField(User)
-    
-    def __str__(self):
-        return f"{self.team_name}"
+
     
 # Create your models here.
 class Project(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField('shortcut', blank=True)
-    assign = models.ManyToManyField(Team)
+    assign = models.ManyToManyField(User)
     efforts = models.DurationField()
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField()
@@ -87,4 +82,11 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.content
+    
+class Team(models.Model):
+    team_name = models.CharField(max_length=100, blank=True)
+    assign = models.ManyToManyField(User)
+    
+    def __str__(self):
+        return f"{self.team_name}"
     
