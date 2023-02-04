@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel,TreeForeignKey
 from django.core.validators import MaxValueValidator, MinValueValidator
+from consultancy2.models import *
 
 
 difficulty = (
