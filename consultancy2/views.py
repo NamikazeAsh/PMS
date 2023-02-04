@@ -67,6 +67,7 @@ def SignIn(request):
             if form.is_valid():
                 saverecord = SignInInsert()
                 saverecord.email = form.cleaned_data.get("email")
+                saverecord.username = form.cleaned_data.get("username")
                 saverecord.password = form.cleaned_data.get("password1")
                 saverecord.campus = request.POST.get('campus')
                 saverecord.role = request.POST.get('role')
