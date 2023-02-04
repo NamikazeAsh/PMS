@@ -193,6 +193,11 @@ def viewtask(request, task):
         
     return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
 
+def deltask(request,task):
+    
+    
+
+
 
 @login_required(login_url='login')
 def ProjectProfile(request,id):
