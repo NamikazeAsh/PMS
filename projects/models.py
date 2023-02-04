@@ -23,6 +23,7 @@ class Team(models.Model):
     
     def __str__(self):
         return f"{self.team_name}"
+    
 # Create your models here.
 class Project(models.Model):
     name = models.CharField(max_length=80)
