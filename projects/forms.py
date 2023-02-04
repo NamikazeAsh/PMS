@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from .models import Task
 from .models import Project
 from register.models import Company
+from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
 from .models import Comment
@@ -25,7 +26,7 @@ status = (
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
     task_name = forms.CharField(max_length=80)
     difficulty = forms.ChoiceField(choices=difficulty)
     status = forms.ChoiceField(choices=status)
@@ -147,9 +148,7 @@ class NewCommentForm(forms.ModelForm):
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
-    # /////////////
-    
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
     class Meta:
         model = Team
         fields = '__all__'
