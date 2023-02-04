@@ -8,6 +8,7 @@ from projects.forms import NewCommentForm
 from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
+from django.urls import reverse
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -195,7 +196,19 @@ def viewtask(request, task):
 
 def deltask(request,task):
     
+    task = get_object_or_404(Task,id=task)
+    task.delete()
     
+    tasks = Task.objects.filter(assign = request.user.id)
+    var = findtemp(request)
+    context = {
+        'tasks': tasks,
+        'temp':var,
+    }
+    
+    # return HttpResponseRedirect(reverse('task'))
+    
+    return render(request,'projects/tasks.html',context)
 
 
 
