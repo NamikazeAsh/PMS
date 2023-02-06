@@ -30,6 +30,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Event Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Start Time</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">End Time</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,6 +40,7 @@
                                                 <td>{{ event.title }}</td>
                                                 <td>{{ event.start_time }}</td>
                                                 <td>{{ event.end_time }}</td>
+                                                <td><a href="/calendar/delete/{{event.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

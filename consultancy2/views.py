@@ -67,6 +67,7 @@ def SignIn(request):
             if form.is_valid():
                 saverecord = SignInInsert()
                 saverecord.email = form.cleaned_data.get("email")
+                saverecord.username = form.cleaned_data.get("username")
                 saverecord.password = form.cleaned_data.get("password1")
                 saverecord.campus = request.POST.get('campus')
                 saverecord.role = request.POST.get('role')
@@ -139,12 +140,13 @@ def AdminValAcc(request,id):
     auser = SignInInsert.objects.get(id=id)
     saverecord = AdminValidation()
     saverecord.email = auser.email
+    saverecord.username = auser.username
     saverecord.password = auser.password
     saverecord.campus = auser.campus
     saverecord.role = auser.role
     saverecord.save()
     
-    user = User.objects.create_user(auser.email,auser.email,auser.password)
+    user = User.objects.create_user(auser.username,auser.email,auser.password)
     user.save()
     print(user)
     

@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel,TreeForeignKey
 from django.core.validators import MaxValueValidator, MinValueValidator
+from consultancy2.models import *
 
 
 difficulty = (
@@ -17,13 +18,18 @@ status = (
     ('2', 'Stuck'),
     ('3', 'Done'),
 )
+
+    
+# Create your models here.
+
+
 class Team(models.Model):
     team_name = models.CharField(max_length=100, blank=True)
     assign = models.ManyToManyField(User)
     
     def __str__(self):
         return f"{self.team_name}"
-# Create your models here.
+
 class Project(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField('shortcut', blank=True)
@@ -86,4 +92,6 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.content
+    
+
     
