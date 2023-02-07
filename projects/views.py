@@ -218,21 +218,30 @@ def ProjectProfile(request,id):
     
     projdet = Project.objects.filter(id = id)
     
-    projteam = Project.objects.values_list('assign')
+    projteam = Project.objects.values_list('assign').filter(id=id)
+    team_id = []
+    team_name = []
     team_members_id = []
     team_members = []
-    for tm in projteam:    
-        team_members_id.append(tm[0])
-    for tid in team_members_id:
-        team_members.append(User.objects.get(id = tid).email)
-    print(team_members)
     
+    for tm in projteam:    
+        team_id.append(tm[0])
+    for tid in team_id:
+        team_name.append(Team.objects.get(id = tid))
+    
+    projteam_mem = Team.objects.filter(id = tid).values_list('assign')
+    
+    for tm2 in projteam_mem:
+        team_members_id.append(tm2[0])
+    for tid2 in team_members_id:
+        team_members.append(User.objects.get(id = tid2))
     
     var = findtemp(request)
     context = {
         'projdet': projdet,
         'pid':id,
         'temp':var,
+        'team_name':team_name,
         'team_members':team_members,
     }
     
