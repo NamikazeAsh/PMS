@@ -12348,3 +12348,13 @@ h5+.btn-round {
     align-items: center;
     /* width: 50%; */
 }
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control {
+    display: inline-block;
+}
