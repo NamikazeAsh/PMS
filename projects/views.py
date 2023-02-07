@@ -42,6 +42,15 @@ def projects(request):
     }
     return render(request, 'projects/projects.html', context)
 
+def teams(request):
+    teams = Team.objects.filter(user=request.user)
+    var = findtemp(request)
+    context = {
+        'teams' : teams,
+        'temp':var,
+    }
+    return render(request, 'projects/team_views.html', context)
+
 def taskprofile(request,id):
     tasks = Task.objects.filter(assign = id)
     var = findtemp(request)
