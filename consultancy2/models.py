@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 class SignInInsert(models.Model):
     email = models.CharField(max_length=100)
+    username = models.CharField(max_length=100,default="-")
     password = models.CharField(max_length=100)
     campus = models.CharField(max_length = 100)
     role = models.CharField(max_length = 100)
@@ -23,6 +24,7 @@ class AdminValidation(models.Model):
     # user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     
     email = models.CharField(max_length=100)
+    username = models.CharField(max_length=100,default="-")
     password = models.CharField(max_length=100)
     campus = models.CharField(max_length = 100)
     role = models.CharField(max_length = 100)
