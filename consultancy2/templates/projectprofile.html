@@ -1,37 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Profile</title>
-</head>
-<body>
-    
-    {% for project in projdet %}
-    {% if project.id == pid %}
-    
-    <h1>{{project.project_name}}</h1><br>
-    Start Date: {{project.start_date}}<br>
-    End Date : {{project.end_date}}<br>
-    Description : {{project.desc}}<br>
-    Budget : {{project.budget}}<br>
-    Incharge ID : {{project.incharge_id}}<br>
-    Client ID : {{project.client_id}}<br>
-    Active: 
-        {% if project.active == 0 %}
-        No<br>
-        {% elif project.active == 1 %}
-        Yes<br>
-        {% else %}
-        ----<br>
-        {% endif %}
-    Project Team : {{ project.team_for_project }}
+{% extends temp %}
+{% load static %}
 
-    {% endif %}
-    {% endfor %}
+{% block breadcrumb %}
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Friends</li>
+{% endblock breadcrumb%}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="social-box" style="height:110%">
+                        
+                        <!-- <img src="{{user_view.img.url }}" class="img-avatar m-4" alt="{{ user_view }}" width="20%"> -->
+                        
+<br><br><br><br><br>
+                        {% for projname in projdet %}
+                        <h1 style="font-size: 40px;">{{projname.name}}</h1>
+                        {% endfor %}
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-5">
+                        <div class="simple-box">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <ul class="mt-4 mx-5">
+                                        {% for project in projdet %}
+                                        <h5>Personal Info:</h5>
+                                        <li><span>Project ID: </span> {{ project.id }}</li>
+                                        <li><span>Project Name: </span> {{ project.name }}</li>
+                                        <li><span>Efforts: </span> {{ project.efforts }}</li>
+                                        <li><span>Status: </span> {{ project.status }}</li>
+                                        <li><span>Added Date: </span> {{ project.add_date }}</li>
+                                        <li><span>Dead Line: </span> {{ project.dead_line }}</li>
+                                        <li><span>Company: </span> {{ project.company_id }}</li>
+                                        <li><span>Description: <br></span> {{ project.description }}</li>
+                                        {% endfor %}
+                                        
+                                    </ul>
+                                </div>
+                                <div class="col-12 col-md-6 text-left">
+                                    <ul class="m-4">
+                                        <h5>Team Members:</h5>
+                                        {% for member in team_members %}
+                                        {{member}}<br><br>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-</body>
-</html>
+{% endblock %}

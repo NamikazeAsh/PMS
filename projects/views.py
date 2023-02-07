@@ -9,6 +9,7 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -215,10 +216,24 @@ def deltask(request,task):
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
-    projdet = Project.objects.all()
+    projdet = Project.objects.filter(id = id)
+    
+    projteam = Project.objects.values_list('assign')
+    team_members_id = []
+    team_members = []
+    for tm in projteam:    
+        team_members_id.append(tm[0])
+    for tid in team_members_id:
+        team_members.append(User.objects.get(id = tid).email)
+    print(team_members)
+    
+    
     var = findtemp(request)
-    context = {'projdet': projdet,'pid':id,
-    'temp':var,
+    context = {
+        'projdet': projdet,
+        'pid':id,
+        'temp':var,
+        'team_members':team_members,
     }
     
     return render(request,"projectprofile.html",context)
@@ -248,3 +263,5 @@ def newTeam(request):
             'temp':var,
         }
         return render(request,'projects/new_team.html', context)
+    
+
