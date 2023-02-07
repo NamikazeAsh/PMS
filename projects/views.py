@@ -215,10 +215,12 @@ def deltask(request,task):
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
-    projdet = Project.objects.all()
+    projdet = Project.objects.filter(id = id)
     var = findtemp(request)
-    context = {'projdet': projdet,'pid':id,
-    'temp':var,
+    context = {
+        'projdet': projdet,
+        'pid':id,
+        'temp':var,
     }
     
     return render(request,"projectprofile.html",context)

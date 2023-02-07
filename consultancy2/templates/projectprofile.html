@@ -17,7 +17,11 @@
                     <div class="social-box" style="height:110%">
                         
                         <!-- <img src="{{user_view.img.url }}" class="img-avatar m-4" alt="{{ user_view }}" width="20%"> -->
-                        <h1>Project Profile</h1>
+                        
+<br><br><br><br><br>
+                        {% for projname in projdet %}
+                        <h1 style="font-size: 40px;">{{projname.name}}</h1>
+                        {% endfor %}
                         
 
                     </div>
@@ -30,24 +34,23 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <ul class="mt-4 mx-5">
-                                        <h5>Personal info:</h5>
-                                        <li><span>Project ID:</span> {{ user_view.user.date_joined }}</li>
-                                        <li><span>Project Name:</span> {{ user_view.user.get_full_name }}</li>
-                                        <li><span>Efforts:</span> {{ user_view.company }}</li>
-                                        <li><span>Status:</span> {{ user_view.user.email}}</li>
-                                        <li><span>Added Date:</span> {{ user_view.user.date_joined }}</li>
-                                        <li><span>Dead Line:</span> {{ user_view.user.last_login }}</li>
-                                        <li><span>Company:</span> {{ user_view.user.date_joined }}</li>
-                                        <li><span>Description:</span> {{ user_view.user.date_joined }}</li>
+                                        {% for project in projdet %}
+                                        <h5>Personal Info:</h5>
+                                        <li><span>Project ID: </span> {{ project.id }}</li>
+                                        <li><span>Project Name: </span> {{ project.name }}</li>
+                                        <li><span>Efforts: </span> {{ project.efforts }}</li>
+                                        <li><span>Status: </span> {{ project.status }}</li>
+                                        <li><span>Added Date: </span> {{ project.add_date }}</li>
+                                        <li><span>Dead Line: </span> {{ project.dead_line }}</li>
+                                        <li><span>Company: </span> {{ project.company_id }}</li>
+                                        <li><span>Description: <br></span> {{ project.description }}</li>
+                                        {% endfor %}
                                         
                                     </ul>
                                 </div>
                                 <div class="col-12 col-md-6 text-left">
                                     <ul class="m-4">
                                         <h5>Team Members:</h5>
-                                        {% for task in user_view.user.task_set.all %}
-                                        <li>{{ task }}</li>
-                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
