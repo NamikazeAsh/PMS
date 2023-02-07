@@ -305,7 +305,7 @@
 
                             {% for project in projects %}
                             <tr>
-                                <td> <a class="text-black text-decoration-none" href="#">{{ project.name }}</a></td>
+                                <td> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
                                 <td>{{ project.dead_line }}</td>
                                 <td class="col-desc">{{ project.description|truncatechars:200 }}</td>
                                 <td><span class="badge text-black"><i class="bg-warning"></i>

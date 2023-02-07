@@ -248,3 +248,5 @@ def newTeam(request):
             'temp':var,
         }
         return render(request,'projects/new_team.html', context)
+    
+
