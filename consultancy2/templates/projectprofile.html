@@ -51,8 +51,12 @@
                                 <div class="col-12 col-md-6 text-left">
                                     <ul class="m-4">
                                         <h5>Team Members:</h5>
+                                        {% for name in team_name %}
+                                        <b>{{name}}</b>
+                                        <br><br>
+                                        {% endfor %}
                                         {% for member in team_members %}
-                                        {{member}}<br><br>
+                                        {{member}}<br>
                                         {% endfor %}
 
                                     </ul>
