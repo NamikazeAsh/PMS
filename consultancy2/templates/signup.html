@@ -63,7 +63,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">SIGNUP</h3></div>
+                                    {% comment %} <div class="card-header"><h3 class="text-center font-weight-light my-4">SIGNUP</h3></div> {% endcomment %}
 
                                     
                                     {% comment %} kkkkkkkkkkkkkkkkkkkkkkkkk {% endcomment %}
@@ -81,9 +81,9 @@
 
                     <div class="container animated fadeIn" >
                         <div class="row justify-content-center">
-                            <div class="col-6">
+                            <div class="col-6" style="width: 38vw;">
                                 <div class="card-group">
-                                    <div class="card p-4 mb-5">
+                                    <div class="card p-4 mb-5 rounded-5">
                                         <div class="card-body">
                                             {% if created %}
                                               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -94,16 +94,17 @@
                                               </div>
                                             {% endif %}
                                                 {% csrf_token %}
-                                                <h1>Users</h1>
-                                                <p class="text-muted">Enter user details here</p>
+                                                <h1 class="text-center">Sign Up</h1>
+                                                {% comment %} <p class="text-muted">Enter user details here</p> {% endcomment %}
                                     <form action="" method="post">
                                         {% csrf_token %}
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
-                                                {{ form.username }}
-                                                <div class="input-group-append">
+                                                <img src="{% static "icons/username.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div>
+                                                </div> {% endcomment %}
+                                                {{ form.username }}
                                                 {% if form.username.errors %}
                                                     <ol>
                                                     {% for error in form.username.errors %}
@@ -113,12 +114,13 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group  mt-3">
                                             <div class="input-group">
-                                                {{ form.first_name }}
-                                                <div class="input-group-append">
+                                                <img src="{% static "icons/user.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div>
+                                                </div> {% endcomment %}
+                                                {{ form.first_name }}
                                                 {% if form.first_name.errors %}
                                                     <ol>
                                                     {% for error in form.first_name.errors %}
@@ -128,12 +130,13 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
-                                                {{ form.last_name }}
-                                                <div class="input-group-append">
+                                                <img src="{% static "icons/user.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div>
+                                                </div> {% endcomment %}
+                                                {{ form.last_name }}
                                                 {% if form.last_name.errors %}
                                                     <ol>
                                                     {% for error in form.last_name.errors %}
@@ -143,12 +146,13 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
-                                                {{ form.email }}
-                                                <div class="input-group-append">
+                                                <img src="{% static "icons/mail.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                                </div>
+                                                </div> {% endcomment %}
+                                                {{ form.email }}
                                                 {% if form.email.errors %}
                                                     <ol>
                                                     {% for error in form.email.errors %}
@@ -158,12 +162,13 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
+                                                <img src="{% static "icons/password.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                                </div> {% endcomment %}
                                                 {{ form.password1 }}
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div>
                                                 {% if form.password1.errors %}
                                                     <ol>
                                                     {% for error in form.password1.errors %}
@@ -171,15 +176,20 @@
                                                     {% endfor %}
                                                     </ol>
                                                 {% endif %}
+                                                {% comment %} <p>Show Password</p> {% endcomment %}
+                                                {% comment %} <img src="{% static "icons/eye.svg" %}" ></img> {% endcomment %}
+                                                {% comment %} <img src="{% static "icons/eye-off.svg" %}" ></img> {% endcomment %}
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
+                                                <img src="{% static "icons/password.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-key"></i>
+                                                    </span>
+                                                </div> {% endcomment %}
                                                 {{ form.password2 }}
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
-                                                </div>
-                
                                             </div>
                                             {% if form.password2.errors %}
                                                     <ol>
@@ -189,12 +199,13 @@
                                                     </ol>
                                                 {% endif %}
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mt-3">
                                             <div class="input-group">
-                                                {{ form.company }}
-                                                <div class="input-group-append">
+                                                <img src="{% static "icons/user.svg" %}" ></img>
+                                                {% comment %} <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fa fa-industry"></i></span>
-                                                </div>
+                                                </div> {% endcomment %}
+                                                {{ form.company }}
                                                 {% if form.company.errors %}
                                                     <ol>
                                                     {% for error in form.company.errors %}
@@ -209,7 +220,7 @@
 
 
                                             <div class="field-selection">
-                                                <p>Role</p>
+                                                <p class="title">Role</p>
                                                 <select name="role" class="sel-field">
                                                     <option value="Head Consultant">Head Consultant</option>
                                                     <option value="Lead Consultant">Lead Consultant</option>
@@ -221,7 +232,7 @@
 
 
                                             <div class="field-selection">
-                                                <p>Campus</p>
+                                                <p class="title">Campus</p>
                                                 <select class="sel-field" name="campus">
                                                     <option value="Central">Central</option>
                                                     <option value="Yeshwantpur">Yeshwantpur</option>
@@ -231,14 +242,15 @@
 
                                         </div>
                 
-                                        <div class="" style="margin:10px;">
-                                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                        <div class="button-section">
+                                            <button type="submit" class="btn btn-sm btn-success" style="font-size: 1.2rem;"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                                            <button type="reset" class="btn btn-sm btn-danger" style="font-size: 1.2rem;"><i class="fa fa-ban"></i> Reset</button>
                                         </div>
                                     </form>
                                             {{ form.errors }}
                                     </div>
-                                    <div class="small"><a href="{% url 'login' %}">Already have an account? Login!</a>
+                                    <div class="small" style="text-align: center;">
+                                        <a href="{% url 'login' %}">Already have an account? Login!</a>
                                     </div>
                                 </div>
                             </div>
@@ -248,8 +260,8 @@
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                </footer>
+                {% comment %} <footer class="py-4 bg-light mt-auto text-center"> Christ Consulting ©2023
+                </footer> {% endcomment %}
             </div>
             <script>
 
