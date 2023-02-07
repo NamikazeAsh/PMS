@@ -22,11 +22,12 @@
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
+                {% comment %} <main> {% endcomment %}
                     <div class="container">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">LOGIN</h3></div>
+                                    {% comment %} <div class="card-header"><h3 class="text-center font-weight-light my-4">LOGIN</h3></div> {% endcomment %}
                                     
                                     <div class="card-body">
                                         
@@ -34,41 +35,40 @@
                                         <script>alert("{{errormsg}}")</script>
                                         {%endif%}
                                         <br>                                    
-                                        <div class="small mb-3 text-muted" style="font-family:Montserrat;font-weight: bolder;">Enter email and password</div>
+                                        {% comment %} <div class="small mb-3 text-muted" style="font-family:Montserrat;font-weight: bolder;">Enter email and password</div> {% endcomment %}
                                         
                                         <form method="post" action="{% url 'login' %}">
                                             {% csrf_token %}
-                                            <h1>Login</h1>
-                                            <p class="text-muted">Sign In to your account</p>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            <h1 class="text-center">Login</h1>
+                                            <div class="form-group mt-3">
+                                                <div class="input-group">
+                                                    <img src="{% static "icons/user.svg" %}" ></img>
+                                                    <input type="text"
+                                                       class="form-control"
+                                                       name="{{ login_form.username.name }}"
+                                                       placeholder="{{ login_form.username.label }}"
+                                                       id="{{ login_form.username.id_for_label }}"
+                                                       {% if login_form.username.value != None %}value="{{ login_form.username.value|stringformat:'s' }}"{% endif %}
+                                                       maxlength="{{ login_form.username.field.max_length }}"
+                                                       {% if login_form.username.field.required %}required{% endif %}>
                                                 </div>
-                                                <input type="text"
-                                                   class="form-control"
-                                                   name="{{ login_form.username.name }}"
-                                                   placeholder="{{ login_form.username.label }}"
-                                                   id="{{ login_form.username.id_for_label }}"
-                                                   {% if login_form.username.value != None %}value="{{ login_form.username.value|stringformat:'s' }}"{% endif %}
-                                                   maxlength="{{ login_form.username.field.max_length }}"
-                                                   {% if login_form.username.field.required %}required{% endif %}>
                                             </div>
-                                            <div class="input-group mb-4">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fa fa-asterisk"></i></span>
+                                            <div class="form-group mt-3">
+                                                <div class="input-group">
+                                                    <img src="{% static "icons/password.svg" %}" ></img>
+                                                    <input type="password"
+                                                       class="form-control"
+                                                       name="{{ login_form.password.name }}"
+                                                       placeholder="{{ login_form.password.label }}"
+                                                       id="{{ login_form.password.id_for_label }}"
+                                                       {% if login_form.password.value != None %}value="{{ login_form.password.value|stringformat:'s' }}"{% endif %}
+                                                       maxlength="{{ login_form.password.field.max_length }}"
+                                                       {% if login_form.password.field.required %}required{% endif %}>
                                                 </div>
-                                                <input type="password"
-                                                   class="form-control"
-                                                   name="{{ login_form.password.name }}"
-                                                   placeholder="{{ login_form.password.label }}"
-                                                   id="{{ login_form.password.id_for_label }}"
-                                                   {% if login_form.password.value != None %}value="{{ login_form.password.value|stringformat:'s' }}"{% endif %}
-                                                   maxlength="{{ login_form.password.field.max_length }}"
-                                                   {% if login_form.password.field.required %}required{% endif %}>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
-                                                    <button type="submit" class="btn btn-primary px-4">Login</button>
+                                                <div class="col-6 text-center w-100">
+                                                    <button type="submit" class="btn btn-primary px-4 btn-success mt-4"><i class="fa fa-dot-circle-o"></i> Login</button>
                                                 </div>
                                                 {% if login_form.errors %}
                                                 <div class="alert alert-danger col-12 mt-3" role="alert">
@@ -81,9 +81,9 @@
 
 
                                     </div>
-                                    <div class="card-footer text-center py-3 mt-3">
+                                    <div class="text-center py-3 mt-3">
                                         <div class="small" style="font-family: Montserrat;font-weight: bolder;"><a href="{% url 'signup' %}">Need an account? Sign up!</a></div>
-                                        <div class="small" style="font-family: Montserrat;font-weight: bolder;"><a href="http://127.0.0.1:8000/admin/login/?next=/admin/">Admin? Login here!</a></div>
+                                        <div class="small mt-2" style="font-family: Montserrat;font-weight: bolder;"><a href="http://127.0.0.1:8000/admin/login/?next=/admin/">Admin? Login here!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -91,10 +91,10 @@
                     </div>
                 </main>
             </div>
-            <div id="layoutAuthentication_footer">
+            {% comment %} <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                 </footer>
-            </div>
+            </div> {% endcomment %}
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>

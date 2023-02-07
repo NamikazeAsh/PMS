@@ -81,7 +81,7 @@
 
                     <div class="container animated fadeIn" >
                         <div class="row justify-content-center">
-                            <div class="col-6">
+                            <div class="col-6" style="width: 38vw;">
                                 <div class="card-group">
                                     <div class="card p-4 mb-5 rounded-5">
                                         <div class="card-body">
@@ -133,9 +133,6 @@
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/user.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div> {% endcomment %}
                                                 {{ form.last_name }}
                                                 {% if form.last_name.errors %}
                                                     <ol>
@@ -176,6 +173,9 @@
                                                     {% endfor %}
                                                     </ol>
                                                 {% endif %}
+                                                {% comment %} <p>Show Password</p> {% endcomment %}
+                                                {% comment %} <img src="{% static "icons/eye.svg" %}" ></img> {% endcomment %}
+                                                {% comment %} <img src="{% static "icons/eye-off.svg" %}" ></img> {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
@@ -240,13 +240,14 @@
                                         </div>
                 
                                         <div class="button-section">
-                                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                            <button type="submit" class="btn btn-sm btn-success" style="font-size: 1.2rem;"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                                            <button type="reset" class="btn btn-sm btn-danger" style="font-size: 1.2rem;"><i class="fa fa-ban"></i> Reset</button>
                                         </div>
                                     </form>
                                             {{ form.errors }}
                                     </div>
-                                    <div class="small"><a href="{% url 'login' %}">Already have an account? Login!</a>
+                                    <div class="small" style="text-align: center;">
+                                        <a href="{% url 'login' %}">Already have an account? Login!</a>
                                     </div>
                                 </div>
                             </div>
