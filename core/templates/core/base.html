@@ -78,17 +78,16 @@
       <nav class="sidebar-nav">
         <ul class="nav">
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" src="{% static "core/icons/view.svg" %}" ></img>Views</a>
-            {% comment %} <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i>Views</a> {% endcomment %}
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/view.svg" %}" ></img>Views</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:projects'%}"><i class="fa fa-paper-plane ml-2"></i>Project's View</a>
+                <a class="nav-link" href="{% url 'projects:projects'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/project.svg" %}" ></img>Project's View</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register:users'%}"><i class="fa fa-user ml-2"></i>Users Views</a>
+                <a class="nav-link" href="{% url 'register:users'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/user.svg" %}" ></img>Users Views</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:teams'%}"><i class="fa fa-group ml-2"></i>Team Views</a>
+                <a class="nav-link" href="{% url 'projects:teams'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/team.svg" %}" ></img>Team Views</a>
               </li>
             </ul>
           </li>
@@ -97,77 +96,77 @@
             Register
           </li>
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-industry"></i>Company</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/company.svg" %}" ></img>Company</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register:new-company'%}"><i class="fa fa-plus ml-2"></i>New Company</a>
+                <a class="nav-link" href="{% url 'register:new-company'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>New Company</a>
               </li>
             </ul>
           </li>
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-puzzle-piece"></i>Projects</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/project.svg" %}" ></img>Projects</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:new-project'%}"><i class="fa fa-plus ml-2"></i>New Project</a>
+                <a class="nav-link" href="{% url 'projects:new-project'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>New Project</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:new-task'%}"><i class="fa fa-plus ml-2"></i>New Task</a>
+                <a class="nav-link" href="{% url 'projects:new-task'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>New Task</a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-puzzle-piece"></i>Teams</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/team.svg" %}" ></img>Teams</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:new-team'%}"><i class="fa fa-plus ml-2"></i>New Team</a>
+                <a class="nav-link" href="{% url 'projects:new-team'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>New Team</a>
               </li>
               
             </ul>
           </li>
           
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-calendar"></i>Milestones</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/milestone.svg" %}" ></img>Milestones</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'calendarapp:calendar'%}"><i class="fa fa-plus ml-2"></i>Calendar</a>
+                <a class="nav-link" href="{% url 'calendarapp:calendar'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Calendar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'calendarapp:running_events'%}"><i class="fa fa-plus ml-2"></i>Running</a>
+                <a class="nav-link" href="{% url 'calendarapp:running_events'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Running</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'calendarapp:all_events'%}"><i class="fa fa-plus ml-2"></i>All</a>
+                <a class="nav-link" href="{% url 'calendarapp:all_events'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>All</a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-user"></i>Users</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/user.svg" %}" ></img>Users</a>
             <ul class="nav-dropdown-items">
               {% if user.is_authenticated %}
               
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><i class="fa fa-plus ml-2"></i>Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
+                <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:Project' id=user.id %}"><i class="fa fa-plus ml-2"></i>Projects</a>
+                <a class="nav-link" href="{% url 'projects:Project' id=user.id %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register:user' user.id%}"><i class="fa fa-plus ml-2"></i>Profile</a>
+                <a class="nav-link" href="{% url 'register:user' user.id%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'user-hours' %}"><i class="fa fa-plus ml-2"></i>Hours</a>
+                <a class="nav-link" href="{% url 'user-hours' %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Hours</a>
               </li>
               
               
             </ul>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout'%}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+              <a class="nav-link" href="{% url 'logout'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/logout.svg" %}" ></img>Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login'%}"><i class="fa-solid fa-right-from-bracket"></i>Login</a>
+              <a class="nav-link" href="{% url 'login'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/login.svg" %}" ></img>Login</a>
             </li>
             {% endif %}
               {% comment %} nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn {% endcomment %}
