@@ -299,12 +299,14 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Team</th>
                                 <th scope="col">Progress</th>
+                                <th scope="col">Download</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             {% for project in projects %}
                             <tr>
+                                
                                 <td> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
                                 <td>{{ project.dead_line }}</td>
                                 <td class="col-desc">{{ project.description|truncatechars:200 }}</td>
@@ -363,6 +365,8 @@
                                         </div>
                                     </td>
                                     {% endif %}
+
+                                    <td><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red;text-decoration:none;">Download</a></td>
 
                             </tr>
                             {% endfor %}

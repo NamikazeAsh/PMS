@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect
+from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect,HttpResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.core.mail import send_mail
+
+import pandas as pd
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -282,4 +284,12 @@ def newTeam(request):
         }
         return render(request,'projects/new_team.html', context)
     
+def DownloadProjectReport(request,id):
+    
+    dfd = Project.objects.filter(id = id).values()
+    df = pd.DataFrame(dfd)
+    csvtitle = Project.objects.filter(id=id).values('name')
+    for title in csvtitle:
+        df.to_csv("Reports/Project/" + title["name"] + ".csv")
+    return projects(request)
 
