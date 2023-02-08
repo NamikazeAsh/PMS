@@ -77,8 +77,8 @@
       <nav class="sidebar-nav">
         <ul class="nav">
           <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#">Views</a>
-            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i>Views</a>
+            <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" src="{% static "core/icons/view.svg" %}" ></img>Views</a>
+            {% comment %} <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i>Views</a> {% endcomment %}
             <ul class="nav-dropdown-items">
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'projects:projects'%}"><i class="fa fa-paper-plane ml-2"></i>Project's View</a>
