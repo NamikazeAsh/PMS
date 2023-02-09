@@ -31,39 +31,75 @@
                 <div class="col-12">
                     <div class="card mt-5">
                         <div class="simple-box">
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <ul class="mt-4 mx-5">
-                                        {% for project in projdet %}
-                                        <h5>Personal Info:</h5>
-                                        <li><span>Project ID: </span> {{ project.id }}</li>
-                                        <li><span>Project Name: </span> {{ project.name }}</li>
-                                        <li><span>Efforts: </span> {{ project.efforts }}</li>
-                                        <li><span>Status: </span> {{ project.status }}</li>
-                                        <li><span>Added Date: </span> {{ project.add_date }}</li>
-                                        <li><span>Dead Line: </span> {{ project.dead_line }}</li>
-                                        <li><span>Company: </span> {{ project.company_id }}</li>
-                                        <li><span>Description: <br></span> {{ project.description }}</li>
-                                        {% endfor %}
-                                        
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-md-6 text-left">
-                                    <ul class="m-4">
-                                        <h5>Team Members:</h5>
-                                        {% for name in team_name %}
-                                        <b>{{name}}</b>
-                                        <br><br>
-                                        {% endfor %}
-                                        {% for member in team_members %}
-                                        {{member}}<br>
-                                        {% endfor %}
+                            <br><br><br>
+                            <h2 style="text-align: center;">Project details</h2>
+                            <br><br><br>
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Project Name</th>
+                                    <th>Type</th>
+                                    <th>Efforts</th>
+                                    <th>Status</th>
+                                    <th>Added date</th>
+                                    <th>Dead line</th>
+                                    <th>Company</th>
+                                    <th>Description</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for project in projdet %}
+                                <tr>
+                                    <td>{{ project.id }}</td>
+                                    <td>{{ project.name }}</td>
+                                    <td>Type</td>
+                                    <td>{{ project.efforts }}</td>
+                                    <td>
+                                        {% if project.status == '1' %}
+                                        Working
+                                        {% elif project.status == '2' %}
+                                        Stuck
+                                        {% elif project.status == '3' %}
+                                        Done
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ project.add_date }}</td>
+                                    <td>{{ project.dead_line }}</td>
+                                    <td>{{ pcname }}</td>
+                                    <td>{{ project.description }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br><br><br>
+                        <h2 style="text-align: center;">Team Members</h2>
+                        <br><br><br>
+                        <table class="table">
+                            <thead>
+                                <th>Team Name</th>
+                                <th>Members</th>
+                            </thead>
+                            <tbody>
 
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                                <tr>
+                                {% for name in team_name %}
+                                {% for member in team_members %}
+                                
+                                <td> <b>{{name}}</b> </td>
+                                <td> {{member}} </td> 
+
+                                </tr>
+                            {% endfor %}
+                            {% endfor %}
+                            </tbody>
+                            
+                            
+                        </table>
+
                     </div>
+
                 </div>
             </div>
 

@@ -247,6 +247,9 @@ def ProjectProfile(request,id):
     for tid2 in team_members_id:
         team_members.append(User.objects.get(id = tid2))
     
+    pcname = str(Project.objects.get(id=id).company)
+    print(pcname)    
+    
     var = findtemp(request)
     context = {
         'projdet': projdet,
@@ -254,6 +257,7 @@ def ProjectProfile(request,id):
         'temp':var,
         'team_name':team_name,
         'team_members':team_members,
+        'pcname':pcname,
     }
     
     return render(request,"projectprofile.html",context)
@@ -291,5 +295,14 @@ def DownloadProjectReport(request,id):
     csvtitle = Project.objects.filter(id=id).values('name')
     for title in csvtitle:
         df.to_csv("Reports/Project/" + title["name"] + ".csv")
+    
     return projects(request)
 
+def DownloadAllProjectReport(request):
+
+    dfd = Project.objects.all().values()
+    df = pd.DataFrame(dfd)
+    csvtitle = request.user.first_name
+    df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    
+    return projects(request)
