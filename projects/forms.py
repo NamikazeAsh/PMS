@@ -2,7 +2,6 @@ from django import forms
 from django.utils.text import slugify
 from .models import Task
 from .models import Project
-from register.models import Company
 from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
@@ -26,7 +25,7 @@ status = (
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
     task_name = forms.CharField(max_length=80)
     difficulty = forms.ChoiceField(choices=difficulty)
     status = forms.ChoiceField(choices=status)
@@ -74,7 +73,7 @@ class ProjectRegistrationForm(forms.ModelForm):
     efforts = forms.DurationField()
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
-    company = forms.ModelChoiceField(queryset=Company.objects.all())
+    company = forms.CharField(max_length=80)
     complete_per = forms.FloatField(min_value=0, max_value=100)
     description = forms.CharField(widget=forms.Textarea)
 
@@ -148,7 +147,7 @@ class NewCommentForm(forms.ModelForm):
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
     class Meta:
         model = Team
         fields = '__all__'
