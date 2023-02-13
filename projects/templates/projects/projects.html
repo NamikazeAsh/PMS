@@ -301,6 +301,7 @@
                                 <th scope="col">Team</th>
                                 <th scope="col">Progress</th>
                                 <th scope="col">Download</th>
+                                <th scope="col">Upload</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -376,6 +377,8 @@
                                     {% endif %}
 
                                     <td><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red;text-decoration:none;">Download</a></td>
+
+                                    <td><input type="file" name="docs" id="docs"></td>
 
                             </tr>
                             {% endfor %}
