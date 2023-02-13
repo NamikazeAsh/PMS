@@ -5,7 +5,8 @@
  * @link http://coreui.io
  * Copyright (c) 2018 creativeLabs Łukasz Holeczek
  * @license MIT
- -->
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,29 +43,11 @@
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 
   <header class="app-header navbar">
-    <img src="{% static 'core/img/logos/title.png' %}" alt="" class="brand-gui ml-2 d-none d-sm-block p-2" style="width:100px;">
-    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <img src="{% static 'core/img/logos/title.png' %}" alt="" class="brand-gui" style="width:9rem;">
 
     <ul class="nav navbar-nav ml-auto">
-      {% if user.is_authenticated %}
-      <li class="text-muted"><b>{{ user.first_name }} {{user.last_name}}</b> </li>
-      {% else %}
-      <li class="text-muted">
-        <a href="{% url 'core:login' %}">Sign In</a>
-      </li>
-      {% endif %}
-      <li class="nav-item dropdown">
-        <!-- <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          {% if user.is_authenticated %}
-          <img src="{{ logged_user.img.url }}" class="img-avatar" alt="{{ user }}">
-          {% else %}
-          <img src="{% static 'core/img/avatar/blank_profile.png' %}" class="img-avatar" alt="{{ user }}">
-          {% endif %}
-        </a> -->
-        
-      </li>
+      
+      <b style="font-size: 11px;">{{user.username}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b> 
 
     </ul>
 
