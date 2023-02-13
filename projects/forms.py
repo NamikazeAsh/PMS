@@ -43,6 +43,7 @@ class TaskRegistrationForm(forms.ModelForm):
         task.status = self.cleaned_data['status']
         task.save()
         assigns = self.cleaned_data['assign']
+        
         for assign in assigns:
             task.assign.add((assign))
 
@@ -64,7 +65,6 @@ class TaskRegistrationForm(forms.ModelForm):
 
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
-    # slug = forms.SlugField('shortcut')
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
 
     status = forms.ChoiceField(choices=status)

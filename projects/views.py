@@ -29,21 +29,6 @@ def findtemp(request):
     elif request.user.groups.filter(name='Head Consultant').exists():
         return 'consultant/tempprof.html'
 # Create your views here.
-def projects(request):
-    projects = Project.objects.all()
-    avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
-    tasks = Task.objects.all()
-    overdue_tasks = tasks.filter(status='2')
-    var = findtemp(request)
-    context = {
-        'avg_projects' : avg_projects,
-        'projects' : projects,
-        'tasks' : tasks,
-        'overdue_tasks' : overdue_tasks,
-        'temp':var,
-    }
-    return render(request, 'projects/projects.html', context)
-
 def teams(request):
     teams = Team.objects.filter(user=request.user)
     var = findtemp(request)
@@ -203,7 +188,6 @@ def viewtask(request, task):
         
     else:
         comment_form = NewCommentForm()
-        
     return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
 
 def deltask(request,task):
@@ -217,12 +201,33 @@ def deltask(request,task):
         'tasks': tasks,
         'temp':var,
     }
-    
-    # return HttpResponseRedirect(reverse('task'))
-    
     return render(request,'projects/tasks.html',context)
 
-
+@login_required(login_url='login')
+def projects(request):
+    
+    projects = Project.objects.all()
+    projteamassoc = []
+    for a in projects:
+        for idi in Project.objects.values_list('assign').filter(id = a.pk):
+            teamname = Team.objects.get(id = idi[0]).team_name
+            projteamassoc.append([a.name,idi[0],teamname])
+    
+    teams = Team.objects.all()
+    avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
+    tasks = Task.objects.all()
+    overdue_tasks = tasks.filter(status='2')
+    var = findtemp(request)
+    context = {
+        'avg_projects' : avg_projects,
+        'projects' : projects,
+        'projteamassoc':projteamassoc,
+        'tasks' : tasks,
+        'overdue_tasks' : overdue_tasks,
+        'temp':var,
+        'teams':teams,
+    }
+    return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
 def ProjectProfile(request,id):
@@ -263,6 +268,7 @@ def ProjectProfile(request,id):
     
     return render(request,"projectprofile.html",context)
 
+@login_required(login_url='login')
 def newTeam(request):
     if request.method == 'POST':
         form = TeamRegistrationForm(request.POST)
@@ -288,7 +294,8 @@ def newTeam(request):
             'temp':var,
         }
         return render(request,'projects/new_team.html', context)
-    
+
+@login_required(login_url='login')
 def DownloadProjectReport(request,id):
     
     dfd = Project.objects.filter(id = id).values()
@@ -299,6 +306,7 @@ def DownloadProjectReport(request,id):
     
     return projects(request)
 
+@login_required(login_url='login')
 def DownloadAllProjectReport(request):
 
     dfd = Project.objects.all().values()

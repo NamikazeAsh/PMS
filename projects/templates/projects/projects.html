@@ -318,7 +318,15 @@
                                     {% else %}Completed
                                     {% endif %}</span></td>
                                 <td>
-                                    <span class="label gradient-2 btn-rounded">{{ project.a }}</span>
+                                    <span class="label gradient-2 btn-rounded"> 
+
+                                        {% for tpair in projteamassoc %}
+                                            {% if tpair.0 == project.name %}
+                                            {{tpair.2}}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </span>
                                 </td>
                                 {% if project.complete_per < 30%}
                                 <td>
