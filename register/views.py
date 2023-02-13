@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.shortcuts import redirect
 from projects.models import Task
 from django.contrib.auth.models import User
-from .models import UserProfile
+# from .models import UserProfile
 from .forms import RegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
