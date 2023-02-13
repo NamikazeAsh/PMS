@@ -230,6 +230,7 @@ def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
     
     projteam = Project.objects.values_list('assign').filter(id=id)
+    print(projteam)
     team_id = []
     team_name = []
     team_members_id = []
@@ -241,7 +242,7 @@ def ProjectProfile(request,id):
         team_name.append(Team.objects.get(id = tid))
     
     projteam_mem = Team.objects.filter(id = tid).values_list('assign')
-    
+    print(projteam_mem)
     for tm2 in projteam_mem:
         team_members_id.append(tm2[0])
     for tid2 in team_members_id:

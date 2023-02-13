@@ -34,7 +34,6 @@ class Project(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField('shortcut', blank=True)
     assign = models.ManyToManyField(Team)
-    efforts = models.DurationField()
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField()
     company = models.CharField(max_length=80)
