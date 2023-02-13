@@ -8,7 +8,6 @@ from .models import Team
 # Register your models here.
 
 class ProjectAdmin(admin.ModelAdmin):
-    raw_id_fields = ('company',)
     list_display = ['name', 'company', ]
     list_filter = ['name', 'company', ]
     search_fields = ['name', 'company', 'status',]

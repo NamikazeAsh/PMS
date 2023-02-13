@@ -64,21 +64,7 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-calculator"></i></span>
-                                        </div>
-                                        {{ form.efforts }}
-                                        {% if form.efforts.errors %}
-                                            <ol>
-                                            {% for error in form.efforts.errors %}
-                                                <li><strong>{{ error|escape }}</strong></li>
-                                            {% endfor %}
-                                            </ol>
-                                        {% endif %}
-                                    </div>
-                                </div>
+                        
                                 <div class="form-group">
                                     <label class="col-form-label">Status</label>
                                     <div class="input-group">

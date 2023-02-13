@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from register.models import Company
 from register.models import Project
 from register.models import UserProfile
 from projects.models import Task
@@ -19,13 +18,11 @@ def index(request):
 def dashboard(request):
     users = User.objects.all()
     active_users = User.objects.all().filter(is_active=True)
-    companies = Company.objects.all()
     projects = Project.objects.all()
     tasks = Task.objects.all()
     context = {
         'users' : users,
         'active_users' : active_users,
-        'companies' : companies,
         'projects' : projects,
         'tasks' : tasks,
     }

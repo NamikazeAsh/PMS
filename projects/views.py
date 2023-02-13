@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect
+from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect,HttpResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.core.mail import send_mail
+
+import pandas as pd
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -228,6 +230,7 @@ def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
     
     projteam = Project.objects.values_list('assign').filter(id=id)
+    print(projteam)
     team_id = []
     team_name = []
     team_members_id = []
@@ -239,11 +242,14 @@ def ProjectProfile(request,id):
         team_name.append(Team.objects.get(id = tid))
     
     projteam_mem = Team.objects.filter(id = tid).values_list('assign')
-    
+    print(projteam_mem)
     for tm2 in projteam_mem:
         team_members_id.append(tm2[0])
     for tid2 in team_members_id:
         team_members.append(User.objects.get(id = tid2))
+    
+    pcname = str(Project.objects.get(id=id).company)
+    print(pcname)    
     
     var = findtemp(request)
     context = {
@@ -252,6 +258,7 @@ def ProjectProfile(request,id):
         'temp':var,
         'team_name':team_name,
         'team_members':team_members,
+        'pcname':pcname,
     }
     
     return render(request,"projectprofile.html",context)
@@ -282,4 +289,21 @@ def newTeam(request):
         }
         return render(request,'projects/new_team.html', context)
     
+def DownloadProjectReport(request,id):
+    
+    dfd = Project.objects.filter(id = id).values()
+    df = pd.DataFrame(dfd)
+    csvtitle = Project.objects.filter(id=id).values('name')
+    for title in csvtitle:
+        df.to_csv("Reports/Project/" + title["name"] + ".csv")
+    
+    return projects(request)
 
+def DownloadAllProjectReport(request):
+
+    dfd = Project.objects.all().values()
+    df = pd.DataFrame(dfd)
+    csvtitle = request.user.first_name
+    df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    
+    return projects(request)

@@ -5,7 +5,6 @@ from projects.models import Task
 from django.contrib.auth.models import User
 from .models import UserProfile
 from .forms import RegistrationForm
-from .forms import CompanyRegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
 
@@ -74,56 +73,4 @@ def user_view(request, profile_id):
         'temp':var,
     }
     return render(request, 'register/user.html', context)
-
-
-def profile(request):
-    if request.method == 'POST':
-        img_form = ProfilePictureForm(request.POST, request.FILES)
-        print('PRINT 1: ', img_form)
-        var = findtemp(request)
-        context = {'img_form' : img_form,'temp':var, }
-        if img_form.is_valid():
-            img_form.save(request)
-            updated = True
-            var = findtemp(request)
-            user = User.objects.get(id=request.user.id)
-            context = {'img_form' : img_form, 'updated' : updated,'temp':var,'user':user, }
-            return render(request, 'register/profile.html', context)
-        else:
-            return render(request, 'register/profile.html', context)
-    else:
-        img_form = ProfilePictureForm()
-        var = findtemp(request)
-        context = {'img_form' : img_form,'temp':var, }
-        return render(request, 'register/profile.html', context)
-
-
-def newCompany(request):
-    if request.method == 'POST':
-        form = CompanyRegistrationForm(request.POST)
-        var = findtemp(request)
-
-        context = {'form':form, 'temp':var,}
-        if form.is_valid():
-            form.save()
-            created = True
-            form = CompanyRegistrationForm()
-            var = findtemp(request)            
-            context = {
-                'created' : created,
-                'form' : form,
-                'temp':var,       }
-            return render(request, 'register/new_company.html', context)
-        else:
-            return render(request, 'register/new_company.html', context)
-    else:
-        form = CompanyRegistrationForm()
-        var = findtemp(request)
-        context = {
-            'form' : form,
-            'temp':var, 
-        }
-        return render(request, 'register/new_company.html', context)
-
-
 

@@ -2,7 +2,6 @@ from django import forms
 from django.utils.text import slugify
 from .models import Task
 from .models import Project
-from register.models import Company
 from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
@@ -26,7 +25,7 @@ status = (
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
     task_name = forms.CharField(max_length=80)
     difficulty = forms.ChoiceField(choices=difficulty)
     status = forms.ChoiceField(choices=status)
@@ -71,10 +70,10 @@ class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     # slug = forms.SlugField('shortcut')
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
-    efforts = forms.DurationField()
+
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
-    company = forms.ModelChoiceField(queryset=Company.objects.all())
+    company = forms.CharField(max_length=80)
     complete_per = forms.FloatField(min_value=0, max_value=100)
     description = forms.CharField(widget=forms.Textarea)
 
@@ -86,7 +85,7 @@ class ProjectRegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         Project = super(ProjectRegistrationForm, self).save(commit=False)
         Project.name = self.cleaned_data['name']
-        Project.efforts = self.cleaned_data['efforts']
+
         Project.status = self.cleaned_data['status']
         Project.dead_line = self.cleaned_data['dead_line']
         Project.company = self.cleaned_data['company']
@@ -108,8 +107,6 @@ class ProjectRegistrationForm(forms.ModelForm):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget.attrs['placeholder'] = 'Project Name'
-        self.fields['efforts'].widget.attrs['class'] = 'form-control'
-        self.fields['efforts'].widget.attrs['placeholder'] = 'Efforts(years)'
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
@@ -148,7 +145,7 @@ class NewCommentForm(forms.ModelForm):
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant', 'Lead Consultant','Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
     class Meta:
         model = Team
         fields = '__all__'

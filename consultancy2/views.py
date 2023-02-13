@@ -65,6 +65,7 @@ def SignIn(request):
             form = RegistrationForm(request.POST)
             context = {'form':form}
             if form.is_valid():
+                
                 saverecord = SignInInsert()
                 saverecord.email = form.cleaned_data.get("email")
                 saverecord.username = form.cleaned_data.get("username")
