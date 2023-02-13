@@ -59,12 +59,8 @@ class TaskRegistrationForm(forms.ModelForm):
         self.fields['task_name'].widget.attrs['class'] = 'form-control'
         self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
         self.fields['difficulty'].widget.attrs['class'] = 'form-control'
-        # self.fields['difficulty'].widget.attrs['placeholder'] = ''
         self.fields['status'].widget.attrs['class'] = 'form-control'
-        # self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
-        # self.fields['assign'].widget.attrs['placeholder'] = 'Found date'
-
 
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
