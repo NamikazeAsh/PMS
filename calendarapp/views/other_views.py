@@ -211,16 +211,16 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             form.user = request.user
             form.save()
             
-            print("Milestone created")
-            # ------------------------------- Email Section ------------------------------ #
-            send_mail(
-                    '[Christ Consulting] Milestone created!',
-                    'Milestone has been created, please check it out!',
-                    'ashwin.satish@science.christuniversity.in',
-                    ['pervnamisenpai@gmail.com'],
-                    fail_silently=False,
-                )
-            print("Email Sent")
+            # print("Milestone created")
+            # # ------------------------------- Email Section ------------------------------ #
+            # send_mail(
+            #         '[Christ Consulting] Milestone created!',
+            #         'Milestone has been created, please check it out!',
+            #         'ashwin.satish@science.christuniversity.in',
+            #         ['pervnamisenpai@gmail.com'],
+            #         fail_silently=False,
+            #     )
+            # print("Email Sent")
             return redirect("calendarapp:calendar")
         var = findtemp(request)
         context = {"form": forms,'temp':var,}

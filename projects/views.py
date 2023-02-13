@@ -76,14 +76,14 @@ def newTask(request):
             
             
             # ------------------------------- Email Section ------------------------------ #
-            send_mail(
-                '[Christ Consulting] Task assigned!',
-                'Task has been assigned',
-                'balakrishna.r@science.christuniversity.in',
-                ['balakrishnar120@gmail.com'],
-                fail_silently=False,
-            )
-            print("Email Sent")
+            # send_mail(
+            #     '[Christ Consulting] Task assigned!',
+            #     'Task has been assigned',
+            #     'noreply.christconsulting@gmail.com',
+            #     ['ashwin.satish@science.christuniversity.in'],
+            #     fail_silently=False,
+            # )
+            # print("Email Sent")
             
             return render(request, 'projects/new_task.html', context)
         else:
