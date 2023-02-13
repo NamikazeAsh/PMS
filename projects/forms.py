@@ -25,7 +25,7 @@ status = (
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
     task_name = forms.CharField(max_length=80)
     difficulty = forms.ChoiceField(choices=difficulty)
     status = forms.ChoiceField(choices=status)
