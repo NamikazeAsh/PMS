@@ -8,7 +8,7 @@ from django.contrib.auth import login
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from register.models import Project
-# from register.models import UserProfile
+from register.models import UserProfile
 from projects.models import Task
 
 # Create your views here.
