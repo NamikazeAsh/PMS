@@ -145,7 +145,7 @@ class NewCommentForm(forms.ModelForm):
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
     class Meta:
         model = Team
         fields = '__all__'
