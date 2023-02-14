@@ -346,3 +346,4 @@ def context(request): # send context to base.html
             'users_prof': users_prof,
         }
         return context
+

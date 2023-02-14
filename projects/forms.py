@@ -25,7 +25,7 @@ status = (
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
     task_name = forms.CharField(max_length=80)
     difficulty = forms.ChoiceField(choices=difficulty)
     status = forms.ChoiceField(choices=status)
@@ -43,6 +43,7 @@ class TaskRegistrationForm(forms.ModelForm):
         task.status = self.cleaned_data['status']
         task.save()
         assigns = self.cleaned_data['assign']
+        
         for assign in assigns:
             task.assign.add((assign))
 
@@ -59,16 +60,11 @@ class TaskRegistrationForm(forms.ModelForm):
         self.fields['task_name'].widget.attrs['class'] = 'form-control'
         self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
         self.fields['difficulty'].widget.attrs['class'] = 'form-control'
-        # self.fields['difficulty'].widget.attrs['placeholder'] = ''
         self.fields['status'].widget.attrs['class'] = 'form-control'
-        # self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
-        # self.fields['assign'].widget.attrs['placeholder'] = 'Found date'
-
 
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
-    # slug = forms.SlugField('shortcut')
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
 
     status = forms.ChoiceField(choices=status)
@@ -145,7 +141,7 @@ class NewCommentForm(forms.ModelForm):
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Senior Intern','Intern']))
+    assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
     class Meta:
         model = Team
         fields = '__all__'

@@ -73,4 +73,3 @@ def user_view(request, profile_id):
         'temp':var,
     }
     return render(request, 'register/user.html', context)
-
