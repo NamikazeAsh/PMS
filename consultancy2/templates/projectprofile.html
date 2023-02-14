@@ -78,21 +78,56 @@
                         <br><br><br>
                         <table class="table">
                             <thead>
-                                <th>Team Name</th>
                                 <th>Members</th>
+                                <th>Team Name</th>
                             </thead>
                             <tbody>
 
                                 <tr>
-                                {% for name in team_name %}
                                 {% for member in team_members %}
+                                {% for name in team_name %}
                                 
-                                <td> <b>{{name}}</b> </td>
                                 <td> {{member}} </td> 
+                                <td> <b>{{name}}</b> </td>
 
                                 </tr>
                             {% endfor %}
                             {% endfor %}
+                            </tbody>
+                            
+                            
+                        </table>
+
+
+
+                        <br><br><br>
+                        <h2 style="text-align: center;">Finances</h2>
+                        <br><br><br>
+                        <table class="table">
+                            <thead>
+                                <th>Total Cost(Before GST)</th>
+                                <th>Percentage to Christ University</th>
+                                <th>Cost to Christ University</th>
+                                <th>Cost to faculties</th>
+                                <th>Consulting Profit</th>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                {% comment %} {% for member in team_members %}
+                                {% for name in team_name %}
+                                <td> {{member}} </td> 
+                                <td> <b>{{name}}</b> </td> {% endcomment %}
+
+                                <td>50000</td>
+                                <td>5%</td>
+                                <td>2500</td>
+                                <td>27000</td>
+                                <td>20500</td>
+
+                                </tr>
+                            {% comment %} {% endfor %}
+                            {% endfor %} {% endcomment %}
                             </tbody>
                             
                             
