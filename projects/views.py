@@ -8,6 +8,8 @@ from projects.forms import NewCommentForm
 from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
+from .uploadformhandling import handle_uploaded_file
+
 from django.urls import reverse
 from django.contrib.auth.models import User
 
@@ -16,6 +18,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
 import pandas as pd
+
+from django.core.files import File
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -227,6 +231,9 @@ def projects(request):
         'temp':var,
         'teams':teams,
     }
+    
+    
+    
     return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
@@ -313,5 +320,13 @@ def DownloadAllProjectReport(request):
     df = pd.DataFrame(dfd)
     csvtitle = request.user.first_name
     df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    
+    return projects(request)
+
+@login_required(login_url='login')
+def UploadProjectDocs(request,id):
+    
+    proj = Project.objects.get(id=id)
+    print(proj)
     
     return projects(request)
