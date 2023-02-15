@@ -138,8 +138,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/' # Included upload images
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'core/media') # Included upload images
-print(MEDIA_ROOT)
-
 
 EMAIL_HOST_USER = "" #add email
 EMAIL_HOST = "smtp.gmail.com"
