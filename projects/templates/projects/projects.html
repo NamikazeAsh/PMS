@@ -301,7 +301,7 @@
                                 <th scope="col">Team</th>
                                 <th scope="col">Progress</th>
                                 <th scope="col">Download</th>
-                                <th scope="col">Upload</th>
+                                <th scope="col">Document</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -384,6 +384,7 @@
                                             <!-- {{ form.as_p }} -->
                                             <input type="file" value="upload" name="upload" id="upload">
                                             <input type="submit" value="Upload" style="color:green;font-weight:bold">
+                                            <input type="button" value="Download Doc" style="color:darkcyan;font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
                                         </form>
                                     </td>
                             </tr>
