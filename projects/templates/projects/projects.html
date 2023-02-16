@@ -378,7 +378,13 @@
 
                                     <td><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red;text-decoration:none;">Download</a></td>
 
-                                    <td> <input type="file" name="docs" id="docs"><a type="button" value="Upload" style="color:green;font-weight:bold" href="/projects/projects/uploadprojdoc/{{project.id}}">Upload</a> </td>
+                                    <td> 
+                                        <form enctype="multipart/form-data" method="post">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <input type="submit" value="Upload" style="color:green;font-weight:bold">
+                                        </form>
+                                    </td>
                             </tr>
                             {% endfor %}
 
