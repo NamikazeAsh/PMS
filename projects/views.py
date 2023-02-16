@@ -335,15 +335,19 @@ def DownloadAllProjectReport(request):
 def UploadProjectDocs(request,id):
     
     fuo = Project.objects.get(id=id)
-    documents = fuo.documents
     
-    form = FileForm(instance=fuo)
-    if form.is_valid():
-        form.save()
+    if request.method == 'POST':
+        fuo.documents = request.FILES['upload']
+        fuo.save()
+        print("saved")
     
-    context={
-        'form':form,
-        'documents':documents
-    }
+    # documents = fuo.documents
+    # form = FileForm(instance=fuo)
+    # if form.is_valid():
+    #     form.save()
+    # context={
+    #     'form':form,
+    #     'documents':documents
+    # }
     
-    return projects(request,context)
+    return projects(request)
