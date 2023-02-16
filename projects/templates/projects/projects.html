@@ -312,12 +312,15 @@
                                 <td> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
                                 <td>{{ project.dead_line }}</td>
                                 <td class="col-desc">{{ project.description|truncatechars:200 }}</td>
-                                <td><span class="badge text-black"><i class="bg-warning"></i>
+                                <td><span class="badge text-black">
+                                    <p style="font-size: 10px;">
                                     {% if project.status == '2' %}Stuck
                                     {% elif project.status == '1' %}Working
                                     {% elif project.status == '3' %}Done
                                     {% else %}Completed
-                                    {% endif %}</span></td>
+                                    {% endif %}</span>
+                                    </p>
+                                </td>
                                 <td>
                                     <span class="label gradient-2 btn-rounded"> 
 
