@@ -301,7 +301,7 @@
                                 <th scope="col">Team</th>
                                 <th scope="col">Progress</th>
                                 <th scope="col">Download</th>
-                                <th scope="col">Upload</th>
+                                <th scope="col">Document</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -312,12 +312,15 @@
                                 <td> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
                                 <td>{{ project.dead_line }}</td>
                                 <td class="col-desc">{{ project.description|truncatechars:200 }}</td>
-                                <td><span class="badge text-black"><i class="bg-warning"></i>
+                                <td><span class="badge text-black">
+                                    <p style="font-size: 10px;">
                                     {% if project.status == '2' %}Stuck
                                     {% elif project.status == '1' %}Working
                                     {% elif project.status == '3' %}Done
                                     {% else %}Completed
-                                    {% endif %}</span></td>
+                                    {% endif %}</span>
+                                    </p>
+                                </td>
                                 <td>
                                     <span class="label gradient-2 btn-rounded"> 
 
@@ -378,7 +381,15 @@
 
                                     <td><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red;text-decoration:none;">Download</a></td>
 
-                                    <td> <input type="file" name="docs" id="docs"><a type="button" value="Upload" style="color:green;font-weight:bold" href="/projects/projects/uploadprojdoc/{{project.id}}">Upload</a> </td>
+                                    <td> 
+                                        <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
+                                            {% csrf_token %}
+                                            <!-- {{ form.as_p }} -->
+                                            <input type="file" value="upload" name="upload" id="upload">
+                                            <input type="submit" value="Upload" style="color:green;font-weight:bold">
+                                            <input type="button" value="Download Doc" style="color:darkcyan;font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
+                                        </form>
+                                    </td>
                             </tr>
                             {% endfor %}
 

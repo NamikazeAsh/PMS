@@ -18,7 +18,12 @@ from django.core.mail import send_mail
 
 import pandas as pd
 
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 from django.core.files import File
+from .forms import FileForm
+
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -221,6 +226,9 @@ def projects(request):
     tasks = Task.objects.all()
     overdue_tasks = tasks.filter(status='2')
     var = findtemp(request)
+    
+    form = FileForm(request.POST or None,request.FILES or None)
+    
     context = {
         'avg_projects' : avg_projects,
         'projects' : projects,
@@ -229,6 +237,7 @@ def projects(request):
         'overdue_tasks' : overdue_tasks,
         'temp':var,
         'teams':teams,
+        'form':form,
     }
     
     
@@ -325,7 +334,20 @@ def DownloadAllProjectReport(request):
 @login_required(login_url='login')
 def UploadProjectDocs(request,id):
     
-    proj = Project.objects.get(id=id)
-    print(proj)
+    fuo = Project.objects.get(id=id)
+    
+    if request.method == 'POST':
+        fuo.documents = request.FILES['upload']
+        fuo.save()
+        print("saved")
+    
+    # documents = fuo.documents
+    # form = FileForm(instance=fuo)
+    # if form.is_valid():
+    #     form.save()
+    # context={
+    #     'form':form,
+    #     'documents':documents
+    # }
     
     return projects(request)
