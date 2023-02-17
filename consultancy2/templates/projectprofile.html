@@ -133,6 +133,34 @@
                             
                         </table>
 
+
+                        <br><br><br>
+                        <h2 style="text-align: center;">Detailed Finances</h2>
+                        <br><br><br>
+                        <table class="table">
+                            <thead>
+                                <th>Particular</th>
+                                <th>Amount</th>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                {% comment %} {% for member in team_members %}
+                                {% for name in team_name %}
+                                <td> {{member}} </td> 
+                                <td> <b>{{name}}</b> </td> {% endcomment %}
+
+                                <td>Total amount received from XYZ excluding  GST and TDS</td>
+                                <td>100000</td>
+
+                                </tr>
+                            {% comment %} {% endfor %}
+                            {% endfor %} {% endcomment %}
+                            </tbody>
+                            
+                            
+                        </table>
+
                     </div>
 
                 </div>
