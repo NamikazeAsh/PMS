@@ -151,14 +151,9 @@ def AdminValAcc(request,id):
     user.save()
     print(user)
     
-<<<<<<< HEAD
-    user_profile = UserProfile.objects.create(user=user)
-    user_profile.save()
-=======
     up = UserProfile.objects.create(user=user)
     up.save()
     print("up saved")
->>>>>>> 1af21881fa7876e333ca0b198d633fb3063e9f98
     
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)

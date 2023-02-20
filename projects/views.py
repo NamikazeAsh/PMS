@@ -288,47 +288,7 @@ def ProjectProfile(request,id):
     
     return render(request,"projectprofile.html",context)
 
-<<<<<<< HEAD
-
-def pro_comments(request, project):
-
-    var = findtemp(request)
-    project = get_object_or_404(Project, id=project)
-
-    allcomments = project.proj_comments.filter(status=True)
-    
-    page = request.GET.get('page', 1)
-
-    paginator = Paginator(allcomments, 10)
-    try:
-        comments = paginator.page(page)
-    except PageNotAnInteger:
-        comments = paginator.page(1)
-    except EmptyPage:
-        comments = paginator.page(paginator.num_pages)
-
-    user_comment = None
-
-    if request.method == 'POST':
-        comment_form = ProjectCommentForm(request.POST)
-        if comment_form.is_valid():
-            user_comment = comment_form.save(commit=False)
-            user_comment.username=request.user.username
-            user_comment.project = project
-            user_comment.save()
-            # return HttpResponseRedirect('/' +'projects/etask'+'/'+task.slug)
-            return redirect('projects:pro_comments',project= project.id)
-        
-    else:
-        comment_form = ProjectCommentForm()
-        
-    return render(request, 'projects/proj_comments.html', {'project': project, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
-
-
-
-=======
 @login_required(login_url='login')
->>>>>>> 1af21881fa7876e333ca0b198d633fb3063e9f98
 def newTeam(request):
     if request.method == 'POST':
         form = TeamRegistrationForm(request.POST)
