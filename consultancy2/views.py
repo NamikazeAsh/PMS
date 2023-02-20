@@ -151,6 +151,10 @@ def AdminValAcc(request,id):
     user.save()
     print(user)
     
+    up = UserProfile.objects.create(user=user)
+    up.save()
+    print("up saved")
+    
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)
     
@@ -193,7 +197,7 @@ def TempSrIntern(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Sr Intern','Intern','Professor','Lead Consultant','Head Consultant'])
-def UserProfile(request):
+def UsersProfile(request):
     return render(request,"profile.html",context)
 
 
