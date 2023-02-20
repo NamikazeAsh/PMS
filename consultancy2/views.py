@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from register.models import *
+from register.models import UserProfile
 
 
 
@@ -150,6 +150,9 @@ def AdminValAcc(request,id):
     user.save()
     print(user)
     
+    user_profile = UserProfile.objects.create(user=user)
+    user_profile.save()
+    
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)
     
@@ -192,7 +195,7 @@ def TempSrIntern(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Sr Intern','Intern','Professor','Lead Consultant','Head Consultant'])
-def UserProfile(request):
+def UsersProfile(request):
     return render(request,"profile.html",context)
 
 
