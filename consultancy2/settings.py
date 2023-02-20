@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -98,7 +99,6 @@ DATABASES = {
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -133,19 +133,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/' # Included upload images
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'core/media') # Included upload images
-print(MEDIA_ROOT)
+MEDIA_URL = '/docs/' # Included upload images
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'docs/') # Included upload images
 
-
-EMAIL_HOST_USER = "balakrishna.r@science.christuniversity.in" #add email
+EMAIL_HOST_USER = "" #add email
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "63794773" #add password
+EMAIL_HOST_PASSWORD = "" #add password
 
 
 

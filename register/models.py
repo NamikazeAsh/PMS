@@ -12,5 +12,3 @@ class UserProfile(models.Model):
 
 
 
-
-

@@ -19,5 +19,9 @@ urlpatterns = [
     path('projects/deletetask/<int:task>',views.deltask,name='deletetask'),
     path('projects/project/<int:id>',views.ProjectProfile, name='Project'),
     path('projects/downloadprojreport/<int:id>',views.DownloadProjectReport,name='DownloadProject'),
-    path('projects/downloadallprojreport/',views.DownloadAllProjectReport,name='DownloadAllProject')
+    path('projects/downloadallprojreport/',views.DownloadAllProjectReport,name='DownloadAllProject'),
+    path('projects/uploadprojdoc/<int:id>',views.UploadProjectDocs,name='UploadProjDocs'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

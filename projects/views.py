@@ -9,6 +9,7 @@ from projects.forms import ProjectCommentForm
 from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
+
 from django.urls import reverse
 from django.contrib.auth.models import User
 
@@ -17,6 +18,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
 import pandas as pd
+
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+from django.core.files import File
+from .forms import FileForm
+
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -30,21 +38,6 @@ def findtemp(request):
     elif request.user.groups.filter(name='Head Consultant').exists():
         return 'consultant/tempprof.html'
 # Create your views here.
-def projects(request):
-    projects = Project.objects.all()
-    avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
-    tasks = Task.objects.all()
-    overdue_tasks = tasks.filter(status='2')
-    var = findtemp(request)
-    context = {
-        'avg_projects' : avg_projects,
-        'projects' : projects,
-        'tasks' : tasks,
-        'overdue_tasks' : overdue_tasks,
-        'temp':var,
-    }
-    return render(request, 'projects/projects.html', context)
-
 def teams(request):
     teams = Team.objects.filter(user=request.user)
     var = findtemp(request)
@@ -92,14 +85,14 @@ def newTask(request):
             
             
             # ------------------------------- Email Section ------------------------------ #
-            send_mail(
-                '[Christ Consulting] Task assigned!',
-                'Task has been assigned',
-                'balakrishna.r@science.christuniversity.in',
-                ['balakrishnar120@gmail.com'],
-                fail_silently=False,
-            )
-            print("Email Sent")
+            # send_mail(
+            #     '[Christ Consulting] Task assigned!',
+            #     'Task has been assigned',
+            #     'noreply.christconsulting@gmail.com',
+            #     ['ashwin.satish@science.christuniversity.in'],
+            #     fail_silently=False,
+            # )
+            # print("Email Sent")
             
             return render(request, 'projects/new_task.html', context)
         else:
@@ -204,7 +197,6 @@ def viewtask(request, task):
         
     else:
         comment_form = NewCommentForm()
-        
     return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
 
 def deltask(request,task):
@@ -218,12 +210,40 @@ def deltask(request,task):
         'tasks': tasks,
         'temp':var,
     }
-    
-    # return HttpResponseRedirect(reverse('task'))
-    
     return render(request,'projects/tasks.html',context)
 
-
+@login_required(login_url='login')
+def projects(request):
+    
+    projects = Project.objects.all()
+    projteamassoc = []
+    for a in projects:
+        for idi in Project.objects.values_list('assign').filter(id = a.pk):
+            teamname = Team.objects.get(id = idi[0]).team_name
+            projteamassoc.append([a.name,idi[0],teamname])
+    
+    teams = Team.objects.all()
+    avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
+    tasks = Task.objects.all()
+    overdue_tasks = tasks.filter(status='2')
+    var = findtemp(request)
+    
+    form = FileForm(request.POST or None,request.FILES or None)
+    
+    context = {
+        'avg_projects' : avg_projects,
+        'projects' : projects,
+        'projteamassoc':projteamassoc,
+        'tasks' : tasks,
+        'overdue_tasks' : overdue_tasks,
+        'temp':var,
+        'teams':teams,
+        'form':form,
+    }
+    
+    
+    
+    return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
 def ProjectProfile(request,id):
@@ -268,6 +288,7 @@ def ProjectProfile(request,id):
     
     return render(request,"projectprofile.html",context)
 
+<<<<<<< HEAD
 
 def pro_comments(request, project):
 
@@ -305,6 +326,9 @@ def pro_comments(request, project):
 
 
 
+=======
+@login_required(login_url='login')
+>>>>>>> 1af21881fa7876e333ca0b198d633fb3063e9f98
 def newTeam(request):
     if request.method == 'POST':
         form = TeamRegistrationForm(request.POST)
@@ -330,7 +354,8 @@ def newTeam(request):
             'temp':var,
         }
         return render(request,'projects/new_team.html', context)
-    
+
+@login_required(login_url='login')
 def DownloadProjectReport(request,id):
     
     dfd = Project.objects.filter(id = id).values()
@@ -341,11 +366,33 @@ def DownloadProjectReport(request,id):
     
     return projects(request)
 
+@login_required(login_url='login')
 def DownloadAllProjectReport(request):
 
     dfd = Project.objects.all().values()
     df = pd.DataFrame(dfd)
     csvtitle = request.user.first_name
     df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    
+    return projects(request)
+
+@login_required(login_url='login')
+def UploadProjectDocs(request,id):
+    
+    fuo = Project.objects.get(id=id)
+    
+    if request.method == 'POST':
+        fuo.documents = request.FILES['upload']
+        fuo.save()
+        print("saved")
+    
+    # documents = fuo.documents
+    # form = FileForm(instance=fuo)
+    # if form.is_valid():
+    #     form.save()
+    # context={
+    #     'form':form,
+    #     'documents':documents
+    # }
     
     return projects(request)

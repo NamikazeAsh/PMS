@@ -65,6 +65,7 @@ def SignIn(request):
             form = RegistrationForm(request.POST)
             context = {'form':form}
             if form.is_valid():
+                
                 saverecord = SignInInsert()
                 saverecord.email = form.cleaned_data.get("email")
                 saverecord.username = form.cleaned_data.get("username")
@@ -150,8 +151,14 @@ def AdminValAcc(request,id):
     user.save()
     print(user)
     
+<<<<<<< HEAD
     user_profile = UserProfile.objects.create(user=user)
     user_profile.save()
+=======
+    up = UserProfile.objects.create(user=user)
+    up.save()
+    print("up saved")
+>>>>>>> 1af21881fa7876e333ca0b198d633fb3063e9f98
     
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)
@@ -348,3 +355,4 @@ def context(request): # send context to base.html
             'users_prof': users_prof,
         }
         return context
+

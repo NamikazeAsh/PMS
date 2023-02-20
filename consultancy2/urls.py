@@ -18,6 +18,9 @@ from django.urls import path
 from django.urls import include
 from . import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +33,7 @@ urlpatterns = [
     path('adminval/delete/<int:id>',views.AdminValDel,name="adminval-delete"),
     path('tempintern',views.TempIntern,name='temp-intern'),
     path('tempsrintern',views.TempSrIntern,name='temp-srintern'),
-    path('userprofile/',views.UserProfile,name='user-profile'),
+    path('userprofile/',views.UsersProfile,name='user-profile'),
     path('userhours',views.UserHourTracking,name="user-hours"),
     path('userhours-i',views.UserHourTrackingIntern,name="user-hours-i"),
     path('userhours-p',views.UserHourTrackingProfessor,name="user-hours-p"),
@@ -50,3 +53,7 @@ urlpatterns = [
     # path('consultant/', include('consultant.urls', namespace='consultant')),
 
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
