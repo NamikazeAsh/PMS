@@ -1,204 +1,65 @@
 {% extends temp %}
 {% load static %}
 
-
 {% block breadcrumb %}
-<li class="breadcrumb-item">Home</li>
-<li class="breadcrumb-item">Teams</li>
-<li class="breadcrumb-item active">Views</li>
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Friends</li>
 {% endblock breadcrumb%}
-
-<!-- {% block extrascripts %}
-<script>
-    function search_title()
-    {
-        var input,table,tr,td,filter,txtdata;
-        input=document.getElementById("search");
-        filter=input.value.toUpperCase();
-        table=document.getElementById("projects_table");
-        tr=table.getElementsByTagName("tr");
-        
-        for(i=0;i<tr.length;i++)
-        {
-            td=tr[i].getElementsByTagName("td")[0];
-            if(td)
-            {
-                txtdata=td.innerText;
-                if(txtdata.toUpperCase().indexOf(filter)>-1)
-                {
-                    tr[i].style.display="";
-                }
-                else
-                {
-                    tr[i].style.display="none";
-                }
-            }
-        }
-
-    }
-
-    function search_date()
-    {
-        var input,table,tr,td,filter,txtdata;
-        input=document.getElementById("search");
-        filter=input.value.toUpperCase();
-        table=document.getElementById("projects_table");
-        tr=table.getElementsByTagName("tr");
-        
-        for(i=0;i<tr.length;i++)
-        {
-            td=tr[i].getElementsByTagName("td")[1];
-            if(td)
-            {
-                txtdata=td.innerText;
-                if(txtdata.toUpperCase().indexOf(filter)>-1)
-                {
-                    tr[i].style.display="";
-                }
-                else
-                {
-                    tr[i].style.display="none";
-                }
-            }
-        }
-
-    }
-
-    function search_status()
-    {
-        var input,table,tr,td,filter,txtdata;
-        input=document.getElementById("search");
-        filter=input.value.toUpperCase();
-        table=document.getElementById("projects_table");
-        tr=table.getElementsByTagName("tr");
-        
-        for(i=0;i<tr.length;i++)
-        {
-            td=tr[i].getElementsByTagName("td")[3];
-            if(td)
-            {
-                txtdata=td.innerText;
-                if(txtdata.toUpperCase().indexOf(filter)>-1)
-                {
-                    tr[i].style.display="";
-                }
-                else
-                {
-                    tr[i].style.display="none";
-                }
-            }
-        }
-
-    }
-
-    function search_team()
-    {
-        var input,table,tr,td,filter,txtdata;
-        input=document.getElementById("search");
-        filter=input.value.toUpperCase();
-        table=document.getElementById("projects_table");
-        tr=table.getElementsByTagName("tr");
-        
-        for(i=0;i<tr.length;i++)
-        {
-            td=tr[i].getElementsByTagName("td")[4];
-            if(td)
-            {
-                txtdata=td.innerText;
-                if(txtdata.toUpperCase().indexOf(filter)>-1)
-                {
-                    tr[i].style.display="";
-                }
-                else
-                {
-                    tr[i].style.display="none";
-                }
-            }
-        }
-
-    }
-        
-
-    function option()
-    {
-        var ch=document.getElementById("choice");
-        if(ch.value=="title")
-        {
-            search_title();
-        }
-        else if(ch.value=="ddate")
-        {
-            search_date();
-        }
-        else if(ch.value=="status")
-        {
-            search_status();
-        }
-        else
-        {
-            search_team();
-        }
-        
-    }
-
-    function clear()
-            {
-                // var getVal=document.getElementById("search");
-                // if (getVal.value!="")
-                //     getVal.value="";
-                print("Working")
-            }
-</script>
-{% endblock extrascripts %} -->
 
 {% block content %}
 
-<!-- <div class = "Filters" style="text-align:center; margin: 20px;">
-    <p style="display:inline;font-size: 18px;"><b> Filters</b></p>
-    <select id="choice" style="text-align:center;margin-left: 20px; height: 28px;" onchange="reset();">
-        <option value="title">Title</option>
-        <option value="ddate">Due Date</option>
-        <option value="status">Status</option>
-        <option value="team">Team</option>
-    </select>
-    
-    <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
-    <input type="button" value="Clear" onclick="clear();">
-    <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <strong>{{ teams.count }} Active Teams</strong>
-        </div>
+<div class="container-fluid">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-12 mb-3">
 
-                <div class="table-responsive">
-                            
-                    <table class="table datatablesSimple table-hover table-nowrap" id="projects_table">
-
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col">Team Name</th>
-                                <th scope="col">Team Memebers</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {% for team in teams %}
-                            {% for tusers in teams.users %}
-                            <tr>
-                                <td> <a class="text-black text-decoration-none" href="#">{{ team.team_name }}</a></td>
-                                <td>{{ team.team_name }}</td>
-                            </tr>
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
                 </div>
-
-
             </div>
-            <br>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-5">
+                        <div class="simple-box">
+                            <br><br><br>
+                        <h2 style="text-align: center;">Team Members</h2>
+                        <br><br><br>
+                        <table class="table">
+                            <thead>
+                                <th>Members</th>
+                                <th>Team Name</th>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                {% for member in team_members %}
+                                {% for name in team_name %}
+                                
+                                <td> hi </td> 
+                                <td> <b>wassup</b> </td>
+
+                                </tr>
+                            {% endfor %}
+                            {% endfor %}
+                            </tbody>
+                            
+                            
+                        </table>
+
+
+
+                        <br><br><br>
+                    </div>
+
+                </div>
+            </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
 {% endblock %}

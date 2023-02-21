@@ -39,13 +39,32 @@ def findtemp(request):
         return 'consultant/tempprof.html'
 # Create your views here.
 def teams(request):
-    teams = Team.objects.filter(user=request.user)
+    
+    teams = Team.objects.all()
+    teamd = {}
+    tl = teams.values_list()
+
+    team_name = []
+    for tname in tl:
+        team_name.append(tname[1])
+        
+    team_members = []
+    for tname2 in team_name:
+        tass = Team.objects.filter(team_name = tname2).values_list('assign')
+        members = ""
+        for tassid in tass:
+            members+= User.objects.get(id = tassid[0]).username + " | "
+        team_members.append(members)
+    
+    for i in range(len(team_name)):
+        teamd[team_name[i]] = team_members[i]
+    
     var = findtemp(request)
     context = {
-        'teams' : teams,
         'temp':var,
+        'teamd':teamd,
     }
-    return render(request, 'projects/team_views.html', context)
+    return render(request, 'projects/teamviews.html', context)
 
 def taskprofile(request,id):
     tasks = Task.objects.filter(assign = id)
@@ -284,6 +303,7 @@ def ProjectProfile(request,id):
         team_members.append(User.objects.get(id = tid2))
     
     pcname = str(Project.objects.get(id=id).company)
+<<<<<<< HEAD
     print(pcname)    
     
     if request.method == 'POST':
@@ -299,6 +319,12 @@ def ProjectProfile(request,id):
     else:
         comment_form = ProjectCommentForm()
     return render(request, 'projectprofile.html', {'projdet': projdet,
+=======
+    
+    var = findtemp(request)
+    context = {
+        'projdet': projdet,
+>>>>>>> 28f9b53e2ce6269cd38951cf7aac1aa71ba62bd1
         'pid':id,
         'temp':var,
         'team_name':team_name,

@@ -1,0 +1,63 @@
+{% extends temp %}
+{% load static %}
+
+{% block breadcrumb %}
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Friends</li>
+{% endblock breadcrumb%}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-12 mb-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-5">
+                        <div class="simple-box">
+                            <br><br><br>
+                        <h1 style="text-align: center;">Team Views</h1>
+                        <br><br><br>
+
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Members</th>
+                            </tr>
+                            
+                            {% for key,value in teamd.items %}
+                            <tr>
+                                
+                                <td><b>{{key}}</b></td>
+                                <td>{{value}}</td>
+                            </tr>
+                            {% endfor %}
+
+                            
+                            
+                            
+
+                        </table>
+                        
+
+                        <br><br><br>
+                    </div>
+                    
+
+                </div>
+            </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
