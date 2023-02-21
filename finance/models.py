@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Finance(models.Model):
     
+    project_id = models.ForeignKey("projects.Project",on_delete=models.CASCADE,default=0)
     amt_received = models.FloatField(default=0)
     cu_percentage =models.FloatField(default=0)
     expenses = models.JSONField()
