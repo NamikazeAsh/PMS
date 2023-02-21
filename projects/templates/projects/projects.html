@@ -388,7 +388,9 @@
                                             <!-- {{ form.as_p }} -->
                                             <input type="file" value="upload" name="upload" id="upload">
                                             <input type="submit" value="Upload Doc" style="color:green;font-weight:bold">
+                                            {% if project.documents %}
                                             <input type="button" value="Download Doc" style="color:darkcyan;font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
+                                            {% endif %}
                                         </form>
                                     </td>
                             </tr>

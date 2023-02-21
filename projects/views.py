@@ -387,8 +387,11 @@ def UploadProjectDocs(request,id):
     fuo = Project.objects.get(id=id)
     
     if request.method == 'POST':
-        fuo.documents = request.FILES['upload']
-        fuo.save()
-        print("saved")
+        if request.FILES:
+            fuo.documents = request.FILES['upload']
+            fuo.save()
+            print("saved")
+        else:
+            print("Nothing to upload")
     
     return projects(request)
