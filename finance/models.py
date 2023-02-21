@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Finance(models.Model):
+class ProjectFinance(models.Model):
     
     project_id = models.ForeignKey("projects.Project",on_delete=models.CASCADE,default=0)
     amt_received = models.FloatField(default=0)
@@ -12,5 +12,8 @@ class Finance(models.Model):
     income = models.JSONField()
     net_amt = models.FloatField(default=0)
     professor = models.JSONField()
+
+    # def __str__(self):
+    #     return (self.project_id)
 
     
