@@ -245,6 +245,7 @@
     <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
     <input type="button" value="Clear" onclick="clear();">
     <input type="button" value="Download All" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>
+    <input type="button" value="Upload Project CSV">
     <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
 
 </div>
@@ -386,7 +387,7 @@
                                             {% csrf_token %}
                                             <!-- {{ form.as_p }} -->
                                             <input type="file" value="upload" name="upload" id="upload">
-                                            <input type="submit" value="Upload" style="color:green;font-weight:bold">
+                                            <input type="submit" value="Upload Doc" style="color:green;font-weight:bold">
                                             <input type="button" value="Download Doc" style="color:darkcyan;font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
                                         </form>
                                     </td>
