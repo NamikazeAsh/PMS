@@ -65,7 +65,6 @@ def usersView(request):
 def user_view(request, profile_id):
     user = UserProfile.objects.get(user_id=profile_id)
     var = findtemp(request)
-    print(user.img.url)
     baseurl = "core"
     context = {
         'baseurl' : baseurl,

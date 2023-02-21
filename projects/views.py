@@ -240,16 +240,29 @@ def projects(request):
         'teams':teams,
         'form':form,
     }
-    
-    
-    
     return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
     projdet = Project.objects.filter(id = id)
+    var = findtemp(request)
+    pcomments = get_object_or_404(Project, id=id)
     
+    allcomments = pcomments.proj_comments.filter(status=True)
+    print('n-',allcomments)
+    
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(allcomments, 10)
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    user_comment = None
     
     projteam = Project.objects.values_list('assign').filter(id=id)
     print(projteam)
@@ -273,20 +286,29 @@ def ProjectProfile(request,id):
     pcname = str(Project.objects.get(id=id).company)
     print(pcname)    
     
-    
-    
-    
-    var = findtemp(request)
-    context = {
-        'projdet': projdet,
+    if request.method == 'POST':
+        comment_form = ProjectCommentForm(request.POST)
+        if comment_form.is_valid():
+            user_comment = comment_form.save(commit=False)
+            user_comment.username=request.user.username
+            user_comment.pcomments = pcomments
+            user_comment.save()
+            print('saved')
+            return redirect('projects:project-profile',id= pcomments.id)
+        
+    else:
+        comment_form = ProjectCommentForm()
+    return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
         'temp':var,
         'team_name':team_name,
         'team_members':team_members,
         'pcname':pcname,
-    }
-    
-    return render(request,"projectprofile.html",context)
+        'pcomments': pcomments,
+        'comments':  user_comment,
+        'comments': comments,
+        'comment_form': comment_form, 
+        'allcomments': allcomments,})
 
 @login_required(login_url='login')
 def newTeam(request):
