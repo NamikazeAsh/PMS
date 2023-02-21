@@ -14,7 +14,6 @@
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-12 mb-3">
-
                 </div>
             </div>
             <div class="row">
@@ -22,34 +21,33 @@
                     <div class="card mt-5">
                         <div class="simple-box">
                             <br><br><br>
-                        <h2 style="text-align: center;">Team Members</h2>
+                        <h1 style="text-align: center;">Team Views</h1>
                         <br><br><br>
+
                         <table class="table">
-                            <thead>
+                            <tr>
+                                <th>Name</th>
                                 <th>Members</th>
-                                <th>Team Name</th>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                {% for member in team_members %}
-                                {% for name in team_name %}
+                            </tr>
+                            
+                            {% for key,value in teamd.items %}
+                            <tr>
                                 
-                                <td> hi </td> 
-                                <td> <b>wassup</b> </td>
+                                <td><b>{{key}}</b></td>
+                                <td>{{value}}</td>
+                            </tr>
+                            {% endfor %}
 
-                                </tr>
-                            {% endfor %}
-                            {% endfor %}
-                            </tbody>
                             
                             
+                            
+
                         </table>
-
-
+                        
 
                         <br><br><br>
                     </div>
+                    
 
                 </div>
             </div>

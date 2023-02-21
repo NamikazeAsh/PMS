@@ -18,8 +18,8 @@ difficulty = (
 )
 
 status = (
-    ('1', 'Stuck'),
-    ('2', 'Working'),
+    ('1', 'Working'),
+    ('2', 'Stuck'),
     ('3', 'Done'),
 )
 
@@ -152,7 +152,7 @@ class ProjectCommentForm(forms.ModelForm):
         self.fields['parent'].required = False
 
     class Meta:
-        model = Comment
+        model = ProjectComment
         fields = ('parent','content')
 
         widgets = {
@@ -160,8 +160,8 @@ class ProjectCommentForm(forms.ModelForm):
         }
 
     def save(self, *args, **kwargs):
-        Comment.objects.rebuild()
-        return super(NewCommentForm, self).save(*args, **kwargs)
+        ProjectComment.objects.rebuild()
+        return super(ProjectCommentForm, self).save(*args, **kwargs)
     
 class TeamRegistrationForm(forms.ModelForm):
     team_name = forms.CharField(max_length=100)

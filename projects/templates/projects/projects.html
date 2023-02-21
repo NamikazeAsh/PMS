@@ -204,9 +204,9 @@
                     {% for project in projects %}
                     <li class="my-2">
                         {% if project.status == '1' %}
-                                <span class="badge badge-danger" style="width: 50px;">Stuck</span>
+                                <span class="badge badge-danger" style="width: 50px;">Working</span>
                             {% elif project.status == '2' %}
-                                <span class="badge badge-info" style="width: 50px;">Working</span>
+                                <span class="badge badge-info" style="width: 50px;">Stuck</span>
                             {% else %}
                                 <span class="badge badge-success" style="width: 50px;">Done!</span>
                             {% endif %}
