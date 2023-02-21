@@ -303,7 +303,6 @@ def ProjectProfile(request,id):
         team_members.append(User.objects.get(id = tid2))
     
     pcname = str(Project.objects.get(id=id).company)
-<<<<<<< HEAD
     print(pcname)    
     
     if request.method == 'POST':
@@ -319,12 +318,6 @@ def ProjectProfile(request,id):
     else:
         comment_form = ProjectCommentForm()
     return render(request, 'projectprofile.html', {'projdet': projdet,
-=======
-    
-    var = findtemp(request)
-    context = {
-        'projdet': projdet,
->>>>>>> 28f9b53e2ce6269cd38951cf7aac1aa71ba62bd1
         'pid':id,
         'temp':var,
         'team_name':team_name,
