@@ -95,7 +95,7 @@ class Comment(MPTTModel):
     
 class ProjectComment(MPTTModel):
 
-    project = models.ForeignKey(Project,on_delete=models.CASCADE,related_name='proj_comments',blank=True)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE,related_name='proj_comments',blank=True,null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE,
                             null=True, blank=True, related_name='children')
     username=models.CharField(max_length=250,null=True, blank=True)
