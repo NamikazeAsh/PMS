@@ -9,6 +9,7 @@ from projects.forms import ProjectCommentForm
 from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
+from consultancy2.decorators import *
 
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -265,6 +266,7 @@ def projects(request):
     return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
 def ProjectProfile(request,id):
     
     projdet = Project.objects.filter(id = id)

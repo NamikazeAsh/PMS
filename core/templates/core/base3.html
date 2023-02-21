@@ -43,11 +43,14 @@
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 
   <header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" style="outline:none">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <img src="{% static 'core/img/logos/title.png' %}" alt="" class="brand-gui" style="width:9rem;">
 
-    <ul class="nav navbar-nav ml-auto">
+    <ul class="nav navbar-nav ml-auto mr-5">
       
-      <b style="font-size: 11px;">{{user.username}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b> 
+      <b style="font-size: 15px;">Hello, {{user.username}}</b> 
 
     </ul>
 
