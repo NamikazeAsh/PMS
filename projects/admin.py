@@ -25,6 +25,7 @@ class TaskAdmin(admin.ModelAdmin):
     
 class TeamAdmin(admin.ModelAdmin):
     list_display = ['team_name']
+    
 
 
 admin.site.register(Project, ProjectAdmin)

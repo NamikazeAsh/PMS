@@ -263,13 +263,12 @@ def projects(request):
 
 @login_required(login_url='login')
 def ProjectProfile(request,id):
-    
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
     
     allcomments = pcomments.proj_comments.filter(status=True)
-    print('n-',allcomments)
+
     
     page = request.GET.get('page', 1)
 
@@ -303,14 +302,14 @@ def ProjectProfile(request,id):
         team_members.append(User.objects.get(id = tid2))
     
     pcname = str(Project.objects.get(id=id).company)
-    print(pcname)    
+   
     
     if request.method == 'POST':
         comment_form = ProjectCommentForm(request.POST)
         if comment_form.is_valid():
             user_comment = comment_form.save(commit=False)
             user_comment.username=request.user.username
-            user_comment.pcomments = pcomments
+            user_comment.project = pcomments
             user_comment.save()
             print('saved')
             return redirect('projects:project-profile',id= pcomments.id)
