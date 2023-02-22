@@ -191,12 +191,12 @@ def viewtask(request, task):
 
     var = findtemp(request)
     task = get_object_or_404(Task, id=task)
-
+    username = request.user.is_authenticated
     allcomments = task.comments.filter(status=True)
     
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(allcomments, 10)
+    paginator = Paginator(allcomments, 4)
     try:
         comments = paginator.page(page)
     except PageNotAnInteger:
@@ -218,7 +218,7 @@ def viewtask(request, task):
         
     else:
         comment_form = NewCommentForm()
-    return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
+    return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments,'username':username, 'temp':var,})
 
 def deltask(request,task):
     
@@ -269,13 +269,13 @@ def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
-    
+    username = request.user.is_authenticated
     allcomments = pcomments.proj_comments.filter(status=True)
 
     
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(allcomments, 10)
+    paginator = Paginator(allcomments, 4)
     try:
         comments = paginator.page(page)
     except PageNotAnInteger:
@@ -330,7 +330,8 @@ def ProjectProfile(request,id):
         'comments':  user_comment,
         'comments': comments,
         'comment_form': comment_form, 
-        'allcomments': allcomments,})
+        'allcomments': allcomments,
+        'username':username,})
 
 @login_required(login_url='login')
 def newTeam(request):
