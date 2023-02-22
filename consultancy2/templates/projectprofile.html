@@ -154,11 +154,11 @@
                         <br><br><br>
                         <table class="table">
                             <thead>
-                                <th>Total Cost(Before GST)</th>
+                                <th>Total Cost(Before GST and TDS)</th>
                                 <th>Percentage to Christ University</th>
                                 <th>Cost to Christ University</th>
-                                <th>Cost to faculties</th>
-                                <th>Consulting Profit</th>
+                                <th>Professors</th>
+                                <th>Job Cost Ratio</th>
                             </thead>
                             <tbody>
 
@@ -171,8 +171,8 @@
                                 <td>50000</td>
                                 <td>5%</td>
                                 <td>2500</td>
-                                <td>27000</td>
-                                <td>20500</td>
+                                <td>Prof1:Prof2:Prof3</td>
+                                <td>2:3:5</td>
 
                                 </tr>
                             {% comment %} {% endfor %}
@@ -189,22 +189,50 @@
                         <table class="table">
                             <thead>
                                 <th>Particular</th>
+                                <th></th>
                                 <th>Amount</th>
                             </thead>
                             <tbody>
 
                                 <tr>
+                                <td>Total amount received from XYZ excluding  GST and TDS</td>
+                                <td></td>
+                                <td>50000</td>
+                                </tr>
+
+                                <tr>
+                                    <td>5% to Christ University</td>
+                                    <td></td>
+                                    <td>2500</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Less: Expenses incuured on the file</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr> 
                                 {% comment %} {% for member in team_members %}
                                 {% for name in team_name %}
                                 <td> {{member}} </td> 
                                 <td> <b>{{name}}</b> </td> {% endcomment %}
-
-                                <td>Total amount received from XYZ excluding  GST and TDS</td>
-                                <td>100000</td>
-
                                 </tr>
                             {% comment %} {% endfor %}
                             {% endfor %} {% endcomment %}
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Net amount availabe for Disbursement</td>
+                                <td></td>
+                                <td>10000</td>
+                            </tr>
+
                             </tbody>
                             
                             
