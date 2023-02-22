@@ -94,7 +94,7 @@
                 <a class="nav-link" href="{% url 'projects:task' id=user.id %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Tasks<span class="badge badge-danger">{{ user.task_set.values.count }}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:Project' id=user.id %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Projects</a>
+                <a class="nav-link" href="{% url 'projects:project-profile' id=user.id %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Projects</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'register:user' user.id%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Profile</a>

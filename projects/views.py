@@ -128,7 +128,8 @@ def newTask(request):
 def newProject(request):
     if request.method == 'POST':
         form = ProjectRegistrationForm(request.POST)
-        context = {'form': form}
+        var = findtemp(request)
+        context = {'form': form,'temp':var,}
         if form.is_valid():
             form.save()
             created = True
@@ -319,6 +320,7 @@ def ProjectProfile(request,id):
         
     else:
         comment_form = ProjectCommentForm()
+        
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
         'temp':var,
@@ -385,17 +387,11 @@ def UploadProjectDocs(request,id):
     fuo = Project.objects.get(id=id)
     
     if request.method == 'POST':
-        fuo.documents = request.FILES['upload']
-        fuo.save()
-        print("saved")
-    
-    # documents = fuo.documents
-    # form = FileForm(instance=fuo)
-    # if form.is_valid():
-    #     form.save()
-    # context={
-    #     'form':form,
-    #     'documents':documents
-    # }
+        if request.FILES:
+            fuo.documents = request.FILES['upload']
+            fuo.save()
+            print("saved")
+        else:
+            print("Nothing to upload")
     
     return projects(request)

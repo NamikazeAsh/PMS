@@ -39,7 +39,7 @@ class Project(models.Model):
     company = models.CharField(max_length=80)
     complete_per = models.FloatField(max_length=2, validators = [MinValueValidator(0), MaxValueValidator(100)])
     description = models.TextField(blank=True)
-    documents = models.FileField(default=None,upload_to="documents/",max_length=250,null=True)
+    documents = models.FileField(default=None,upload_to="documents/",max_length=250,null=True,blank=True)
 
     add_date = models.DateField(auto_now_add=True)
     upd_date = models.DateField(auto_now_add=False, auto_now=True)

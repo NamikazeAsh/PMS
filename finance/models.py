@@ -12,3 +12,4 @@ class FinanceModel(models.Model):
     income = models.JSONField()
     net_amt = models.FloatField(default=0)
     professor = models.JSONField()
+
