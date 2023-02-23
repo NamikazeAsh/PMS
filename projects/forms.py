@@ -6,6 +6,7 @@ from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
 from .models import Comment
+from .models import Csv
 from .models import ProjectComment
 from mptt.forms import TreeNodeChoiceField
 from projects.models import Team
@@ -194,5 +195,10 @@ class FileForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["documents"]
+        
+class CsvModelForm(forms.ModelForm):
+    class Meta:
+        model = Csv
+        fields = ["file_name",]
         
         

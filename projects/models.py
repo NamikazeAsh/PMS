@@ -32,7 +32,6 @@ class Team(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=80)
-    slug = models.SlugField('shortcut', blank=True)
     assign = models.ManyToManyField(Team)
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField()
@@ -111,5 +110,12 @@ class ProjectComment(MPTTModel):
 
     def __str__(self):
         return self.content
+    
+class Csv(models.Model):
+    file_name = models.FileField(upload_to='csvs')
+    activated = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"File id : {self.id}"
 
     
