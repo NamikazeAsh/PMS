@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('projects', '0026_alter_project_documents'),
-        ('projects', '0027_auto_20230220_1840'),
+    # dependencies = [
+    #     ('projects', '0026_alter_project_documents'),
+    #     ('projects', '0027_auto_20230220_1840'),
 
-    ]
+    # ]
 
     operations = [
         migrations.CreateModel(
