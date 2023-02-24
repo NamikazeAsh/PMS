@@ -191,12 +191,12 @@ def viewtask(request, task):
 
     var = findtemp(request)
     task = get_object_or_404(Task, id=task)
-
+    username = request.user.is_authenticated
     allcomments = task.comments.filter(status=True)
     
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(allcomments, 10)
+    paginator = Paginator(allcomments, 4)
     try:
         comments = paginator.page(page)
     except PageNotAnInteger:
@@ -218,7 +218,7 @@ def viewtask(request, task):
         
     else:
         comment_form = NewCommentForm()
-    return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments, 'temp':var,})
+    return render(request, 'projects/vtask.html', {'task': task, 'comments':  user_comment, 'comments': comments, 'comment_form': comment_form, 'allcomments': allcomments,'username':username, 'temp':var,})
 
 def deltask(request,task):
     
@@ -266,17 +266,16 @@ def projects(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
 def ProjectProfile(request,id):
-    
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
-    
+    username = request.user.is_authenticated
     allcomments = pcomments.proj_comments.filter(status=True)
-    print('n-',allcomments)
+
     
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(allcomments, 10)
+    paginator = Paginator(allcomments, 4)
     try:
         comments = paginator.page(page)
     except PageNotAnInteger:
@@ -306,14 +305,14 @@ def ProjectProfile(request,id):
         team_members.append(User.objects.get(id = tid2))
     
     pcname = str(Project.objects.get(id=id).company)
-    print(pcname)    
+   
     
     if request.method == 'POST':
         comment_form = ProjectCommentForm(request.POST)
         if comment_form.is_valid():
             user_comment = comment_form.save(commit=False)
             user_comment.username=request.user.username
-            user_comment.pcomments = pcomments
+            user_comment.project = pcomments
             user_comment.save()
             print('saved')
             return redirect('projects:project-profile',id= pcomments.id)
@@ -331,7 +330,8 @@ def ProjectProfile(request,id):
         'comments':  user_comment,
         'comments': comments,
         'comment_form': comment_form, 
-        'allcomments': allcomments,})
+        'allcomments': allcomments,
+        'username':username,})
 
 @login_required(login_url='login')
 def newTeam(request):

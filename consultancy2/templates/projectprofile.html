@@ -270,7 +270,7 @@
                     <div>
                       {% recursetree comments %}
                       <div id="{{ node.id }}" class="my-2 p-2" style="border: 1px solid grey">
-                        <div class="d-flex justify-content-between">By {{ user.get_username }}<div></div>{{ node.date_time }}</div>
+                        <div class="d-flex justify-content-between">By {{ node.username }}<div></div>{{ node.date_time }}</div>
                         <!-- change author to user login -->
                         <div>{{ node.content }}</div>
                         <hr />

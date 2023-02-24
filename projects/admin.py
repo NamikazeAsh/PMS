@@ -3,6 +3,7 @@ from .models import Project
 from .models import Task
 from .models import Comment
 from .models import ProjectComment
+from .models import Csv
 from mptt.admin import MPTTModelAdmin
 from .models import Team
 
@@ -12,7 +13,6 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'company', ]
     list_filter = ['name', 'company', ]
     search_fields = ['name', 'company', 'status',]
-    prepopulated_fields = {'slug':('name',)}
 
     class Meta:
         model = Project
@@ -25,6 +25,7 @@ class TaskAdmin(admin.ModelAdmin):
     
 class TeamAdmin(admin.ModelAdmin):
     list_display = ['team_name']
+    
 
 
 admin.site.register(Project, ProjectAdmin)
@@ -32,3 +33,4 @@ admin.site.register(Task, TaskAdmin)
 admin.site.register(Comment, MPTTModelAdmin)
 admin.site.register(ProjectComment, MPTTModelAdmin)
 admin.site.register(Team, TeamAdmin)
+admin.site.register(Csv)
