@@ -245,7 +245,7 @@ def projects(request):
     
     teams = Team.objects.all()
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
-    tasks = Task.objects.all()
+    tasks = Task.objects.all() 
     overdue_tasks = tasks.filter(status='2')
     var = findtemp(request)
     
@@ -305,7 +305,6 @@ def ProjectProfile(request,id):
         team_members.append(User.objects.get(id = tid2))
     
     pcname = str(Project.objects.get(id=id).company)
-   
     
     if request.method == 'POST':
         comment_form = ProjectCommentForm(request.POST)
