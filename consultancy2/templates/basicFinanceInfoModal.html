@@ -1,0 +1,29 @@
+<div class="modal fade" id="editBasicFinanceInfoModal" tabindex="-1" aria-labelledby="editBasicFinanceInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editBasicFinanceInfoModalLabel">Edit Basic Finance Infomation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/editbasicfinanceinfo" method="POST">
+        <div class="modal-body">
+          {% csrf_token %}
+          <div>
+            <div>
+              <label>Total amount received excluding  GST and TDS</label>
+              <input type="text" class="" name="amount">
+            </div>
+            <div>
+              <label>Percentage to Christ University</label>
+              <input type="number" class="" name="percentage">
+            </div>
+          </div>
+        </div>
+        <div class="container d-grid">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
