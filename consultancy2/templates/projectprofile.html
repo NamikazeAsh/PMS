@@ -200,8 +200,6 @@
                     <td></td>
                     <td>50000</td>
                     <td>
-                      {% comment %} <button type="button" class="btn btn-warning"><img src="{% static " icons/edit.svg" %}"></img></button>
-                      <button type="button" class="btn btn-danger"><img src="{% static " icons/delete.svg" %}"></img></button> {% endcomment %}
                     </td>
                   </tr>
 
@@ -217,6 +215,13 @@
 
                   <tr>
                     <td>Less: Expenses incuured on the file</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Add: Incomes incuured on the file</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -250,16 +255,19 @@
 
               </table>
 
+              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add Expense</button>
+              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addIncomeModal">Add Incomes</button>
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#editBasicFinanceInfoModal">Edit Basic Information</button>
-              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;">Add Expense</button>
-              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;">Add Incomes</button>
-              
+              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addProfessorModal">Add Professor</button>
             </div>
             
           </div>
         </div>
         
         {% include 'basicFinanceInfoModal.html' %}
+        {% include 'addProfessorModal.html' %}
+        {% include 'addIncomeModal.html' %}
+        {% include 'addExpenseModal.html' %}
 
         <div class="container-fluid">
           <div id="ui-view" style="opacity: 1;">

@@ -10,18 +10,14 @@
           {% csrf_token %}
           <div>
             <div>
-              <label>Total amount received excluding  GST and TDS</label>
-              <input type="text" class="" name="amount">
-            </div>
-            <div>
-              <label>Percentage to Christ University</label>
-              <input type="number" class="" name="percentage">
+              <input type="text" class="mt-2 btn-block" name="amount" placeholder="Total amount received excluding  GST and TDS">
+              <input type="number" class="mt-4 btn-block" name="percentage" placeholder="Percentage to Christ University">
             </div>
           </div>
         </div>
-        <div class="container d-grid">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div class=" d-flex align-items-center justify-content-center mt-3 mb-3 ">
+          <button type="submit" class="btn btn-primary col-3 mr-5">Save</button>
+          <button type="button" class="btn btn-secondary  col-3 ml-5" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

@@ -47,7 +47,7 @@ urlpatterns = [
     path("calendar/", include("calendarapp.urls")),
     path("finance/", include("finance.urls")),
 
-    # path("editbasicfinanceinfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
+    path("editbasicfinanceinfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
 
     # path('srintern/', include('srintern.urls', namespace='srintern')),
     # path('', include('core.urls', namespace='core')),

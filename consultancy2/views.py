@@ -351,8 +351,8 @@ def context(request): # send context to base.html
         }
         return context
 
-# def editBasicFinanceInfo(request) :
-#     return HttpResponse("/")
+def editBasicFinanceInfo(request) :
+    return HttpResponse("/")
     # if request.method == "POST":
     #     username = request.POST.get( 'username' )
     #     password = request.POST.get( 'password' )
@@ -361,5 +361,6 @@ def context(request): # send context to base.html
     #         login( request, user)
     #         return HttpResponseRedirect('/backend')
     #     else:
-    #         messages. error( request , "Enter your data correctly.")
+    #         messages.error( request , "Enter your data correctly.")
+    #         messages.info( request , "Enter your data correctly.")
     #         return HttpResponseRedirect('/')
