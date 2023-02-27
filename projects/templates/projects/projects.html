@@ -233,7 +233,7 @@
     </div>
 </div>
 
-<div class = "Filters" style="text-align:center; margin: 20px;">
+<div class = "Filters" style="text-align: center; margin: 20px;">
     <p style="display:inline;font-size: 18px;"><b> Filters</b></p>
     <select id="choice" style="text-align:center;margin-left: 20px; height: 28px;" onchange="reset();">
         <option value="title">Title</option>
@@ -243,9 +243,9 @@
     </select>
     
     <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
-    <input type="button" value="Clear" onclick="clear();">
-    <input type="button" value="Download All" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>
-    <input type="button" value="Upload Project CSV">
+    <input type="button" class="btn btn-secondary ml-3" value="Clear" onclick="clear();">
+    <input type="button" value="Download All" class=" ml-3 btn btn-info" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>
+    <input type="button" value="Upload Project CSV" class="ml-3 btn btn-warning">
     <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
 
 </div>
@@ -291,18 +291,18 @@
 
                 <div class="table-responsive">
                             
-                    <table class="table datatablesSimple table-hover table-nowrap" id="projects_table">
+                    <table class="table datatablesSimple table-hover table-nowrap" id="projects_table" style="overflow-x: scroll;">
 
                         <thead class="table-light">
-                            <tr>
-                                <th scope="col">Project Title</th>
-                                <th scope="col">Due Date</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Team</th>
-                                <th scope="col">Progress</th>
-                                <th scope="col">Download</th>
-                                <th scope="col">Document</th>
+                            <tr style="width: 100%;">
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Project Title</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Due Date</th>
+                                <th style="width: 15rem; padding: 0px; padding-left: 5px;" scope="col">Description</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Status</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Team</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Progress</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Download</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Document</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -310,11 +310,11 @@
                             {% for project in projects %}
                             <tr>
                                 
-                                <td> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
-                                <td>{{ project.dead_line }}</td>
-                                <td class="col-desc">{{ project.description|truncatechars:200 }}</td>
-                                <td><span class="badge text-black">
-                                    <p style="font-size: 10px;">
+                                <td style="padding: 0%; padding-left: 5px;"> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
+                                <td style="padding: 0%; padding-left: 5px;">{{ project.dead_line }}</td>
+                                <td style="padding: 0%; padding-left: 5px;" class="col-desc">{{ project.description|truncatechars:200 }}</td>
+                                <td style="padding: 0%;"><span class="badge text-black">
+                                    <p style="font-size: 10px; color: black;">
                                     {% if project.status == '2' %}Stuck
                                     {% elif project.status == '1' %}Working
                                     {% elif project.status == '3' %}Done
@@ -322,7 +322,7 @@
                                     {% endif %}</span>
                                     </p>
                                 </td>
-                                <td>
+                                <td style="padding: 0%; padding-left: 5px;">
                                     <span class="label gradient-2 btn-rounded"> 
 
                                         {% for tpair in projteamassoc %}
@@ -334,62 +334,66 @@
                                     </span>
                                 </td>
                                 {% if project.complete_per < 30%}
-                                <td>
-                                    <div class="d-flex align-items-center"><span class="me-2">{{ project.complete_per }}%</span>
+                                <td style="padding: 0%; padding-left: 5px;">
+                                    <div class="d-flex align-items-center">
                                         <div>
                                             <div class="progress" style="width:100px">
                                                 <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
                                             </div>
                                         </div>
+                                        <span class="ml-2">{{ project.complete_per }}%</span>
                                     </div>
                                 </td>
                                     
                                     {% elif project.complete_per < 56%}
-                                    <td>
-                                        <div class="d-flex align-items-center"><span class="me-2">{{ project.complete_per }}%</span>
+                                    <td style="padding: 0%; padding-left: 5px;">
+                                        <div class="d-flex align-items-center">
                                             <div>
                                                 <div class="progress" style="width:100px">
                                                     <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <span class="me-2">{{ project.complete_per }}%</span>
                                     </td>
                                     {% elif project.complete_per < 100%}
-                                    <td>
-                                        <div class="d-flex align-items-center"><span class="me-2">{{ project.complete_per }}%</span>
+                                    <td style="padding: 0%; padding-left: 5px;">
+                                        <div class="d-flex align-items-center">
                                             <div>
                                                 <div class="progress" style="width:100px">
                                                     <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <span class="me-2">{{ project.complete_per }}%</span>
                                     </td>
                                     {% else %}
-                                    <td>
-                                        <div class="d-flex align-items-center"><span class="me-2">{{ project.complete_per }}%</span>
+                                    <td style="padding: 0%; padding-left: 5px;">
+                                        <div class="d-flex align-items-center">
                                             <div>
                                                 <div class="progress" style="width:100px">
                                                     <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <span class="me-2">{{ project.complete_per }}%</span>
                                     </td>
                                     {% endif %}
 
-                                    <td><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red;text-decoration:none;">Download</a></td>
+                                    <td style="padding: 0%; padding-left: 5px;"><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red; text-decoration:none; ">Download</a></td>
 
-                                    <td> 
+                                    <td style="padding: 0%; padding-left: 5px;"> 
                                         <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
                                             {% csrf_token %}
                                             <!-- {{ form.as_p }} -->
-                                            <input type="file" value="upload" name="upload" id="upload">
-                                            <input type="submit" value="Upload Doc" style="color:green;font-weight:bold">
+                                            <input type="file" value="upload" name="upload" id="upload" class="mt-2 ">
+                                            <input type="submit" class="mt-2 mb-2 btn btn-warning "value="Upload Doc" style="color:black; font-weight:bold">
                                             {% if project.documents %}
-                                            <input type="button" value="Download Doc" style="color:darkcyan;font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
+                                            <input type="button" class="mt-2 ml-2 mb-2 btn btn-info" value="Download Doc" style="color:black; font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
                                             {% endif %}
                                         </form>
                                     </td>
