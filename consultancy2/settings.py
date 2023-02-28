@@ -86,33 +86,33 @@ WSGI_APPLICATION = 'consultancy2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'finaldb1',
-#         'USER' : 'root',
-#         'PASSWORD' : '',
-#         'HOST' : 'localhost',
-#         'PORT' : '3306',
-#         'OPTIONS' : {
-#             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
-#         }
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'finaldb1',
         'USER' : 'root',
-        'PASSWORD' : 'ZcApGIbGjSw6RujxWqfz',
-        'HOST' : 'containers-us-west-75.railway.app',
-        'PORT' : '7290',
+        'PASSWORD' : '',
+        'HOST' : 'localhost',
+        'PORT' : '3306',
         'OPTIONS' : {
             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
         }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'finaldb1',
+#         'USER' : 'root',
+#         'PASSWORD' : 'ZcApGIbGjSw6RujxWqfz',
+#         'HOST' : 'containers-us-west-75.railway.app',
+#         'PORT' : '7290',
+#         'OPTIONS' : {
+#             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

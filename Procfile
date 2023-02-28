@@ -1,0 +1,1 @@
+web: gunicorn consultancy2.wsgi 
