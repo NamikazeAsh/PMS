@@ -161,5 +161,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "" #add password
 
-
-
+#Added to fix runserver errors
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
