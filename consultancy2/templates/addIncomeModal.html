@@ -5,14 +5,14 @@
                 <h1 class="modal-title fs-5" id="addIncomeLabel">Add Income</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/addIncome" method="POST">
+            <form action="" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div>
                         <div>
-                            <input type="text" class="mt-4 btn-block" name="name" placeholder="Particular">
+                            <input type="text" class="mt-4 btn-block" name="particular" placeholder="Particular">
                             {% comment %} <img src="{% static "icons/rupee.svg" %}"></img> {% endcomment %}
-                            <input type="number" class="mt-4 btn-block" name="ratio" placeholder="Amount">
+                            <input type="number" class="mt-4 btn-block" name="amount" placeholder="Amount">
                         </div>
                     </div>
                 </div>

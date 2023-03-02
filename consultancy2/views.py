@@ -18,6 +18,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from register.models import UserProfile
+from finance.models import *
 
 
 
@@ -364,3 +365,37 @@ def editBasicFinanceInfo(request) :
     #         messages.error( request , "Enter your data correctly.")
     #         messages.info( request , "Enter your data correctly.")
     #         return HttpResponseRedirect('/')
+
+def addExpense(request) :
+    return HttpResponse("/")
+
+def addIncome(request, id) :
+    if request.method == "POST":
+        pid = id
+        particular = request.POST.get('particular')
+        amt = request.POST.get('amount')
+        
+        # valusers = AdminValidation.objects.get(email = request.user.email)
+        # updhour = valusers.hours
+        # newhour = updhour + int(uhour)
+        
+        # valusers.hours = newhour
+        # valusers.save()
+        
+        return ProjectProfile(request,pid)
+        
+    details = HourVal.objects.all()
+    freehouro = AdminValidation.objects.get(email = request.user.email)
+    print(freehouro)
+    
+    var = findtemp(request)
+    context = {
+        "temp": var,
+        "details":details,
+        "freehourso":freehouro,
+    }
+    return render(request,"userhour_professor.html",context)
+    # return HttpResponse("/")
+
+def addProfessor(request) :
+    return HttpResponse("/")
