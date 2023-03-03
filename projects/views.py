@@ -103,17 +103,6 @@ def newTask(request):
                 'temp':var,
             }
             
-            
-            # ------------------------------- Email Section ------------------------------ #
-            # send_mail(
-            #     '[Christ Consulting] Task assigned!',
-            #     'Task has been assigned',
-            #     'noreply.christconsulting@gmail.com',
-            #     ['ashwin.satish@science.christuniversity.in'],
-            #     fail_silently=False,
-            # )
-            # print("Email Sent")
-            
             return render(request, 'projects/new_task.html', context)
         else:
             return render(request, 'projects/new_task.html', context)
@@ -389,7 +378,6 @@ def UploadProjectDocs(request,id):
         if request.FILES:
             fuo.documents = request.FILES['upload']
             fuo.save()
-            print("saved")
         else:
             print("Nothing to upload")
     
