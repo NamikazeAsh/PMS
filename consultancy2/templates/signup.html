@@ -146,9 +146,6 @@
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/mail.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                                </div> {% endcomment %}
                                                 {{ form.email }}
                                                 {% if form.email.errors %}
                                                     <ol>
