@@ -386,7 +386,8 @@
 
                                     <td style="padding: 0%; padding-left: 5px;"><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red; text-decoration:none; ">Download</a></td>
 
-                                    <td style="padding: 0%; padding-left: 5px;"> 
+                                    <td style="padding: 0%; padding-left: 5px;">
+                                        
                                         <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
                                             {% csrf_token %}
                                             <!-- {{ form.as_p }} -->
