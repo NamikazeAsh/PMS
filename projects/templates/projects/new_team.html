@@ -10,45 +10,6 @@
 
 {% block extracss %}
         <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
-
- {% comment %} <style>
-    .field-selection {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1rem;
-    }
-
-    .field-selection .title {
-        font-size: 1.25em;
-        margin-bottom: 0px;
-        margin-right: .75rem;
-        font-weight: 400;
-    }
-
-    .form-group {
-        border: 1px solid #ced4da;
-        padding: 0px 5px;
-        border-radius: 10px;
-    }
-
-    .button-section {
-        margin-top: 1.5rem;
-        display: flex;
-        justify-content:space-evenly;
-        align-items: center;
-    }
-
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .form-control {
-        display: inline-block;
-    }
- </style> {% endcomment %}
 {% endblock extracss %}
 
 
@@ -110,7 +71,7 @@
                                     </div>
                                 </div>
 
-                                <div class="">
+                                <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
                                     <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
                                 </div>
