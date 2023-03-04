@@ -8,6 +8,50 @@
 {% endblock breadcrumb%}
 
 
+{% block extracss %}
+        <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
+
+ {% comment %} <style>
+    .field-selection {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .field-selection .title {
+        font-size: 1.25em;
+        margin-bottom: 0px;
+        margin-right: .75rem;
+        font-weight: 400;
+    }
+
+    .form-group {
+        border: 1px solid #ced4da;
+        padding: 0px 5px;
+        border-radius: 10px;
+    }
+
+    .button-section {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content:space-evenly;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-control {
+        display: inline-block;
+    }
+ </style> {% endcomment %}
+{% endblock extracss %}
+
+
 
 
 
@@ -16,7 +60,7 @@
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card-group">
-                    <div class="card p-4 mb-5">
+                    <div class="card p-4 mb-5" style="width: 70vw;">
                         <div class="card-body">
                             {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -35,11 +79,9 @@
                                 {% csrf_token %}
 
                                 
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                        </div>
+                                        <img src="{% static "icons/user.svg" %}"></img>
 
                                         {{ form.team_name }}
                                         {% if form.team_name.errors %}
@@ -55,9 +97,8 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Assign. <i>Crtl+click for multiple selection</i></label>
                                     <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-users"></i></span>
-                                        </div>
+                                        <img src="{% static "icons/users.svg" %}"></img>
+                                        
                                         {{ form.assign }}
                                         {% if form.assign.errors %}
                                             <ol>

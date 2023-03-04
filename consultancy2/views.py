@@ -24,6 +24,7 @@ from finance.models import *
 
 
 import datetime
+import json
 
 from .decorators import unauthorized_users,allowed_users
 flag = True
@@ -370,32 +371,110 @@ def addExpense(request) :
     return HttpResponse("/")
 
 def addIncome(request, id) :
+    print("HEloooooooooooooooooooooooo")
+    pid = id
+
     if request.method == "POST":
-        pid = id
         particular = request.POST.get('particular')
         amt = request.POST.get('amount')
+        tempDict = {
+            "particular": particular,
+            "amount": amt,
+        }
+
+        mydata = FinanceModel.objects.filter(project_id=pid).values()
+
+        if not mydata:
+            if not mydata.values_list('income'):
+                incomingIncomeData = json.loads(mydata)
+                tempList = incomingIncomeData["add"]
+                tempList.append(tempDict)
+
+            else:
+                tempList = [tempDict]
+
+            finalDict = {"add": tempList}
+            finalJSON = json.dumps(finalDict)
+            saveincome = FinanceModel()
+            saveincome.income = finalJSON
+            saveincome.save()
+
+        else:
+            finalDict = {"add": tempList}
+            finalJSON = json.dumps(finalDict)
+
+            saveincome = FinanceModel()
+            saveincome.project_id = pid
+            saveincome.income = finalJSON
+            saveincome.save()
+
+
+
+
+    # if request.method == "POST":
+    #     particular = request.POST.get('particular')
+    #     amt = request.POST.get('amount')
+
+    #     tempDict = {
+    #         "particular": particular,
+    #         "amount": amt,
+    #     }
+
+    #     tempList = [tempDict]
+
+    #     finalDict = {"add": tempList}
+
+    #     finalJSON = json.dumps(finalDict)
+
+
+
+# dict_1 = {
+#     "Name": "Adhish",
+#     "Contact Number": 000,
+#     "Email": "fely@gmail.com",
+#     }
+
+# dict_2 = {
+#     "Name": "Priyanshi",
+#     "Contact Number": 111,
+#     "Email": "fely@gmail.com",
+#     }
+
+# list1 = [dict_1, dict_2]
+
+# final_dict = {"add": list1}
+ 
+# y = json.dumps(final_dict)
+
+# yo = json.loads(y)
+# list2 = yo["add"]
+
+# namesearch = "Priyanshi"
+# for i in list2:
+#     # print(i)
+#     if (i["Name"] == namesearch):
+#         i["Contact Number"] = 69696969
+#         print(i)
         
-        # valusers = AdminValidation.objects.get(email = request.user.email)
-        # updhour = valusers.hours
-        # newhour = updhour + int(uhour)
-        
-        # valusers.hours = newhour
-        # valusers.save()
+        saveincome = FinanceModel()
+        saveincome.project_id = pid
+        saveincome.income = finalJSON
+        saveincome.save()
         
         return ProjectProfile(request,pid)
         
-    details = HourVal.objects.all()
-    freehouro = AdminValidation.objects.get(email = request.user.email)
-    print(freehouro)
+    # details = HourVal.objects.all()
+    # freehouro = AdminValidation.objects.get(email = request.user.email)
+    # print(freehouro)
     
-    var = findtemp(request)
-    context = {
-        "temp": var,
-        "details":details,
-        "freehourso":freehouro,
-    }
-    return render(request,"userhour_professor.html",context)
-    # return HttpResponse("/")
+    # var = findtemp(request)
+    # context = {
+    #     "temp": var,
+    #     "details":details,
+    #     "freehourso":freehouro,
+    # }
+    return ProjectProfile(request,pid)
+    # return render(request,"projectprofile.html",pid)
 
 def addProfessor(request) :
     return HttpResponse("/")
