@@ -17,6 +17,7 @@ urlpatterns = [
     path('projects/viewtask/<int:task>',views.viewtask,name='viewtask'),
     path('projects/deletetask/<int:task>',views.deltask,name='deletetask'),
     path('projects/project/<int:id>',views.ProjectProfile, name='project-profile'),
+    path('projects/deletecomment/<int:id>',views.deletecomment, name='delete-comment'),
     path('projects/downloadprojreport/<int:id>',views.DownloadProjectReport,name='DownloadProject'),
     path('projects/downloadallprojreport/',views.DownloadAllProjectReport,name='DownloadAllProject'),
     path('projects/uploadprojdoc/<int:id>',views.UploadProjectDocs,name='UploadProjDocs'),
