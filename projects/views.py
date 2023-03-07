@@ -382,4 +382,3 @@ def UploadProjectDocs(request,id):
             print("Nothing to upload")
     
     return projects(request)
-    # return projectsprofile(request,pid)
