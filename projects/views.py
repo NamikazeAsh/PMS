@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from register.models import Project
-from projects.models import Task,Team
+from projects.models import Task,Team,ProjectComment
 from projects.forms import NewCommentForm
 from projects.forms import ProjectCommentForm
 from projects.forms import TaskRegistrationForm
@@ -25,6 +25,8 @@ from django.core.files.storage import FileSystemStorage
 
 from django.core.files import File
 from .forms import FileForm
+
+from tkinter.filedialog import *
 
 
 def findtemp(request):
@@ -321,6 +323,17 @@ def ProjectProfile(request,id):
         'allcomments': allcomments,
         'username':username,})
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
+def deletecomment(request,id):
+    users_comment = get_object_or_404(ProjectComment, id=id)
+    
+    users_comment.delete()
+    # return redirect('projects:project-profile',id=users_comment.id)
+    pid = users_comment.project.id
+    return ProjectProfile(request,pid)
+
 @login_required(login_url='login')
 def newTeam(request):
     if request.method == 'POST':
@@ -359,15 +372,28 @@ def DownloadProjectReport(request,id):
     
     return projects(request)
 
+
+import os
+import mimetypes
+
 @login_required(login_url='login')
 def DownloadAllProjectReport(request):
 
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     dfd = Project.objects.all().values()
     df = pd.DataFrame(dfd)
-    csvtitle = request.user.first_name
-    df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    csvtitle = request.user.username
+    df.to_csv("Reports/Project/" + csvtitle + ".csv",index=False)
     
-    return projects(request)
+    filename = csvtitle + '.csv'
+    filepath =  BASE_DIR + '/Reports/Project/' + filename
+    path = open(filepath,'r')
+    mime_type = mimetypes.guess_type(filepath)
+    response = HttpResponse(path,content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    
+    return response
 
 @login_required(login_url='login')
 def UploadProjectDocs(request,id):
@@ -382,4 +408,3 @@ def UploadProjectDocs(request,id):
             print("Nothing to upload")
     
     return projects(request)
-    # return projectsprofile(request,pid)

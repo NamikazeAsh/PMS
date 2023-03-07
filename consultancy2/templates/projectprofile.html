@@ -9,6 +9,31 @@
 
 {% block extracss %}
 <style>
+ @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
+
+  .h1 {
+    font-family: 'PT Serif', serif;
+    font-size: 2.55rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.063px;
+  }
+
+  h2 {
+    font-family: 'PT Serif', serif;
+    font-size: 1.9rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.063px;
+    font-weight: 700;
+    padding-top: 48px;
+  }
+
+  p {
+    font-family: 'PT Serif', serif;
+    line-height: 2rem;
+    font-size: 1.3rem
+  }
+
   @media screen and (min-width: 600px) {
     .children form {
       margin-left: -48px;
@@ -20,6 +45,38 @@
       /* will touch very left side */
     }
   }
+
+  .avatar_comment,
+  .avatar_single {
+    height: 48px;
+    width: 48px;
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+
+  }
+
+  .smaller {
+    font-size: 0.8rem;
+  }
+
+  .thumb-active {
+    fill: blue
+  }
+
+  .comment-add {
+    border-bottom: 1px solid #ccc !important;
+  }
+
+  .comment-add:focus {
+    border-color: #1497ff;
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
+  }
+
+  .node-content {
+    padding-left: 64px;
+  }
+
 </style>
 {% endblock extracss %}
 
@@ -37,12 +94,12 @@
     var d1 = document.getElementById(id);
     d1.insertAdjacentHTML('afterend',
       '<form id="newForm" class="form-insert py-2" method="post"> \
-                  <div class="d-flex justify-content-between"><h2>Reply:</h2><div><button type="button" class="btn btn-outline-secondary" onclick="formExit()"">Close</button></div></div> \
+                  <div class="d-flex justify-content-between"><h3>Reply:</h3><div><button type="button" class="btn btn-outline-secondary" onclick="formExit()"">Close</button></div></div> \
                   <select name="parent" class="d-none" id="id_parentt"> \
                   <option value="' + id + '" selected="' + id + '"></option> \
                   </select> \
                   <label for="id_content">Content:</label> \
-                  <textarea name="content" cols="40" rows="5" class="form-control" required id="id_content"></textarea> \
+                  <textarea name="content" cols="0" rows="1" class="ml-3 mb-3 form-control border-0 comment-add rounded-0" required id="id_content" placeholder="Add a comment"></textarea> \
                   {% csrf_token %} \
                   <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button> \
                 </form>');
@@ -305,14 +362,14 @@
                           <div>
                             {% recursetree comments %}
                             <div id="{{ node.id }}" class="my-2 p-2" style="border: 1px solid grey">
-                              <div class="d-flex justify-content-between">By {{ node.username }}<div></div>{{
-                                node.date_time }}</div>
-                              <!-- change author to user login -->
+                              <div class="d-flex justify-content-between">By {{ node.username }}<div></div>{{node.date_time }}</div>
                               <div>{{ node.content }}</div>
-                              <hr />
-                              {% if node.level < 3 %} <button class="button" onclick="myFunction({{node.id}})">
-                                Reply</button>
+                              <div class="d-flex flex-row-reverse">
+                              {% if node.level < 3 %} <button class="btn btn-primary btn-sm" onclick="myFunction({{node.id}})">Reply</button>
+                              <button class="btn btn-outline-secondary btn-sm mr-2"><a href="/projects/projects/deletecomment/{{node.id}}">Delete</a></button>
                                 {% endif %}
+                            </div>
+                            <hr>
                             </div>
                             {% if not node.is_leaf_node %}
                             <div class="children pl-2 pl-md-5">
