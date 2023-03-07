@@ -26,6 +26,8 @@ from django.core.files.storage import FileSystemStorage
 from django.core.files import File
 from .forms import FileForm
 
+from tkinter.filedialog import *
+
 
 def findtemp(request):
     if request.user.groups.filter(name='Intern').exists():
@@ -370,15 +372,28 @@ def DownloadProjectReport(request,id):
     
     return projects(request)
 
+
+import os
+import mimetypes
+
 @login_required(login_url='login')
 def DownloadAllProjectReport(request):
+
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     dfd = Project.objects.all().values()
     df = pd.DataFrame(dfd)
     csvtitle = request.user.username
-    df.to_csv("Reports/Project/" + csvtitle + ".csv")
+    df.to_csv("Reports/Project/" + csvtitle + ".csv",index=False)
     
-    return projects(request)
+    filename = csvtitle + '.csv'
+    filepath =  BASE_DIR + '/Reports/Project/' + filename
+    path = open(filepath,'r')
+    mime_type = mimetypes.guess_type(filepath)
+    response = HttpResponse(path,content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    
+    return response
 
 @login_required(login_url='login')
 def UploadProjectDocs(request,id):
