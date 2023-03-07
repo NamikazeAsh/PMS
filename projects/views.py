@@ -375,7 +375,7 @@ def DownloadAllProjectReport(request):
 
     dfd = Project.objects.all().values()
     df = pd.DataFrame(dfd)
-    csvtitle = request.user.first_name
+    csvtitle = request.user.username
     df.to_csv("Reports/Project/" + csvtitle + ".csv")
     
     return projects(request)
