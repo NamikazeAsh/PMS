@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from register.models import Project
-from projects.models import Task,Team
+from projects.models import Task,Team,ProjectComment
 from projects.forms import NewCommentForm
 from projects.forms import ProjectCommentForm
 from projects.forms import TaskRegistrationForm
@@ -320,6 +320,17 @@ def ProjectProfile(request,id):
         'comment_form': comment_form, 
         'allcomments': allcomments,
         'username':username,})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
+def deletecomment(request,id):
+    users_comment = get_object_or_404(ProjectComment, id=id)
+    
+    users_comment.delete()
+    # return redirect('projects:project-profile',id=users_comment.id)
+    pid = users_comment.project.id
+    return ProjectProfile(request,pid)
 
 @login_required(login_url='login')
 def newTeam(request):
