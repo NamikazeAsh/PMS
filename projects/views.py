@@ -227,6 +227,13 @@ def deltask(request,task):
 @login_required(login_url='login')
 def projects(request):
     
+    # ---------------------------- Completion handler ---------------------------- #
+    projc = Project.objects.all()
+    for project in projc:
+        if project.documents:
+            project.status = 3
+            project.save()
+    
     projects = Project.objects.all()
     projteamassoc = []
     for a in projects:
@@ -277,7 +284,6 @@ def ProjectProfile(request,id):
     user_comment = None
     
     projteam = Project.objects.values_list('assign').filter(id=id)
-    print(projteam)
     team_id = []
     team_name = []
     team_members_id = []
