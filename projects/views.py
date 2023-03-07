@@ -233,6 +233,7 @@ def projects(request):
         if project.documents:
             project.status = 3
             project.save()
+    # ----------------------------------- xxxx ----------------------------------- #
     
     projects = Project.objects.all()
     projteamassoc = []
