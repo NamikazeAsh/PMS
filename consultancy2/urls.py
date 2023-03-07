@@ -49,7 +49,7 @@ urlpatterns = [
 
     path("editbasicfinanceinfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
     path("add-expense", views.addExpense, name="addExpense"),
-    path("add-income/<int:id>", views.addIncome, name="addIncome"),
+    path("projects/project/<int:id>/addincome", views.addIncome, name="addIncome"),
     path("add-professor", views.addProfessor, name="addProfessor"),
 
     # path('srintern/', include('srintern.urls', namespace='srintern')),

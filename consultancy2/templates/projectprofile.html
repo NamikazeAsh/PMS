@@ -255,19 +255,28 @@
 
               </table>
 
+              {% for project in projdet %}
+
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add Expense</button>
-              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addIncomeModal" onClick="">Add Incomes</button>
+              {% comment %} <a href="/projects/project/{{project.id}}/addincome"> {% endcomment %}
+                <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addIncomeModal">Add Incomes</button>
+              {% comment %} </a> {% endcomment %}
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#editBasicFinanceInfoModal">Edit Basic Information</button>
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addProfessorModal">Add Professor</button>
+
+              {% endfor %}
+
             </div>
             
           </div>
         </div>
         
-        {% include 'basicFinanceInfoModal.html' %}
-        {% include 'addProfessorModal.html' %}
-        {% include 'addIncomeModal.html' %}
-        {% include 'addExpenseModal.html' %}
+        {% for project in projdet %}
+          {% include 'basicFinanceInfoModal.html' with projectid=projdet.id %}
+          {% include 'addProfessorModal.html' with projectid=projdet.id %}
+          {% include 'addIncomeModal.html' with projectid=projdet.id %}
+          {% include 'addExpenseModal.html' with projectid=projdet.id %}
+        {% endfor %}
         
 
         <div class="container-fluid">
