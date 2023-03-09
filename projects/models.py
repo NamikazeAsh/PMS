@@ -19,6 +19,13 @@ status = (
     ('3', 'Done'),
 )
 
+category = (
+    ('1', 'Extension Based'),
+    ('2', 'Functional Based'),
+    ('3', 'Research Based'),
+    ('3', 'Government'),
+)
+
     
 # Create your models here.
 
@@ -33,6 +40,7 @@ class Team(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=80)
     assign = models.ManyToManyField(Team)
+    category = models.CharField(max_length=15, choices=category, default=1)
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField()
     company = models.CharField(max_length=80)

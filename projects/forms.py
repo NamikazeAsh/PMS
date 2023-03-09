@@ -22,6 +22,13 @@ status = (
     ('3', 'Done'),
 )
 
+category = (
+    ('1', 'Extension Based'),
+    ('2', 'Functional Based'),
+    ('3', 'Research Based'),
+    ('3', 'Government'),
+)
+
 
 class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
@@ -66,7 +73,7 @@ class TaskRegistrationForm(forms.ModelForm):
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
-
+    category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
     company = forms.CharField(max_length=80)
@@ -81,7 +88,7 @@ class ProjectRegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         Project = super(ProjectRegistrationForm, self).save(commit=False)
         Project.name = self.cleaned_data['name']
-
+        Project.category = self.cleaned_data['category']
         Project.status = self.cleaned_data['status']
         Project.dead_line = self.cleaned_data['dead_line']
         Project.company = self.cleaned_data['company']
@@ -103,6 +110,8 @@ class ProjectRegistrationForm(forms.ModelForm):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget.attrs['placeholder'] = 'Project Name'
+        self.fields['category'].widget.attrs['class'] = 'form-control'
+        self.fields['category'].widget.attrs['placeholder'] = 'Category'
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
