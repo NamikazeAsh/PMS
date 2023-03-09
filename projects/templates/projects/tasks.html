@@ -34,7 +34,6 @@
                             {% endif %}
                             <h2>{{tk.task_name}}</h2>
                             <h6>{{tk.project}}</h6>
-                            <a href="{% url 'projects:viewtask' task=tk.id %}"><button class="btnview">View More</button></a>
                             <a href="{% url 'projects:deletetask' task=tk.id %}"><button class="btnview btndelete">Delete</button></a>
                         </div>
                     </div>

@@ -145,8 +145,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Project Name</th>
-                    <th>Type</th>
-                    <th>Efforts</th>
+                    <th>Category</th>
                     <th>Status</th>
                     <th>Added date</th>
                     <th>Dead line</th>
@@ -160,8 +159,13 @@
                   <tr>
                     <td>{{ project.id }}</td>
                     <td>{{ project.name }}</td>
-                    <td>Type</td>
-                    <td>{{ project.efforts }}</td>
+                    <td>
+                      {% if project.category == '1' %}Extension Based
+                      {% elif project.category == '2' %}Functional Based
+                      {% elif project.category == '3' %}Research Based
+                      {% elif project.category == '4' %}Government
+                      {% endif %}
+                    </td>
                     <td>
                       {% if project.status == '1' %}
                       Working

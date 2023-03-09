@@ -5,8 +5,6 @@ from .models import Project
 from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
-from .models import Comment
-from .models import Csv
 from .models import ProjectComment
 from mptt.forms import TreeNodeChoiceField
 from projects.models import Team
@@ -22,6 +20,13 @@ status = (
     ('1', 'Working'),
     ('2', 'Stuck'),
     ('3', 'Done'),
+)
+
+category = (
+    ('1', 'Extension Based'),
+    ('2', 'Functional Based'),
+    ('3', 'Research Based'),
+    ('3', 'Government'),
 )
 
 
@@ -68,7 +73,7 @@ class TaskRegistrationForm(forms.ModelForm):
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
-
+    category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
     company = forms.CharField(max_length=80)
@@ -83,7 +88,7 @@ class ProjectRegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         Project = super(ProjectRegistrationForm, self).save(commit=False)
         Project.name = self.cleaned_data['name']
-
+        Project.category = self.cleaned_data['category']
         Project.status = self.cleaned_data['status']
         Project.dead_line = self.cleaned_data['dead_line']
         Project.company = self.cleaned_data['company']
@@ -105,6 +110,8 @@ class ProjectRegistrationForm(forms.ModelForm):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget.attrs['placeholder'] = 'Project Name'
+        self.fields['category'].widget.attrs['class'] = 'form-control'
+        self.fields['category'].widget.attrs['placeholder'] = 'Category'
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
@@ -117,29 +124,6 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'Type here the project description...'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
 
-        
-class NewCommentForm(forms.ModelForm):
-    parent = TreeNodeChoiceField(queryset=Comment.objects.all())
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields['parent'].widget.attrs.update(
-            {'class': 'd-none'})
-        self.fields['parent'].label = ''
-        self.fields['parent'].requirezd = False
-
-    class Meta:
-        model = Comment
-        fields = ('parent','content')
-
-        widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
-        }
-
-    def save(self, *args, **kwargs):
-        Comment.objects.rebuild()
-        return super(NewCommentForm, self).save(*args, **kwargs)
     
 class ProjectCommentForm(forms.ModelForm):
     parent = TreeNodeChoiceField(queryset=ProjectComment.objects.all())
@@ -196,9 +180,5 @@ class FileForm(forms.ModelForm):
         model = Project
         fields = ["documents"]
         
-class CsvModelForm(forms.ModelForm):
-    class Meta:
-        model = Csv
-        fields = ["file_name",]
         
         

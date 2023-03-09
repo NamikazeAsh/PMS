@@ -296,13 +296,20 @@
                         <thead class="table-light">
                             <tr style="width: 100%;">
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Project Title</th>
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Category</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Due Date</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Status</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Team</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Progress</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Download</th>
                                 <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Document</th>
+<<<<<<< HEAD
                                 {% comment %} <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Edit Status</th> {% endcomment %}
+||||||| 0337bd4
+                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Edit Status</th>
+=======
+                                
+>>>>>>> a69fe5c6694765690eb74b4ac770d498e13cf855
                             </tr>
                         </thead>
                         <tbody>
@@ -310,12 +317,36 @@
                             {% for project in projects %}
                             <tr>
                                 
+<<<<<<< HEAD
                                 <td style="padding: 0%; padding-left: 5px;"><a class="text-black text-decoration-none"  href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
+||||||| 0337bd4
+                                <td style="padding: 0%; padding-left: 5px;"> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
+=======
+                                <td style="padding: 0%; padding-left: 5px;"> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
+                                <td style="padding: 0%;"><span class="badge text-black">
+                                    <p style="font-size: 12px; color: black;">
+                                    {% if project.category == '1' %}Extension Based
+                                    {% elif project.category == '2' %}Functional Based
+                                    {% elif project.category == '3' %}Research Based
+                                    {% elif project.category == '4' %}Government
+                                    {% else %}None
+                                    {% endif %}</span>
+                                    </p>
+                                </td>
+>>>>>>> a69fe5c6694765690eb74b4ac770d498e13cf855
                                 <td style="padding: 0%; padding-left: 5px;">{{ project.dead_line }}</td>
                                 <!-- <td style="padding: 0%; padding-left: 5px;" class="col-desc">{{ project.description|truncatechars:200 }}</td> -->
+<<<<<<< HEAD
                                 <td style="padding: 0%;">
                                     <span class="badge text-black">
                                     <p style="font-size: .8rem; color: black;">
+||||||| 0337bd4
+                                <td style="padding: 0%;"><span class="badge text-black">
+                                    <p style="font-size: 10px; color: black;">
+=======
+                                <td style="padding: 0%;"><span class="badge text-black">
+                                    <p style="font-size: 12px; color: black;">
+>>>>>>> a69fe5c6694765690eb74b4ac770d498e13cf855
                                     {% if project.status == '2' %}Stuck
                                     {% elif project.status == '1' %}Working
                                     {% elif project.status == '3' %}Done

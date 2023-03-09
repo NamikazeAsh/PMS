@@ -23,12 +23,12 @@
                     <div class="card p-4 mb-5"  style="width: 70vw;">
                         <div class="card-body">
                             {% if created %}
-                              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                                  Congratulations, your project was created!
-                              </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                Congratulations, your project was created!
+                            </div>
                             {% endif %}
                                 {% csrf_token %}
                                 <h1>Projects</h1>
@@ -44,6 +44,20 @@
                                         {% if form.name.errors %}
                                             <ol>
                                             {% for error in form.name.errors %}
+                                                <li><strong>{{ error|escape }}</strong></li>
+                                            {% endfor %}
+                                            </ol>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Category</label>
+                                    <div class="input-group">
+                                        <img src="{% static "icons/layers.svg" %}"></img>
+                                        {{ form.category }}
+                                        {% if form.category.errors %}
+                                            <ol>
+                                            {% for error in form.category.errors %}
                                                 <li><strong>{{ error|escape }}</strong></li>
                                             {% endfor %}
                                             </ol>
