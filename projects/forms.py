@@ -5,8 +5,6 @@ from .models import Project
 from consultancy2.models import *
 from django.contrib.auth.models import User
 from mptt.forms import TreeNodeChoiceField
-from .models import Comment
-from .models import Csv
 from .models import ProjectComment
 from mptt.forms import TreeNodeChoiceField
 from projects.models import Team
@@ -117,29 +115,6 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'Type here the project description...'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
 
-        
-class NewCommentForm(forms.ModelForm):
-    parent = TreeNodeChoiceField(queryset=Comment.objects.all())
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields['parent'].widget.attrs.update(
-            {'class': 'd-none'})
-        self.fields['parent'].label = ''
-        self.fields['parent'].requirezd = False
-
-    class Meta:
-        model = Comment
-        fields = ('parent','content')
-
-        widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
-        }
-
-    def save(self, *args, **kwargs):
-        Comment.objects.rebuild()
-        return super(NewCommentForm, self).save(*args, **kwargs)
     
 class ProjectCommentForm(forms.ModelForm):
     parent = TreeNodeChoiceField(queryset=ProjectComment.objects.all())
@@ -196,9 +171,5 @@ class FileForm(forms.ModelForm):
         model = Project
         fields = ["documents"]
         
-class CsvModelForm(forms.ModelForm):
-    class Meta:
-        model = Csv
-        fields = ["file_name",]
         
         

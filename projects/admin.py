@@ -1,9 +1,7 @@
 from django.contrib import admin
 from .models import Project
 from .models import Task
-from .models import Comment
 from .models import ProjectComment
-from .models import Csv
 from mptt.admin import MPTTModelAdmin
 from .models import Team
 
@@ -30,7 +28,5 @@ class TeamAdmin(admin.ModelAdmin):
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Task, TaskAdmin)
-admin.site.register(Comment, MPTTModelAdmin)
 admin.site.register(ProjectComment, MPTTModelAdmin)
 admin.site.register(Team, TeamAdmin)
-admin.site.register(Csv)
