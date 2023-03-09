@@ -71,6 +71,8 @@ def SignIn(request):
                 saverecord = SignInInsert()
                 saverecord.email = form.cleaned_data.get("email")
                 saverecord.username = form.cleaned_data.get("username")
+                saverecord.firstname = form.cleaned_data.get("first_name")
+                saverecord.lastname = form.cleaned_data.get("last_name")
                 saverecord.password = form.cleaned_data.get("password1")
                 saverecord.campus = request.POST.get('campus')
                 saverecord.role = request.POST.get('role')
@@ -144,6 +146,8 @@ def AdminValAcc(request,id):
     saverecord = AdminValidation()
     saverecord.email = auser.email
     saverecord.username = auser.username
+    saverecord.firstname = auser.firstname
+    saverecord.lastname = auser.lastname
     saverecord.password = auser.password
     saverecord.campus = auser.campus
     saverecord.role = auser.role
