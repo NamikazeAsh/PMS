@@ -10,17 +10,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='comment',
-            name='parent',
-        ),
-        migrations.RemoveField(
-            model_name='comment',
-            name='task',
-        ),
-        migrations.DeleteModel(
-            name='Csv',
-        ),
+        # migrations.RemoveField(`
+        # `
+        #     model_name='comment',
+        #     name='parent',
+        # ),
+        # migrations.RemoveField(
+        #     model_name='comment',
+        #     name='task',
+        # ),
+        # migrations.DeleteModel(
+        #     name='Csv',
+        # ),
         migrations.DeleteModel(
             name='Comment',
         ),
