@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.AddField(
-        #     model_name='project',
-        #     name='category',
-        #     field=models.CharField(choices=[('1', 'Extension Based'), ('2', 'Functional Based'), ('3', 'Research Based'), ('3', 'Government')], default=1, max_length=15),
-        # ),
+        migrations.AddField(
+            model_name='project',
+            name='category',
+            field=models.CharField(choices=[('1', 'Extension Based'), ('2', 'Functional Based'), ('3', 'Research Based'), ('3', 'Government')], default=1, max_length=15),
+        ),
     ]
