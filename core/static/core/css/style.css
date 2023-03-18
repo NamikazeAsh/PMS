@@ -10026,9 +10026,13 @@ base-chart.chart {
   -ms-flex-align: center;
       align-items: center;
   padding: 0 1rem;
-  color: #151b1e;
+  color: #000;
   background: #f0f3f5;
   border-top: 1px solid #a4b7c1; }
+
+.app-footer a {
+  color: #000;
+} 
 
 .row.row-equal {
   padding-right: 7.5px;
@@ -12672,3 +12676,6 @@ hr.transparent {
   *[dir="rtl"] .callout-default {
     border-right-color: #536c79; }
 
+.footer {
+
+}
