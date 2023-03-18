@@ -9,49 +9,36 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="">
     <div id="ui-view" style="opacity: 1;">
         <div class="animated fadeIn">
             <div class="row">
-                <div class="col-12 mb-3">
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12">
-                    <div class="card mt-5">
-                        <div class="simple-box">
+                    <div class="card mt-5 ">
+                        <div class=" simple-box d-flex flex-column justify-content-center align-items-center">
                             <br><br><br>
-                        <h1 style="text-align: center;">Team Views</h1>
-                        <br><br><br>
+                            <h1 class="text-center display-5"><b>Team Views</b></h1>
+                            <br><br><br>
 
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Members</th>
-                            </tr>
-                            
-                            {% for key,value in teamd.items %}
-                            <tr>
-                                
-                                <td><b>{{key}}</b></td>
-                                <td>{{value}}</td>
-                            </tr>
-                            {% endfor %}
+                            <table class="table table-bordered" style="width: 70%;">
+                                {% comment %} <tr  class="thead-dark"> {% endcomment %}
+                                <tr>
+                                    <th class="w-50 text-center h4"><b>Name</b></th>
+                                    <th class="w-50 text-center h4"><b>Members</b></th>
+                                </tr>
 
-                            
-                            
-                            
+                                {% for key,value in teamd.items %}
+                                    <tr>
+                                        <td class="text-center h5">{{key}}</td>
+                                        <td class="text-center h5">{{value}}</td>
+                                    </tr>
+                                {% endfor %}
 
-                        </table>
-                        
+                            </table>
 
-                        <br><br><br>
+                            <br><br><br>
+                        </div>
                     </div>
-                    
-
-                </div>
-            </div>
-
                 </div>
             </div>
         </div>
