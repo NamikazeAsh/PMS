@@ -4,13 +4,12 @@
 {% block breadcrumb %}
         <li class="breadcrumb-item">Home</li>
         <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">New Project</li>
+        <li class="breadcrumb-item active">Edit Project</li>
 {% endblock breadcrumb%}
 
 {% block extracss %}
     <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
-
 
 {% block extrascripts %}
 <script>
@@ -21,6 +20,7 @@ function reset() {
 {% endblock extrascripts %}
 
 
+
 {% block content %}
 <div class="container animated fadeIn" style="background-color: #e4e5e6;">
         <div class="row justify-content-center">
@@ -28,17 +28,8 @@ function reset() {
                 <div class="card-group">
                     <div class="card p-4 mb-5"  style="width: 70vw;">
                         <div class="card-body">
-                            {% if created %}
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                Congratulations, your project was created!
-                            </div>
-                            {% endif %}
                                 {% csrf_token %}
-                                <h1>Projects</h1>
-                                <p class="text-muted">Create your projects here</p>
+                                <h1>Edit Project</h1>
 
                             <form action="" method="post" id="form1">
                                 {% csrf_token %}
@@ -161,7 +152,6 @@ function reset() {
 
                                 <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                    <button type="reset" class="btn btn-sm btn-danger" onclick="reset();"><i class="fa fa-ban"></i> Reset</button>
                                 </div>
                             </form>
                             {{ form.errors }}

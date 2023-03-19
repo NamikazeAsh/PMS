@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'mptt',
     'teamrecommender',
     'finance',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,8 @@ EMAIL_HOST_PASSWORD = "" #add password
 
 #Added to fix runserver errors
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
+GRAPH_MODELS = {
+    'all_applications': True,
+    'group_models': True,
+}

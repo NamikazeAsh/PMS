@@ -123,8 +123,8 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['description'].widget.attrs['class'] = 'form-control'
         self.fields['description'].widget.attrs['placeholder'] = 'Type here the project description...'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
-
-    
+        
+        
 class ProjectCommentForm(forms.ModelForm):
     parent = TreeNodeChoiceField(queryset=ProjectComment.objects.all())
 

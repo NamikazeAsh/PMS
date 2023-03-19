@@ -1,7 +1,5 @@
 {% extends temp %}
 {% load static %}
-
-
 {% block breadcrumb %}
 <li class="breadcrumb-item">Home</li>
 <li class="breadcrumb-item">Projects</li>
@@ -310,7 +308,7 @@
                             {% for project in projects %}
                             <tr>
                                 
-                                <td style="padding: 0%; padding-left: 5px;"> <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a></td>
+                                <td style="padding: 0%; padding-left: 5px; ">  <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a><a href="/projects/projects/edit_project/{{project.id}}"><p><img style="width: 10%" src="{% static "icons/edit.svg" %}"></a></p></td>
                                 <td style="padding: 0%;"><span class="badge text-black">
                                     <p style="font-size: .8rem; color: black;">
                                     {% if project.category == '1' %}Extension Based
@@ -331,11 +329,10 @@
                                     {% elif project.status == '3' %}Done
                                     {% else %}Completed
                                     {% endif %}
-                                    <span class="ml-2" data-bs-toggle="modal" data-bs-target="#editStatusModal"><img style="width: 25%" src="{% static "icons/edit.svg" %}"></span>
                                     </p>
                                     </span>  
                                 </td>
-                            {% include 'projects/editStatusModal.html' %}
+
                             <td style="padding: 0%; padding-left: 5px;">
                                 <span class="label gradient-2 btn-rounded"> 
 

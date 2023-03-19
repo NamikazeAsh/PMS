@@ -114,6 +114,22 @@ def newTask(request):
             'temp': var,
         }
         return render(request,'projects/new_task.html', context)
+    
+@login_required(login_url='login')
+def edit_task(request,id):
+    task = Task.objects.get(id=id)
+    current_user = request.user
+    form=TaskRegistrationForm(instance=task)
+    if request.method == 'POST':
+        
+        form = TaskRegistrationForm(request.POST,instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('projects:task',id= current_user.id)
+    var = findtemp(request)
+    
+    context = {'form':form,'temp':var,}
+    return render(request, 'projects/edit_task.html', context)  
 
 def newProject(request):
     if request.method == 'POST':
@@ -211,6 +227,8 @@ def projects(request):
     
     form = FileForm(request.POST or None,request.FILES or None)
     
+    
+    
     context = {
         'avg_projects' : avg_projects,
         'projects' : projects,
@@ -222,6 +240,21 @@ def projects(request):
         'form':form,
     }
     return render(request, 'projects/projects.html', context)
+
+@login_required(login_url='login')
+def edit_project(request,id):
+    project = Project.objects.get(id=id)
+    form=ProjectRegistrationForm(instance=project)
+    if request.method == 'POST':
+        
+        form = ProjectRegistrationForm(request.POST,instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('projects:projects')
+    var = findtemp(request)
+    
+    context = {'form':form,'temp':var,}
+    return render(request, 'projects/edit_project.html', context)    
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])

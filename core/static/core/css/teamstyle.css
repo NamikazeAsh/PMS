@@ -12304,6 +12304,11 @@ h5+.btn-round {
   right: 30px;
 }
 
+.btnedit {
+  position: absolute;
+  right: 1000px;
+}
+
 @media screen and (max-width: 480px) {
 
   

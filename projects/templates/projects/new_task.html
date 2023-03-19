@@ -11,7 +11,13 @@
     <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
 
-
+{% block extrascripts %}
+<script>
+function reset() {
+    document.getElementById("form1").reset();
+}
+</script>
+{% endblock extrascripts %}
 
 {% block content %}
 <div class="container animated fadeIn">
@@ -31,7 +37,7 @@
                                 {% csrf_token %}
                                 <h1>Tasks</h1>
                                 <p class="text-muted">Create your tasks here</p>
-                                <form action="" method="post">
+                                <form action="" method="post" id="form1">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label class="col-form-label">Project</label>
@@ -107,7 +113,7 @@
 
                                     <div class="button-section">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                        <button type="reset" class="btn btn-sm btn-danger" onclick="reset();"><i class="fa fa-ban"></i> Reset</button>
                                     </div>
                                 </form>
                             {{ form.errors }}
