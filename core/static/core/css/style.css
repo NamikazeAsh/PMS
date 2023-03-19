@@ -100,7 +100,8 @@ body {
   line-height: 1.5;
   color: #151b1e;
   text-align: left;
-  background-color: #e4e5e6 !important; }
+  /* background-color: #e4e5e6 !important; } */
+  background-color: #7186a8 !important; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -4404,7 +4405,8 @@ tbody.collapse.show {
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
   list-style: none;
-  background-color: #fff; }
+  background-color: #fff;
+}
 
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
@@ -4420,7 +4422,8 @@ tbody.collapse.show {
   text-decoration: none; }
 
 .breadcrumb-item.active {
-  color: #536c79; }
+  color: #000000 !important;
+}
 
 .pagination {
   display: -ms-flexbox;
@@ -10023,9 +10026,13 @@ base-chart.chart {
   -ms-flex-align: center;
       align-items: center;
   padding: 0 1rem;
-  color: #151b1e;
+  color: #000;
   background: #f0f3f5;
   border-top: 1px solid #a4b7c1; }
+
+.app-footer a {
+  color: #000;
+} 
 
 .row.row-equal {
   padding-right: 7.5px;
@@ -12669,3 +12676,6 @@ hr.transparent {
   *[dir="rtl"] .callout-default {
     border-right-color: #536c79; }
 
+.footer {
+
+}
