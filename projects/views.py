@@ -53,7 +53,6 @@ def teams(request):
     team_members = []
     for tname2 in team_name:
         tass = Team.objects.filter(team_name = tname2).values_list('assign')
-        print("tass ",tass)
         members = []
         for tassid in tass:
             members.append(User.objects.get(id = tassid[0]).username) 
@@ -61,7 +60,6 @@ def teams(request):
     
     for i in range(len(team_name)):
         teamd[team_name[i]] = team_members[i]
-    print(teamd)
     
     var = findtemp(request)
     context = {
@@ -292,7 +290,6 @@ def ProjectProfile(request,id):
         team_name.append(Team.objects.get(id = tid))
     
     projteam_mem = Team.objects.filter(id = tid).values_list('assign')
-    print(projteam_mem)
     for tm2 in projteam_mem:
         team_members_id.append(tm2[0])
     for tid2 in team_members_id:
@@ -307,7 +304,7 @@ def ProjectProfile(request,id):
             user_comment.username=request.user.username
             user_comment.project = pcomments
             user_comment.save()
-            print('saved')
+            print('User saved')
             return redirect('projects:project-profile',id= pcomments.id)
         
     else:
