@@ -30,7 +30,11 @@
                                 {% for key,value in teamd.items %}
                                     <tr>
                                         <td class="text-center h5">{{key}}</td>
-                                        <td class="text-center h5">{{value}}</td>
+                                        <td class="text-center h5">
+                                            {% for c in value %}
+                                            {{c}}<br>
+                                        {% endfor %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
 

@@ -53,13 +53,15 @@ def teams(request):
     team_members = []
     for tname2 in team_name:
         tass = Team.objects.filter(team_name = tname2).values_list('assign')
-        members = ""
+        print("tass ",tass)
+        members = []
         for tassid in tass:
-            members+= User.objects.get(id = tassid[0]).username + " | "
+            members.append(User.objects.get(id = tassid[0]).username) 
         team_members.append(members)
     
     for i in range(len(team_name)):
         teamd[team_name[i]] = team_members[i]
+    print(teamd)
     
     var = findtemp(request)
     context = {
