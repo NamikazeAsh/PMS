@@ -1,10 +1,15 @@
 {% extends temp %}
 {% load static %}
+
 {% block breadcrumb %}
 <li class="breadcrumb-item">Home</li>
 <li class="breadcrumb-item">Projects</li>
 <li class="breadcrumb-item active">Views</li>
 {% endblock breadcrumb%}
+
+{% block extracss %}
+<link href="@@webRoot/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+{% endblock extracss%}
 
 {% block extrascripts %}
 <script>
@@ -150,296 +155,301 @@
 {% endblock extrascripts %}
 
 {% block content %}
-
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-body w-100">
-            <div class="row w-100" style="flex-direction: column;">
-
-                <div class="col-sm-8" style="width: 100%; max-width: none;">
-                    <div class="row w-100">
-
-                        <div class="col-sm-6" style="max-width: 33%;">
-                            <div class="callout callout-green">
-                                <small class="text-muted">Active Projects</small>
-                                <br>
-                                <strong class="h4">{{ projects.count }}</strong>
-                                <div class="chart-wrapper">
-                                    <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                                        <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                            <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+    <div id="db-wrapper">
+        <!-- navbar vertical -->
+        <!-- Page content -->
+        <div id="page-content" class="ml-0">
+            <!-- Container fluid -->
+            <div class="bg-primary pt-10 pb-21"></div>
+            <div class="container-fluid mt-n22 px-6">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <!-- Page header -->
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mb-2 mb-lg-0">
+                                    <h3 class="mb-0  text-white">Projects</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+                        <!-- card -->
+                        <div class="card ">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <!-- heading -->
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h4 class="mb-0">Active Projects</h4>
+                                    </div>
+                                    <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                                        <img src="{% static "icons/briefcase.svg" %}" ></img>
+                                    </div>
+                                </div>
+                                <!-- project number -->
+                                <div>
+                                    <h1 class="fw-bold">{{ projects.count }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+                        <!-- card -->
+                        <div class="card ">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <!-- heading -->
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h4 class="mb-0">Active Task</h4>
+                                    </div>
+                                    <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                                        <img src="{% static "icons/list-task.svg" %}" ></img>
+                                    </div>
+                                </div>
+                                <!-- project number -->
+                                <div>
+                                    <h1 class="fw-bold">{{ tasks.count }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+                        <!-- card -->
+                        <div class="card ">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <!-- heading -->
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h4 class="mb-0">Overdue Tasks</h4>
+                                    </div>
+                                    <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                                        <img src="{% static "icons/list-task.svg" %}" ></img>
+                                    </div>
+                                </div>
+                                <!-- project number -->
+                                <div>
+                                    <h1 class="fw-bold">{{ overdue_tasks.count }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+                            <!-- card -->
+                            <div class="card ">
+                                <!-- card body -->
+                                <div class="card-body">
+                                    <!-- heading -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h4 class="mb-0">Projects Completeion</h4>
                                         </div>
-                                        <div class="chartjs-size-monitor-shrink" style="position:absolute; left:0; top:0; right:0; bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                            <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                        <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                                            <img src="{% static "icons/percent.svg" %}" ></img>
                                         </div>
                                     </div>
-                                    <canvas id="sparkline-chart-3" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
+                                    <!-- project number -->
+                                    <div>
+                                        <h1 class="fw-bold">{{ avg_projects|floatformat }}%</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-6" style="max-width: 33%;">
-                            <div class="callout callout-dark">
-                                <small class="text-muted">Tasks</small>
-                                <br>
-                                <strong class="h4">{{ tasks.count }}</strong>
-                                <div class="chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                    <canvas id="sparkline-chart-3" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
-                                </div>
+                </div>
+                <!-- row  -->
+                <div class="row mt-6">
+                    <div class="col-md col-12">
+                        <!-- card  -->
+                        <div class="card">
+                            <!-- card header  -->
+                            <div class="card-header bg-white  py-4">
+                                <h4 class="mb-0">Progress</h4>
                             </div>
-                        </div>
-
-                        <div class="col-sm-6" style="max-width: 33%;">
-                            <div class="callout callout-danger">
-                                <small class="text-muted">Overdue Tasks </small>
-                                <br>
-                                <strong class="h4">{{ overdue_tasks.count }}</strong>
-                                <div class="chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                    <canvas id="sparkline-chart-4" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
-                                </div>
+                            <!-- table  -->
+                            <div class="table-responsive">
+                                {% for project in projects %}
+                                <table class="table text-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>{{ project }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="d-flex align-items-center">
+                                                    {% if project.status == '1' %}
+                                                    <span class="badge badge-danger" style="width: 50px;">Working</span>
+                                                    {% elif project.status == '2' %}
+                                                    <span class="badge badge-info" style="width: 50px;">Stuck</span>
+                                                    {% else %}
+                                                    <span class="badge badge-success" style="width: 50px;">Done!</span>
+                                                    {% endif %}
+                                                </div>
+                                                <span class="value"> <span class="text-muted small">deadline: </span>{{ project.dead_line }}
+                                                    <span class="text-muted small">({{ project.complete_per }}%)</span>
+                                                </span>
+                                                <div class="bars">
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- Progress Bar here -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
-
-                    <hr class="mt-0">
-                    <ul class="horizontal-bars type-2">
-                    <li>
-                        <i class="fa fa-percent"></i>
-                        <span class="title">Projects</span>
-                        <span class="value">{{ avg_projects|floatformat }}%</span>
-                        <div class="bars">
-                            <div class="progress progress-xs">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ avg_projects|floatformat }}%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    {% for project in projects %}
-                    <li class="my-2">
-                        {% if project.status == '1' %}
-                                <span class="badge badge-danger" style="width: 50px;">Working</span>
-                            {% elif project.status == '2' %}
-                                <span class="badge badge-info" style="width: 50px;">Stuck</span>
-                            {% else %}
-                                <span class="badge badge-success" style="width: 50px;">Done!</span>
-                            {% endif %}
-                        <span class="title ml-1">{{ project }}</span>
-
-                        <span class="value"> <span class="text-muted small">deadline: </span>{{ project.dead_line }}
-                            <span class="text-muted small">({{ project.complete_per }}%)</span>
-                        </span>
-                        <div class="bars">
-                            <div class="progress progress-xs">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                    </ul>
                 </div>
-
-            </div>
-
-            <br>
-
-        </div>
-    </div>
-</div>
-
-<div class = "Filters" style="text-align: center; margin: 20px;">
-    <p style="display:inline;font-size: 18px;"><b> Filters</b></p>
-    <select id="choice" style="text-align:center;margin-left: 20px; height: 28px;" onchange="reset();">
-        <option value="title">Title</option>
-        <option value="ddate">Due Date</option>
-        <option value="status">Status</option>
-        <option value="team">Team</option>
-    </select>
-    
-    <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
-    <input type="button" class="btn btn-secondary ml-3" value="Clear" onclick="clear();">
-    <button type="button" value="Download All" class=" ml-3 btn btn-info" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>Download All</button>
-    <input type="button" value="Upload Project CSV" class="ml-3 btn btn-warning">
-    <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
-
-</div>
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <strong>{{ projects.count }} Active Projects</strong>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                {% comment %} {% for project in projects %}
-                <div class="col-12 col-md-6 col-lg-4">
-                <div class="card mx-2">
-                    <div class="card-body">
-                        <div class="h4 m-0">
-                            {{ project.dead_line }}
-                            {% if project.status == '1' %}
-                            <p class="text-right lead text-danger">Stuck</p>
-                            {% elif project.status == '2' %}
-                            <p class="text-right lead text-success">Working</p>
-                            {% else %}
-                            <p class="text-right lead text-info">Done</p>
-                            {% endif %}
-                        </div>
-                        <div>{{ project.name }}</div>
-                        <p class="text-muted mb-0 text-right">{{ project.complete_per }}%</p>
-                        <div class="progress progress-xs mb-3">
-                            {% if project.complete_per < 30%}
-                            <div class="progress-bar bg-danger role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            {% elif project.complete_per < 80 %}
-                            <div class="progress-bar bg-warning role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            {% else %}
-                            <div class="progress-bar bg-success role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            {% endif %}
-                        </div>
-                        <small class="text-muted">{{ project.description|truncatechars:60 }}</small>
-                    </div>
-                </div>
-                </div>
-                {% endfor %} {% endcomment %}
-
                 
 
-                <div class="table-responsive">
-                            
-                    <table class="table datatablesSimple table-hover table-nowrap" id="projects_table" style="overflow-x: scroll;">
 
-                        <thead class="table-light">
-                            <tr style="width: 100%;">
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Project Title</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Category</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Due Date</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Status</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Team</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Progress</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Download</th>
-                                <th style="width: 10rem; padding: 0px; padding-left: 5px;" scope="col">Document</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {% for project in projects %}
-                            <tr>
-                                
-                                <td style="padding: 0%; padding-left: 5px; ">  <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a><a href="/projects/projects/edit_project/{{project.id}}"><p><img style="width: 10%" src="{% static "icons/edit.svg" %}"></a></p></td>
-                                <td style="padding: 0%;"><span class="badge text-black">
-                                    <p style="font-size: .8rem; color: black;">
-                                    {% if project.category == '1' %}Extension Based
-                                    {% elif project.category == '2' %}Functional Based
-                                    {% elif project.category == '3' %}Research Based
-                                    {% elif project.category == '4' %}Government
-                                    {% else %}None
-                                    {% endif %}</span>
-                                    </p>
-                                </td>
-                                <td style="padding: 0%; padding-left: 5px;">{{ project.dead_line }}</td>
-                                <!-- <td style="padding: 0%; padding-left: 5px;" class="col-desc">{{ project.description|truncatechars:200 }}</td> -->
-                                <td style="padding: 0%;">
-                                    <span class="badge text-black">
-                                    <p style="font-size: .8rem; color: black;">
-                                    {% if project.status == '2' %}Stuck
-                                    {% elif project.status == '1' %}Working
-                                    {% elif project.status == '3' %}Done
-                                    {% else %}Completed
-                                    {% endif %}
-                                    </p>
-                                    </span>  
-                                </td>
-
-                            <td style="padding: 0%; padding-left: 5px;">
-                                <span class="label gradient-2 btn-rounded"> 
-
-                                    {% for tpair in projteamassoc %}
-                                        {% if tpair.0 == project.name %}
-                                            {{tpair.2}}
-                                        {% endif %}
-                                    {% endfor %}
-
-                                </span>
-                            </td>
-                                {% if project.complete_per < 30%}
-                                <td style="padding: 0%; padding-left: 5px;">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <div class="progress" style="width:100px">
-                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
-                                            </div>
-                                        </div>
-                                        <span class="ml-2">{{ project.complete_per }}%</span>
-                                    </div>
-                                </td>
-                                    
-                                    {% elif project.complete_per < 56%}
-                                    <td style="padding: 0%; padding-left: 5px;">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <div class="progress" style="width:100px">
-                                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="me-2">{{ project.complete_per }}%</span>
-                                    </td>
-                                    {% elif project.complete_per < 100%}
-                                    <td style="padding: 0%; padding-left: 5px;">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <div class="progress" style="width:100px">
-                                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="me-2">{{ project.complete_per }}%</span>
-                                    </td>
-                                    {% else %}
-                                    <td style="padding: 0%; padding-left: 5px;">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <div class="progress" style="width:100px">
-                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ project.complete_per }}"
-                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="me-2">{{ project.complete_per }}%</span>
-                                    </td>
-                                    {% endif %}
-
-                                    <td style="padding: 0%; padding-left: 5px;"><a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red; text-decoration:none; ">Download</a></td>
-
-                                    <td style="padding: 0%; padding-left: 5px;">
-                                        
-                                        <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
-                                            {% csrf_token %}
-                                            <!-- {{ form.as_p }} -->
-                                            <input type="file" value="upload" name="upload" id="upload" class="mt-2 ">
-                                            <input type="submit" class="mt-2 mb-2 btn btn-warning "value="Upload Doc" style="color:black; font-weight:bold">
-                                            {% if project.documents %}
-                                            <input type="button" class="mt-2 ml-2 mb-2 btn btn-info" value="Download Doc" style="color:black; font-weight:bold"  onclick='location.href= "{{ project.documents.url }}"'>
-                                            {% endif %}
-                                        </form>
-                                    </td>
-                                    
-                                </tr>
-                                {% endfor %}
-                                
-
-                        </tbody>
-                    </table>
+                <div class="Filters" style="text-align: center; margin: 20px;">
+                    <p style="display:inline;font-size: 18px;"><b> Filters</b></p>
+                    <select id="choice" style="text-align:center;margin-left: 20px; height: 28px;" onchange="reset();">
+                        <option value="title">Title</option>
+                        <option value="ddate">Due Date</option>
+                        <option value="status">Status</option>
+                        <option value="team">Team</option>
+                    </select>
+                
+                    <input type="text" id="search" placeholder="Search Records" onkeyup="option();">
+                    <input type="button" class="btn btn-secondary ml-3" value="Clear" onclick="clear();">
+                    <button type="button" value="Download All" class=" ml-3 btn btn-info"
+                        onclick="location.href = '/projects/projects/downloadallprojreport' " %}>Download All</button>
+                    <input type="button" value="Upload Project CSV" class="ml-3 btn btn-warning">
+                    <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
+                
                 </div>
 
+                <div class="row mt-6">
+                    <div class="col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-header bg-white  py-4">
+                                <h4 class="mb-0">Active Projects</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Project Name</th>
+                                            <th>Category</th>
+                                            <th>Due Date</th>
+                                            <th>Status</th>
+                                            <th>Team</th>
+                                            <th>Progress</th>
+                                            <th>Download</th>
+                                            <th>Document</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for project in projects %}
+                                        <tr>
+                                            <td class="align-middle">
+                                                <a class="text-black text-decoration-none" href="/projects/projects/project/{{project.id}}">{{ project.name }}</a>
+                                                <a href="/projects/projects/edit_project/{{project.id}}"> <img style="width: 20%; margin-left: 5px" src="{% static "icons/edit.svg" %}" ></img></a>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p style="font-size: .8rem; color: black;">
+                                                    {% if project.category == '1' %}Extension Based
+                                                    {% elif project.category == '2' %}Functional Based
+                                                    {% elif project.category == '3' %}Research Based
+                                                    {% elif project.category == '4' %}Government
+                                                    {% else %}None
+                                                    {% endif %}
+                                                </p>
+                                            </td>
+                                            <td class="align-middle">{{ project.dead_line }}</td>
+                                            <td class="align-middle">
+                                                <p style="font-size: .8rem; color: black;">
+                                                    {% if project.status == '2' %}Stuck
+                                                    {% elif project.status == '1' %}Working
+                                                    {% elif project.status == '3' %}Done
+                                                    {% else %}Completed
+                                                    {% endif %}
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-dark">
+                                                {% for tpair in projteamassoc %}
+                                                {% if tpair.0 == project.name %}
+                                                {{tpair.2}}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
 
+
+
+                                            {% if project.complete_per < 30%}
+                                            <td style="padding: 0%; padding-left: 5px;">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <div class="progress" style="width:100px">
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ project.complete_per }}"
+                                                            aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="me-2">{{ project.complete_per }}%</span>
+                                                </div>
+                                            </td>
+                                            {% elif project.complete_per < 100%}
+                                            <td style="padding: 0%; padding-left: 5px;">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <div class="progress" style="width:100px">
+                                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ project.complete_per }}"
+                                                            aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="me-2">{{ project.complete_per }}%</span>
+                                                </div>
+                                            </td>
+                                            {% else %}
+                                            <td style="padding: 0%; padding-left: 5px;">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <div class="progress" style="width:100px">
+                                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ project.complete_per }}"
+                                                            aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="me-2">{{ project.complete_per }}%</span>
+                                                </div>
+                                            </td>
+                                            {% endif %}
+
+
+
+                                            <td class="align-middle text-dark">
+                                                <a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red; text-decoration:none; ">Download</a>
+                                            </td>
+                                            <td class="align-middle text-dark">
+                                                <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
+                                                    {% csrf_token %}
+                                                    <!-- {{ form.as_p }} -->
+                                                    <input type="file" value="upload" name="upload" id="upload" class="mt-2" style="max-width: 13rem;">
+                                                    <input type="submit" class="mt-2 mb-2 btn btn-warning " value="Upload Doc" style="color:black; font-weight:bold">
+                                                    {% if project.documents %}
+                                                    <input type="button" class="mt-2 ml-2 mb-2 btn btn-info" value="Download Doc" style="color:black; font-weight:bold"
+                                                        onclick='location.href= "{{ project.documents.url }}"'>
+                                                    {% endif %}
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <br>
         </div>
     </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 {% endblock %}
