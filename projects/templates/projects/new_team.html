@@ -7,17 +7,12 @@
         <li class="breadcrumb-item active">New Team</li>
 {% endblock breadcrumb%}
 
-
 {% block extracss %}
         <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
 
-
-
-
-
 {% block content %}
-<div class="container animated fadeIn h-100">
+<div class="container animated fadeIn overflow-hidden" style="height: 96%">
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card-group">
@@ -71,7 +66,6 @@
                                         {% endif %}
                                     </div>
                                 </div>
-
                                 <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
                                     <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
