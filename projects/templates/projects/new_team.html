@@ -41,7 +41,8 @@
 
                                 
                                 <div class="form-group mt-3">
-                                    <div class="input-group">
+                                    <label class="form-control-label">Name</label>
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/user.svg" %}"></img>
 
                                         {{ form.team_name }}
@@ -56,8 +57,8 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-form-label">Assign. <i>Crtl+click for multiple selection</i></label>
-                                    <div class="input-group">
+                                    <label class="col-form-label">Assign To <div><small><i class="text-muted">Crtl+click for multiple selection</i></small></div></label>
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/users.svg" %}"></img>
                                         
                                         {{ form.assign }}
