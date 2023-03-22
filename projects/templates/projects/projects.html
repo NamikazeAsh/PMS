@@ -8,7 +8,28 @@
 {% endblock breadcrumb%}
 
 {% block extracss %}
+<link href="{% static 'css/theme.css' %}" rel="stylesheet">
 <link href="@@webRoot/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+#style-4::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar
+{
+	width: 5px;
+	height: 5px;
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+</style>
 {% endblock extracss%}
 
 {% block extrascripts %}
@@ -175,7 +196,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
                         <!-- card -->
-                        <div class="card ">
+                        <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                             <!-- card body -->
                             <div class="card-body">
                                 <!-- heading -->
@@ -196,7 +217,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
                         <!-- card -->
-                        <div class="card ">
+                        <div class="card " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                             <!-- card body -->
                             <div class="card-body">
                                 <!-- heading -->
@@ -217,7 +238,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
                         <!-- card -->
-                        <div class="card ">
+                        <div class="card " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                             <!-- card body -->
                             <div class="card-body">
                                 <!-- heading -->
@@ -238,7 +259,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
                             <!-- card -->
-                            <div class="card ">
+                            <div class="card " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                                 <!-- card body -->
                                 <div class="card-body">
                                     <!-- heading -->
@@ -262,7 +283,7 @@
                 <div class="row mt-6">
                     <div class="col-md col-12">
                         <!-- card  -->
-                        <div class="card">
+                        <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                             <!-- card header  -->
                             <div class="card-header bg-white  py-4">
                                 <h4 class="mb-0">Progress</h4>
@@ -270,7 +291,7 @@
                             <!-- table  -->
                             <div class="table-responsive">
                                 {% for project in projects %}
-                                <table class="table text-nowrap mb-0">
+                                <table class="table text-nowrap mb-0" >
                                     <thead class="table-light">
                                         <tr>
                                             <th style="color:black; font-weight: bold;">{{ project }}</th>
@@ -329,11 +350,11 @@
 
                 <div class="row mt-6">
                     <div class="col-md-12 col-12">
-                        <div class="card">
+                        <div class="card " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                             <div class="card-header bg-white  py-4">
                                 <h4 class="mb-0">Active Projects</h4>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="style-4">
                                 <table class="table text-nowrap mb-0">
                                     <thead class="table-light">
                                         <tr>
