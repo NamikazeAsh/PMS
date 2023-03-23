@@ -9,7 +9,7 @@
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-5 " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <div class="card mt-5 " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);  border-radius: 1rem;">
                         <div class=" simple-box d-flex flex-column justify-content-center align-items-center">
                             <br><br><br>
                             <h1 class="text-center display-5"><b>Team Views</b></h1>
@@ -23,8 +23,8 @@
                                     </select>
                                     
                                     <input type="text" id="search" placeholder="Search Records" onkeyup="option();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
-                                    <input type="button" value="Clear" onclick= "clear();" class="ml-1 btn btn-dark position-relative" style="height: 2rem; top: -2px; border-radius: .5rem;">
-                                    <a href="{% url 'projects:teams'%}"><input type="button" value="Reset" style="height: 2rem;  top: -2px; border-radius: .5rem;" class="ml-1  btn btn-dark position-relative"></a>
+                                    <input type="button" value="Clear" onclick= "clear();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
+                                    <a href="{% url 'projects:teams'%}"><input type="button" value="Reset" style="height: 2rem;  top: -2px; border-radius: .5rem;" class="ml-1  py-0 btn btn-dark position-relative"></a>
                             </div>
 
                             <table class="table table-bordered table-hover" style="width: 70%;" id="teams_table">
