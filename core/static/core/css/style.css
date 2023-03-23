@@ -4273,6 +4273,9 @@ tbody.collapse.show {
   position: relative;
   display: -ms-flexbox;
   display: flex;
+  border-radius: .8rem;
+  --bs-card-border-radius: 10%;
+  --bs-card-inner-border-radius: 0.5rem;
   -ms-flex-direction: column;
       flex-direction: column;
   min-width: 0;
