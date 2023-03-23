@@ -91,14 +91,16 @@
                 <div id="external-events">
                     <h4 class="mb-4">Running milestones</h4>
                     {% for event in events_month %}
-                      <div class="card">
-                        <a href="{% url "calendarapp:event-detail" event_id=event.id %}">
-                        <div class="fc-event">
-                          <h3>{{ event.title }}</h3>
-                          <p>From: {{ event.start_time }}</p>
-                          <p>To: {{ event.end_time }}</p>
-                      </div>
-                    </a>
+                      <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <!-- <a href="{% url "calendarapp:event-detail" event_id=event.id %}"> -->
+                          <h5 class="card-title">{{ event.title }}</h5>
+                          <hr>
+                          <p class="card-text"><b> From:</b> {{ event.start_time }}</p>
+                          <p class="card-text"><b>To:</b> {{ event.end_time }}</p>
+                          <a href="{% url "calendarapp:event-detail" event_id=event.id %}"><button style="background-color: rgb(75, 115, 226); border: 0px; color: #f1f1f1; height: 35%; width: 40%; font-weight: bolder;">Details</button></a>
+                        </div>
+                      <!-- </a> -->
                       </div>
                     {% empty %}
                       <p>No Running Events Found</p>
