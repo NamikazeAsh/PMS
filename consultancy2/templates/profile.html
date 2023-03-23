@@ -9,6 +9,7 @@
 <body>
     
     {% block content %}
+    <div style="height:216px; background-color: #624bff; ">
     
     <img src="{{ user.profile.image.url }}"><br>
     
@@ -44,6 +45,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
     {% endblock content %}
 

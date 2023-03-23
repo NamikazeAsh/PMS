@@ -1,12 +1,6 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">New Project</li>
-{% endblock breadcrumb%}
-
 {% block extracss %}
     <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
@@ -22,11 +16,12 @@ function reset() {
 
 
 {% block content %}
-<div class="container animated fadeIn mt-5" style="background-color: #e4e5e6;">
+<div style="height:216px; background-color: #624bff;" class="pt-5">
+<div class="container animated fadeIn">
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card-group">
-                    <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw;">
+                    <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw; border-radius: 1rem;">
                         <div class="card-body">
                             {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -173,5 +168,5 @@ function reset() {
         </div>
     </div>
 </div>
-
+</div>
 {% endblock %}

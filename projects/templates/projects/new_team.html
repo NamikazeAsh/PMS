@@ -1,23 +1,18 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">New Team</li>
-{% endblock breadcrumb%}
-
 {% block extracss %}
         <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
 
 {% block content %}
-<div class="container animated fadeIn overflow-hidden" style="height: 96%">
+<div style="height:216px; background-color: #624bff;" class="pt-5">
+<div class="container animated fadeIn">
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card-group">
                     <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw;">
-                        <div class="card-body">
+                        <div class="card-body p-0">
                             {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -78,5 +73,5 @@
         </div>
     </div>
 </div>
-
+</div>
 {% endblock %}

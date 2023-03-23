@@ -1,15 +1,8 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-<li class="breadcrumb-item">Home</li>
-<li class="breadcrumb-item">Projects</li>
-<li class="breadcrumb-item active">Views</li>
-{% endblock breadcrumb%}
-
 {% block extracss %}
 <link href="{% static 'css/theme.css' %}" rel="stylesheet">
-<link href="@@webRoot/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <style>
 #style-4::-webkit-scrollbar-track
 {
@@ -177,10 +170,7 @@
 
 {% block content %}
     <div id="db-wrapper">
-        <!-- navbar vertical -->
-        <!-- Page content -->
         <div id="page-content" class="ml-0">
-            <!-- Container fluid -->
             <div class="bg-primary pt-10 pb-21"></div>
             <div class="container-fluid mt-n22 px-6">
                 <div class="row">
@@ -319,7 +309,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <!-- Progress Bar here -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -333,19 +322,17 @@
 
                 <div class="Filters" style="text-align: center; margin: 20px;">
                     <p style="display:inline; font-size: 1.3rem; color:black;"><b> Filters</b></p>
-                    <select id="choice" style="text-align:center; margin-left: .7rem; font-size: 1.3rem;" onchange="reset();">
+                    <select id="choice" style="text-align:center; margin-left: .7rem; font-size: 1.3rem; height:2rem; border-radius: .5rem;" onchange="reset();">
                         <option value="title">Title</option>
                         <option value="ddate">Due Date</option>
                         <option value="status">Status</option>
                         <option value="team">Team</option>
                     </select>
                 
-                    <input type="text" id="search" placeholder="Search Records" onkeyup="option();" style="font-size: 1rem;top: -2px;position: relative;">
-                    <input type="button" class="btn btn-secondary ml-3" value="Clear" onclick="clear();" style="height: 2rem;top: -2px;position: relative;">
-                    <button type="button" value="Download All" style="height: 2rem;top: -2px;position: relative;" class=" ml-3 btn btn-info" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>Download All</button>
-                    <input type="button" value="Upload Project CSV" class="ml-3 btn btn-warning" style="height: 2rem;top: -2px;position: relative;">
-                    <!-- <a href="{% url 'register:users' %}"><input type="button" value="Reset"></a> -->
-                
+                    <input type="text" id="search" placeholder="Search Records" onkeyup="option();" style="top: -2px; position: relative; height: 2rem; margin-left:1rem; border-radius: .5rem; border: 1px solid black">
+                    <input type="button" class="ml-3 btn btn-dark py-0" value="Clear" onclick="clear();" style="height:2rem;top: -2px;position: relative;">
+                    <button type="button" value="Download All" style="height: 2rem;top: -2px;position: relative;" class="ml-3 btn btn-dark py-0" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>Download All</button>
+                    <input type="button" value="Upload Project CSV" class="ml-3 btn btn-dark py-0" style="height: 2rem;top: -2px;position: relative;">                
                 </div>
 
                 <div class="row mt-6">
@@ -453,9 +440,9 @@
                                                     {% csrf_token %}
                                                     <!-- {{ form.as_p }} -->
                                                     <input type="file" value="upload" name="upload" id="upload" class="mt-2" style="max-width: 13rem; font-size:.8rem;">
-                                                    <input type="submit" class="mt-2 mb-2 btn btn-warning " value="Upload Doc" style="color:black; font-weight:bold; font-size:.7rem;">
+                                                    <input type="submit" class="mt-2 mb-2 btn btn-dark" value="Upload Doc" style="font-weight:bold; font-size:.7rem;">
                                                     {% if project.documents %}
-                                                    <input type="button" class="mt-2 ml-2 mb-2 btn btn-info" value="Download Doc" style="color:black; font-weight:bold;  font-size:.7rem;" onclick='location.href= "{{ project.documents.url }}"'>
+                                                    <input type="button" class="my-2 ml-2 btn btn-dark" value="Download Doc" style="font-weight:bold;  font-size:.7rem;" onclick='location.href= "{{ project.documents.url }}"'>
                                                     {% endif %}
                                                 </form>
                                             </td>
