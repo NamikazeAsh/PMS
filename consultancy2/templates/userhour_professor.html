@@ -7,16 +7,16 @@
         <li class="breadcrumb-item active">New Team</li>
 {% endblock breadcrumb%}
 
-
-
-
+{% block extracss %}
+        <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
+{% endblock extracss %}
 
 {% block content %}
-<div class="container animated fadeIn">
-        <div class="row justify-content-center">
-            <div class="col-8">
+<div class="container animated fadeIn mt-5 p-1">
+        <div class="row justify-content-center" style="width:80%">
+            <div class="col-8" >
                 <div class="card-group">
-                    <div class="card p-4 mb-5">
+                    <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw;">
                         <div class="card-body">
                             {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -28,44 +28,26 @@
                             {% endif %}
                                 {% csrf_token %}
                                 <h1>Hour Tracking</h1>
-                                <p class="text-muted">Professor/Consultants</p>
-                        
-
                             <form action="" method="post">
                                 {% csrf_token %}
 
-                                <div class="form-group">
-                                    <label class="col-form-label">Hour Tracking</label>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-industry"></i></span>
-                                        </div>
-                                        
-                                        
-                                        <input type="number" name="hours" id="" placeholder="Enter hours worked" required>
-
-                                    </div>
-                                
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="input-group">
+                                <div class="form-group mt-3  p-2">
+                                    <label class="form-control-label">Hour Tracking</label>
+                                    <div class="input-group border-top pt-2">
+                                        <img src="{% static "icons/user.svg" %}"></img>
+                                        <input type="number" name="hours" id="" placeholder="Enter hours worked" required style="width: 90%; outline:none; border:none; margin-left:.5rem;">
                                     </div>
                                 </div>
                                 
-                                <div class="">
+                                <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                    
                                 </div>
-                                <br>
-                                <div class="form-group">
-                                    <label class="col-form-label">Intern Hour Approval <br><i>Approve/Deny Intern User Hours</i></label>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-users"></i></span>
-                                        </div>
+                                <div class="form-group mt-5">
+                                    <div class="input-group mt-1">
+                                        <img src="{% static "icons/users.svg" %}" class="ml-2"></img>
+                                        <label class="col-form-label ml-3">Intern Hour Approval</label>
                                         
-                                            <table class="table">
+                                            <table class="table mt-2"  style="min-height:10rem;">
                                                 <thead>
                                                     <tr>
                                                         <th>Username</th>
@@ -85,11 +67,8 @@
                                                     {% endfor %}
                                                 </tbody>
                                             </table>
-
                                     </div>
                                 </div>
-
-                                
                             </form>
                             {{ form.errors }}
                     </div>

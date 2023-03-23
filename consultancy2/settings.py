@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'register',
     'calendarapp',
     'mptt',
-    'teamrecommender',
     'finance',
     'django_extensions',
 ]

@@ -14,7 +14,7 @@
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-5 ">
+                    <div class="card mt-5 " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                         <div class=" simple-box d-flex flex-column justify-content-center align-items-center">
                             <br><br><br>
                             <h1 class="text-center display-5"><b>Team Views</b></h1>
@@ -30,7 +30,11 @@
                                 {% for key,value in teamd.items %}
                                     <tr>
                                         <td class="text-center h5">{{key}}</td>
-                                        <td class="text-center h5">{{value}}</td>
+                                        <td class="text-center h5">
+                                            {% for c in value %}
+                                            {{c}}<br>
+                                        {% endfor %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
 
