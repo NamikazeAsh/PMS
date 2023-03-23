@@ -16,6 +16,7 @@ function reset() {
 
 
 {% block content %}
+<div style="height:216px; background-color: #624bff;">
 <div class="container animated fadeIn" style="background-color: #e4e5e6;">
         <div class="row justify-content-center">
             <div class="col-8">
@@ -28,7 +29,8 @@ function reset() {
                             <form action="" method="post" id="form1">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <div class="input-group">
+                                    <label class="col-form-label">Project Name</label>
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/user.svg" %}"></img>
 
                                         {{ form.name }}
@@ -43,7 +45,7 @@ function reset() {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Category</label>
-                                    <div class="input-group">
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/layers.svg" %}"></img>
                                         {{ form.category }}
                                         {% if form.category.errors %}
@@ -56,8 +58,8 @@ function reset() {
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-form-label">Assign. <i>Crtl+click for multiple selection</i></label>
-                                    <div class="input-group">
+                                    <label class="col-form-label">Assign To <div><small><i class="text-muted">Crtl+click for multiple selection</i></small></div></label>
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/users.svg" %}"></img>
                                         {{ form.assign }}
                                         {% if form.assign.errors %}
@@ -72,7 +74,7 @@ function reset() {
                         
                                 <div class="form-group">
                                     <label class="col-form-label">Status</label>
-                                    <div class="input-group">
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/status.svg" %}"></img>
                                         {{ form.status }}
                                         {% if form.status.errors %}
@@ -86,7 +88,7 @@ function reset() {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Dead Line</label>
-                                    <div class="input-group">
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/calendar.svg" %}"></img>
                                         {{ form.dead_line }}
                                     </div>
@@ -101,7 +103,7 @@ function reset() {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Company</label>
-                                    <div class="input-group">
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/company.svg" %}" style="width:3.5%;"></img>
                                         {{ form.company }}
                                     </div>
@@ -115,7 +117,8 @@ function reset() {
                                         {% endif %}
                                 </div>
                                 <div class="form-group">
-                                    <div class="input-group">
+                                    <label class="col-form-label">Completion</label>
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/percent.svg" %}"></img>
                                         {{ form.complete_per }}
                                     </div>
@@ -130,7 +133,7 @@ function reset() {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Description</label>
-                                    <div class="input-group">
+                                    <div class="input-group border-top">
                                         <img src="{% static "icons/description.svg" %}"></img>
                                         {{ form.description }}
                                     </div>
@@ -155,5 +158,5 @@ function reset() {
         </div>
     </div>
 </div>
-
+</div>
 {% endblock %}
