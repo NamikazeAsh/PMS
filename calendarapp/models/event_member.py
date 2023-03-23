@@ -8,9 +8,7 @@ class EventMember(EventAbstract):
     """ Event member model """
 
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="events")
-    user = models.ManyToManyField(
-        User,related_name="event_members"
-    )
+    user = models.ManyToManyField(User,related_name="event_members")
 
 
     def __str__(self):
