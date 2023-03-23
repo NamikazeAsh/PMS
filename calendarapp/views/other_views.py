@@ -127,11 +127,9 @@ def add_eventmember(request, event_id):
                 
                 user = forms.cleaned_data["user"]
                 print(user)
+                # EventMember.objects.create(event=event, user=user)
                 instance=EventMember.objects.create(event=event)
-                
-                for user1 in user:
-                    instance.user.add(user1)
-                print(instance)
+                instance.user.set(user)
                 return redirect("calendarapp:calendar")
             else:
                 print("--------------User limit exceed!-----------------")
