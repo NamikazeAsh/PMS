@@ -3010,9 +3010,6 @@
   gap: 12rem !important;
 }
 
-.font-monospace {
-  font-family: var(--bs-font-monospace) !important;
-}
 
 .fs-1 {
   font-size: calc(1.35rem + 1.2vw) !important;
@@ -14062,7 +14059,6 @@ h4,
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
