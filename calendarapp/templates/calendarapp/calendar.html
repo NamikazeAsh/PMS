@@ -34,7 +34,7 @@
                 </a>
 
                 <div id="external-events" class="mt-3">
-                    <h4 class="mb-2">Running milestones</h4>
+                    <h4 class="mb-2 text-white">Running milestones</h4>
                     {% for event in events_month %}
                       <div class="card" style="width: 100%; box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                         <div class="card-body">
@@ -43,12 +43,12 @@
                           <hr>
                           <p class="card-text"><b> From:</b> {{ event.start_time }}</p>
                           <p class="card-text"><b>To:</b> {{ event.end_time }}</p>
-                          <a href="{% url "calendarapp:event-detail" event_id=event.id %}"><button style="background-color: rgb(75, 115, 226); border: 0px; color: #f1f1f1; height: 35%; width: 40%; font-weight: bolder;">Details</button></a>
+                          <a href="{% url "calendarapp:event-detail" event_id=event.id %}"><button style="height: 35%; width: 40%; font-weight: bolder; border-radius: .5rem;" class="btn btn-dark">Details</button></a>
                         </div>
                       <!-- </a> -->
                       </div>
                     {% empty %}
-                      <p>No Running Events Found</p>
+                      <p class=" text-white">No Running Events Found</p>
                     {% endfor %}
                 </div>
             </div>
