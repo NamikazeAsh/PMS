@@ -1,12 +1,6 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">New Task</li>
-{% endblock breadcrumb%}
-
 {% block extracss %}
     <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
@@ -20,11 +14,12 @@ function reset() {
 {% endblock extrascripts %}
 
 {% block content %}
+<div style="height:216px; background-color: #624bff;" class="pt-5">
 <div class="container animated fadeIn">
         <div class="row justify-content-center">
             <div class="col-7">
                 <div class="card-group">
-                    <div class="card p-4 mb-5" style="width: 70vw;">
+                    <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 80vw; border-radius: 1rem;">
                         <div class="card-body">
                             {% if created %}
                               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,7 +36,7 @@ function reset() {
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label class="col-form-label">Project</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/project.svg" %}" style="width:5%;"></img>
                                             {{ form.project }}
                                             {% if form.project.errors %}
@@ -54,8 +49,8 @@ function reset() {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Assign. <i>Crtl+click for multiple selection</i></label>
-                                        <div class="input-group">
+                                        <label class="col-form-label">Assign To <div><small><i class="text-muted">Crtl+click for multiple selection</i></small></div></label>
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/user.svg" %}" ></img>
                                             {{ form.assign }}
                                             {% if form.assign.errors %}
@@ -69,7 +64,7 @@ function reset() {
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Task name</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/description.svg" %}" ></img>
                                             {{ form.task_name }}
                                             {% if form.task_name.errors %}
@@ -83,7 +78,7 @@ function reset() {
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Difficulty</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/calendar.svg" %}" ></img>
                                             {{ form.difficulty }}
                                         </div>
@@ -98,7 +93,7 @@ function reset() {
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Status</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/status.svg" %}" ></img>
                                             {{ form.status }}
                                             {% if form.status.errors %}
@@ -122,5 +117,6 @@ function reset() {
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

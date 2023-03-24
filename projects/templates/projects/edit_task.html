@@ -1,12 +1,6 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">Edit Task</li>
-{% endblock breadcrumb%}
-
 {% block extracss %}
     <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
 {% endblock extracss %}
@@ -14,11 +8,12 @@
 
 
 {% block content %}
+<div style="height:216px; background-color: #624bff; " class="pt-5">
 <div class="container animated fadeIn">
         <div class="row justify-content-center">
             <div class="col-7">
                 <div class="card-group">
-                    <div class="card p-4 mb-5" style="width: 70vw;">
+                    <div class="card p-4 mb-5" style="width: 70vw; box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw; border-radius: 1rem;">
                         <div class="card-body">
                                 {% csrf_token %}
                                 <h1>Edit Task</h1>
@@ -30,7 +25,7 @@
                                             
                                     <div class="form-group">
                                         <label class="col-form-label">Task name</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/description.svg" %}" ></img>
                                             {{ form.task_name }}
                                             {% if form.task_name.errors %}
@@ -45,7 +40,7 @@
                                             {{ form.difficulty.as_hidden }}
                                     <div class="form-group">
                                         <label class="col-form-label">Status</label>
-                                        <div class="input-group">
+                                        <div class="input-group border-top">
                                             <img src="{% static "icons/status.svg" %}" ></img>
                                             {{ form.status }}
                                             {% if form.status.errors %}
@@ -68,5 +63,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

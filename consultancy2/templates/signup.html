@@ -55,7 +55,7 @@
     
 
     </head>
-    <body class="bg-primary">
+    <body style="background-color: #7186a8;" class="shadow">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -81,9 +81,9 @@
 
                     <div class="container animated fadeIn" >
                         <div class="row justify-content-center">
-                            <div class="col-6" style="width: 38vw;">
+                            <div class="col-6" style="width: 40vw;">
                                 <div class="card-group">
-                                    <div class="card p-4 mb-5 rounded-5">
+                                    <div class="card p-4 mb-5 rounded-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                                         <div class="card-body">
                                             {% if created %}
                                               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -194,12 +194,12 @@
                                                 {% endif %}
                                         </div>
                                         
-                                        <div class="d-flex align-items-center justify-content-between mt-12 mb-0">
+                                        <div class="d-flex align-items-center justify-content-md-between mt-12 mb-0">
 
 
                                             <div class="field-selection">
                                                 <p class="title">Role</p>
-                                                <select name="role" class="sel-field">
+                                                <select name="role" class="sel-field" style="background-color: #7186a8;">
                                                     <option value="Head Consultant">Head Consultant</option>
                                                     <option value="Lead Consultant">Lead Consultant</option>
                                                     <option value="Professor">Professor</option>
@@ -208,10 +208,9 @@
                                                 </select>
                                             </div>
 
-
-                                            <div class="field-selection">
+                                            <div class="field-selection ml-2">
                                                 <p class="title">Campus</p>
-                                                <select class="sel-field" name="campus">
+                                                <select class="sel-field" name="campus" style="background-color: #7186a8;">
                                                     <option value="Central">Central</option>
                                                     <option value="Yeshwantpur">Yeshwantpur</option>
                                                     <option value="Kengeri">Kengeri</option>
@@ -228,7 +227,7 @@
                                             {{ form.errors }}
                                     </div>
                                     <div class="small" style="text-align: center;">
-                                        <a href="{% url 'login' %}">Already have an account? Login!</a>
+                                        <a href="{% url 'login' %}" class="text-dark">Already have an account? Login!</a>
                                     </div>
                                 </div>
                             </div>

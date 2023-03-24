@@ -1,68 +1,40 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Projects</li>
-        <li class="breadcrumb-item active">New Team</li>
-{% endblock breadcrumb%}
-
-
-
-
+{% block extracss %}
+        <link href="{% static 'loginsignupstyles.css' %}" rel="stylesheet" />
+{% endblock extracss %}
 
 {% block content %}
+<div style="height:216px; background-color: #624bff;" class="pt-5">
 <div class="container animated fadeIn">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="width:80%">
             <div class="col-8">
                 <div class="card-group">
-                    <div class="card p-4 mb-5">
+                    <div class="card p-4 mb-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw; border-radius: 1rem;">
                         <div class="card-body">
                             {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                Congratulations, your team was created!
+                                Updated user hours!
                             </div>
                             {% endif %}
                                 {% csrf_token %}
                                 <h1>Hour Tracking</h1>
-                                <p class="text-muted">Intern/Sr Intern</p>
-                        
-
                             <form action="" method="post">
                                 {% csrf_token %}
 
-                                <div class="form-group">
+                                <div class="form-group mt-3  p-2">
                                     <label class="col-form-label">Hour Tracking</label>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fa fa-industry"></i></span>
-                                        </div>
-                                        
-                                        <input type="number" name="hours" id="" required>
-
+                                    <div class="input-group border-top pt-2">
+                                        <img src="{% static "icons/user.svg" %}"></img>                                        
+                                        <input type="number" name="hours" placeholder="Enter hours worked" id="" required  style="width: 90%; outline:none; border:none; margin-left:.5rem;">
                                     </div>
-                                
-                                </div>
+                                </div>                               
 
-                                <div class="form-group">
-                                    <div class="input-group">
-
-                                        {{ form.team_name }}
-                                        {% if form.team_name.errors %}
-                                            <ol>
-                                            {% for error in form.team_name.errors %}
-                                                <li><strong>{{ error|escape }}</strong></li>
-                                            {% endfor %}
-                                            </ol>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                
-
-                                <div class="">
+                                <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
                                     <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
                                 </div>
@@ -74,7 +46,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 

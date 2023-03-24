@@ -34,6 +34,8 @@
   <!-- Main styles for this application -->
   <link href="{% static 'core/css/estilo.css' %}" rel="stylesheet">
   <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+  <link rel="icon" href="{% static 'core/images/favicon.ico' %}">
+    <!-- <link href="{% static 'core/css/theme.css' %}" rel="stylesheet"> -->
 
   {% block extracss %}
   {% endblock extracss %}
@@ -44,7 +46,7 @@
 
   <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" style="outline:none; box-shadow: 0 0 0 0;">
-      <span class="navbar-toggler-icon" style="outline:none"></span>
+    <span class="navbar-toggler-icon" style="outline:none"></span>
     </button>
     <img src="{% static 'core/img/logos/title.png' %}" alt="" class="brand-gui" style="width:9rem;">
 
@@ -61,14 +63,15 @@
       <nav class="sidebar-nav">
         <ul class="nav">
           
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/house.svg" %}" ></img>Home</a>
+          </li>
+
           <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/milestone.svg" %}" ></img>Milestones</a>
             <ul class="nav-dropdown-items">
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'calendarapp:calendar'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Calendar</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'calendarapp:running_events'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Running</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'calendarapp:all_events'%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>All</a>
@@ -106,22 +109,6 @@
 
     <!-- Main content -->
     <main class="main">
-      <!-- Breadcrumb -->
-      <ol class="breadcrumb">
-        {% block breadcrumb %}
-        <li class="breadcrumb-item active">Home</li>
-        <li class="breadcrumb-item">Dashboard</li>
-        {% endblock breadcrumb%}
-
-        <!-- Breadcrumb Menu-->
-        {% comment %} <li class="breadcrumb-menu d-md-down-none">
-          <div class="btn-group" role="group" aria-label="Button group">
-            <a class="btn" href="#"><i class="fa fa-comments"></i></a>
-            <a class="btn" href="./"><i class="fa fa-tachometer-alt"></i> &nbsp;Dashboard</a>
-            <a class="btn" href="#"><i class="fa fa-cog"></i> &nbsp;Settings</a>
-          </div>
-        </li> {% endcomment %}
-      </ol>
 {% block content %}
 {% endblock %}
     </main>

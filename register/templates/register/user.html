@@ -1,101 +1,107 @@
 {% extends temp %}
 {% load static %}
 
-{% block breadcrumb %}
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">User Profile</li>
-{% endblock breadcrumb%}
 
-{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
 
-<div class="container-fluid">
-    <div id="ui-view" style="opacity: 1;">
-        <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="social-box" style="height:110%">
-                        <h1>{{ user_val.firstname }}</h1>
-                        <ul>
-                        <li>
-                            <strong>{{ user_view.project.all.count }}</strong>
-                            <span>projects</span>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
+        {% block content %}
+  <div style="height:216px; background-color: #624bff; ">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://as1.ftcdn.net/v2/jpg/00/64/67/52/1000_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{ user_val.username }}</h5>
+              <p class="text-muted mb-1">{{ user_val.role}}</p>
+              <!-- <p class="text-muted mb-4">{{ user_val.campus}} Campus</p> -->
+              
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mt-5">
-                        <div class="simple-box">
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <ul class="mt-4 mx-5">
-                                        <h5>Personal info:</h5>
-                                        <li><span>Name:</span> {{ user_view.user.get_full_name }}</li>
-                                        <li><span>Company:</span> {{ user_view.company }}</li>
-                                        <li><span>E-mail:</span> {{ user_view.user.email}}</li>
-                                        <li><span>Last login:</span> {{ user_view.user.last_login }}</li>
-                                        <li><span>Date joined:</span> {{ user_view.user.date_joined }}</li>
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-md-6 text-left">
-                                    <ul class="m-4">
-                                        <h5>Tasks that {{ user_view.user.first_name }} is involved:</h5>
-                                        {% for task in user_view.user.task_set.all %}
-                                        <li>{{ task }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="card-body">
-                                    <div class="tab-pane p-3 active show">
-                                      <div class="message">
-                                        <div class="py-3 pb-5 mr-3 float-left">
-                                          <div class="avatar">
-                                            <img src="{{ user_view.img.url }}" class="img-avatar" alt="{{ friend.user.get_full_name }}">
-                                            <span class="avatar-status badge-success"></span>
-                                          </div>
-                                        </div>
-                                        <div>
-                                          <small class="text-muted">{{ user_view.user.get_full_name }}</small>
-                                            {% if user_view.user.last_login %}
-                                          <small class="text-muted float-right mt-1">Last login: {{ user_view.user.last_login|date:"H:i" }} in {{ user_view.user.last_login|date:"d/m" }}</small>
-                                            {% endif %}
-                                        </div>
-                                        <div class="text-truncate font-weight-bold">{{ user_view.company }}</div>
-                                        {% if user_view.user.project_set %}
-                                        <em class="text-muted">Projects that {{ user_view.user.first_name }} is working:</em>
-                                        <small class="text-muted">
-                                            {% for project in user_view.user.project_set.all %}
-                                            {{ project }},
-                                            {% endfor %}
-                                        </small>
-                                        {% else %}
-                                        <em class="text-muted">{{ user_view.user.first_name }} is working in no projects until now.</em>
-                                        {% endif %}
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          
         </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user_val.firstname }} {{user_val.lastname}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user_val.email }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Campus</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user_val.campus}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Date joined</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user_view.user.date_joined }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Last login</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user_view.user.last_login }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Tasks involved</span>
+                  </p>
+                  <ul class="m-4"></ul>
+                  {% for task in user_view.user.task_set.all %}
+                  <li><p class="mb-1" style="font-size: .77rem; display:inline;">{{ task }}</p></li>
+                  {% endfor %}
+                </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Teams involved</span>
+                  </p>
+                <ul class="m-4"></ul>
+                  {% for team in user_view.user.team_set.all %}
+                  <li><p class="mb-1" style="font-size: .77rem; display:inline;">{{ team }}</p></li>
+                  {% endfor %}
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+    </div>
+  </section>
 
-
-
-{% endblock %}
+  {% endblock %}

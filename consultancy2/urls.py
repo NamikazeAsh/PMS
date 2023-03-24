@@ -21,8 +21,12 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 
 urlpatterns = [
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path('admin/', admin.site.urls),
     path('home',views.HomePage,name="home"),
     path('',views.SignIn,name="signup"),

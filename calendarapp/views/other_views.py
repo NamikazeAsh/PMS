@@ -1,4 +1,4 @@
-# cal/views.py
+    # cal/views.py
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -124,8 +124,12 @@ def add_eventmember(request, event_id):
             member = EventMember.objects.filter(event=event_id)
             event = Event.objects.get(id=event_id)
             if member.count() <= 9:
+                
                 user = forms.cleaned_data["user"]
-                EventMember.objects.create(event=event, user=user)
+                print(user)
+                # EventMember.objects.create(event=event, user=user)
+                instance=EventMember.objects.create(event=event)
+                instance.user.set(user)
                 return redirect("calendarapp:calendar")
             else:
                 print("--------------User limit exceed!-----------------")

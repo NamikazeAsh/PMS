@@ -21,5 +21,3 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(models.EventMember)
 class EventMemberAdmin(admin.ModelAdmin):
     model = models.EventMember
-    list_display = ["id", "event", "user", "created_at", "updated_at"]
-    list_filter = ["event"]
