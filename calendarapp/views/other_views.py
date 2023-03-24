@@ -121,15 +121,28 @@ def add_eventmember(request, event_id):
     if request.method == "POST":
         forms = AddMemberForm(request.POST)
         if forms.is_valid():
+            
             member = EventMember.objects.filter(event=event_id)
             event = Event.objects.get(id=event_id)
-            if member.count() <= 9:
+            user = forms.cleaned_data["user"]
+            print("User ",user," user count ",user.count())
+            
+            if user.count() <= 9:
                 
-                user = forms.cleaned_data["user"]
-                print(user)
-                # EventMember.objects.create(event=event, user=user)
-                instance=EventMember.objects.create(event=event)
-                instance.user.set(user)
+                
+                uid = user[0].id
+                
+                print("member ",member)
+                print("Event ", event)
+                print("UID ", user[0].id)
+                print(type(user[0]))
+                
+                EventMember.objects.create(event=event, user=user)
+                instance=EventMember(event=event)
+                instance.save()
+                instance.user.set(user[0].id)
+                instance.save()
+                
                 return redirect("calendarapp:calendar")
             else:
                 print("--------------User limit exceed!-----------------")
