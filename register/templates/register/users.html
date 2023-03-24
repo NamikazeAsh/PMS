@@ -3,6 +3,13 @@
 
 {% block extracss %}
 <link href="{% static 'core/css/filters.css' %}" rel="stylesheet">
+<style>
+    a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+</style>
 {% endblock extracss %}
 
 {% block extrascripts %}
@@ -163,7 +170,7 @@
                             <td>
                                 {{ user1.user.id }}
                             </td>
-                            <td style="text-decoration: underline;">
+                            <td>
                                 <a href="{% url 'register:user' profile_id=user1.user.id %}"> <span class="text-dark">{% if user1.user.get_full_name %}</span>
                                 <div><b>{{ user1.user.get_full_name }}{% if user1.user.is_staff %}</b> <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% else %}

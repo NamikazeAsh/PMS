@@ -18,6 +18,6 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ["title"]
 
 
-@admin.register(models.EventMember)
-class EventMemberAdmin(admin.ModelAdmin):
-    model = models.EventMember
+# @admin.register(models.EventMember)
+# class EventMemberAdmin(admin.ModelAdmin):
+#     model = models.EventMember

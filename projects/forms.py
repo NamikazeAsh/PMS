@@ -8,6 +8,7 @@ from mptt.forms import TreeNodeChoiceField
 from .models import ProjectComment
 from mptt.forms import TreeNodeChoiceField
 from projects.models import Team
+from django.forms import DateInput
 
 
 difficulty = (
@@ -75,6 +76,10 @@ class ProjectRegistrationForm(forms.ModelForm):
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
     category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
+    # dead_line = forms.DateField(widget=DateInput(
+    #     attrs={"type": "date", "class": "form-control"},
+    #             format="%Y-%m-%dT%H:%M",
+    #         ))
     dead_line = forms.DateField()
     company = forms.CharField(max_length=80)
     complete_per = forms.FloatField(min_value=0, max_value=100)
@@ -116,6 +121,7 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
         self.fields['dead_line'].widget.attrs['placeholder'] = 'mm/dd/yyyy'
+        # self.fields["dead_line"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields['company'].widget.attrs['class'] = 'form-control'
         self.fields['company'].widget.attrs['placeholder'] = 'Company'
         self.fields['complete_per'].widget.attrs['class'] = 'form-control'

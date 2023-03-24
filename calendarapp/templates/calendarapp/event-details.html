@@ -9,7 +9,7 @@ Event Details
     <div class="container">
         <div class="clearfix">
             <a class="btn btn-primary left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
-            <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_edit' event.pk %}"> Edit Event </a>
+
         </div>
 
         <div class="clearfix">
@@ -21,8 +21,6 @@ Event Details
         <hr>
         <div class="clearfix">
             <h4 class="left" > Members of this Event</h4>
-            <a class="btn btn-success right" href="{% url 'calendarapp:add_eventmember' event.id %}"> Add Member </a>
-        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -30,19 +28,17 @@ Event Details
                     <th>Name</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Action</th>
+
                 </tr>
             </thead>
             <tbody>
-                {% for member in eventmember %}
+                {% for member in event %}
                 <tr role="row">
                     <td>{{ forloop.counter }}</td>
                     <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
                     <td>{{ member.user.username }}</td>
                     <td>{{ member.user.email }}</td>
-                    <td>
-                        <a class="btn btn-danger" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
-                    </td>
+
                 </tr>
                 {% endfor %}
               </tbody>
