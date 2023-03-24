@@ -1,5 +1,6 @@
 <div class="modal fade" id="editBasicFinanceInfoModal" tabindex="-1" aria-labelledby="editBasicFinanceInfoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
+    {% load static%}
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="editBasicFinanceInfoModalLabel">Edit Basic Finance Infomation</h1>
@@ -9,15 +10,26 @@
         <div class="modal-body">
           {% csrf_token %}
           <div>
-            <div>
-              <input type="text" class="mt-2 btn-block" name="amount" placeholder="Total amount received excluding  GST and TDS">
-              <input type="number" class="mt-4 btn-block" name="percentage" placeholder="Percentage to Christ University">
+            <div class="form-group border py-1" style="border-radius:.5rem;">
+              <label class="col-form-label pl-2">Total amount received excluding GST and TDS</label>
+              <div class="input-group border-top pt-2">
+                <img src="{% static "icons/rupee.svg" %}"  style="width: 5%"></img>
+                <input type="text" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="amount" placeholder="Total amount received excluding  GST and TDS">
+              </div>
+            </div>
+            <div class="form-group border py-1" style="border-radius:.5rem;">
+              <label class="col-form-label pl-2">Percentage to Christ University</label>
+              <div class="input-group border-top pt-2">
+                <img src="{% static "icons/percent.svg" %}"></img>
+                <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="percentage" placeholder="Percentage to Christ University">
+              </div>
             </div>
           </div>
         </div>
-        <div class=" d-flex align-items-center justify-content-center mt-3 mb-3 ">
-          <button type="submit" class="btn btn-primary col-3 mr-5">Save</button>
-          <button type="button" class="btn btn-secondary  col-3 ml-5" data-bs-dismiss="modal">Close</button>
+
+        <div class=" d-flex align-items-center justify-content-center mb-3 ">
+          <button type="submit" class="btn btn-dark col-3 mr-5" style="border-radius:.5rem;">Save</button>
+          <button type="button" class="btn btn-dark col-3 ml-5" style="border-radius:.5rem;" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
