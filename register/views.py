@@ -64,7 +64,7 @@ def usersView(request):
 
 def user_view(request, profile_id):
     user = UserProfile.objects.get(user_id=profile_id)
-    user_val = AdminValidation.objects.get(username=request.user.username)
+    user_val = AdminValidation.objects.get(username=user.user.username)
     var = findtemp(request)
     baseurl = "core"
     context = {
