@@ -5,14 +5,100 @@ Event Details
 {% endblock %}
 
 {% block content %}
-<div style="height:216px; background-color: #624bff; ">
-    <div class="container">
-        <div class="clearfix">
-            <a class="btn btn-primary left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
-
+<div style="height:216px; background-color: #624bff;" class="pt-5">
+    <div class="col-lg-12 col-md-12 col-12" style="margin-bottom:2rem;">
+        <!-- Page header -->
+        <div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="mb-2 mb-lg-0 pl-3 pt-1">
+                    <h3 class="mb-0 text-white h1 pt-1">{{ event.title }}</h3>
+                    <p class="text-light mt-1 h6">View your task details here</p>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="clearfix">
+
+    <div class="container-fluid">
+        <div class="animated fade-in">
+            <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="w-50">
+                        <p>
+                            <div>From: <span class="text-muted">{{ event.start_time }}</span></div>
+                            <div>To: <span class="text-muted">{{ event.end_time }}</span></div>
+                        </p>
+                    </div>
+                    <div class="button-section w-100 d-flex justify-content-end">
+                        <a class="btn btn-dark mr-3" href="{% url 'calendarapp:calendar' %}" style="border-radius: .5rem;"> Calendar </a>
+                        <a class="btn btn-dark mr-3" href="{% url 'calendarapp:event_edit' event.pk %}" style="border-radius: .5rem;"> Edit Event </a>
+                    </div>
+                </div>
+
+
+
+                <!-- <div class="clearfix">
+                    <div><div>From: <span style="color: gray;">{{ event.start_time }}</span></div>
+                        <div>To: <span style="color: gray;">{{ event.end_time }}</span></div></p>
+                    <p>{{ event.description }}</p>
+                </div> -->
+
+                <div>
+                    Description: <p>{{ event.description }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid my-5">
+        <div class="animated fade-in">
+            <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h4 class="w-50"> Members of this Event</h4>
+                    <div class="button-section w-100 d-flex justify-content-end">
+                        <a class="btn btn-dark mr-3" style="border-radius: .5rem;" href="{% url 'calendarapp:add_eventmember' event.id %}"> Add Member </a>
+                    </div>
+                </div>
+                <table class="table table-bordered table-hover mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 80px;">Sr. No</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in eventmember %}
+                        <tr role="row">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                            <td>{{ member.user.username }}</td>
+                            <td>{{ member.user.email }}</td>
+                            <td>
+                                <a class="btn btn-danger" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+        <!-- <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
+            <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_edit' event.pk %}"> Edit Event </a>
+        </div> -->
+
+        <!-- <div class="clearfix">
             <h3>Event Name: {{ event.title }}</h3>
             <p>From <span style="color: gray;">{{ event.start_time }}</span> To <span style="color: gray;">{{ event.end_time }}</span></p>
             <hr>
@@ -42,7 +128,7 @@ Event Details
                 </tr>
                 {% endfor %}
               </tbody>
-        </table>
+        </table> -->
     </div>
 </div>
 {% endblock %}
