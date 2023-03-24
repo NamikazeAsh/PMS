@@ -13,7 +13,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-    --bs-body-font-family: Inter, sans-serif;
+  --bs-body-font-family: Inter, sans-serif;
   --bs-body-font-size: 0.9375rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -80,7 +80,9 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box; }
+  box-sizing: border-box; 
+  font-family: var(--bs-body-font-family) !important;
+}
 
 html {
   font-family: sans-serif;
@@ -345,7 +347,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: inherit;
+  /* font-family: inherit; */
   font-weight: 500;
   line-height: 1.2;
   color: inherit; }
