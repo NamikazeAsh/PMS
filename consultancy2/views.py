@@ -19,9 +19,7 @@ from django.template import loader
 from django.urls import reverse
 from register.models import UserProfile
 from finance.models import *
-
-
-
+from projects import views
 
 import datetime
 import json
@@ -206,70 +204,6 @@ def TempSrIntern(request):
 def UsersProfile(request):
     return render(request,"profile.html",context)
 
-
-
-
-def addIncome(request, id) :
-
-    if request.method == "POST":
-        particular = request.POST.get('particular')
-        amt = request.POST.get('amount')
-        tempDict = {
-            "particular": particular,
-            "amount": amt,
-        }
-
-        mydata = FinanceModel.objects.filter(project_id=id).values()
-
-        # if not mydata:
-        #     if not mydata.values_list('income'):
-        #         incomingIncomeData = json.loads(mydata)
-        #         tempList = incomingIncomeData["add"]
-        #         tempList.append(tempDict)
-
-        #     else:
-        #         tempList = [tempDict]
-
-        #     finalDict = {"add": tempList}
-        #     finalJSON = json.dumps(finalDict)
-        #     saveincome = FinanceModel()
-        #     saveincome.income = finalJSON
-        #     saveincome.save()
-
-        # else:
-        #     finalDict = {"add": tempList}
-        #     finalJSON = json.dumps(finalDict)
-
-        #     saveincome = FinanceModel()
-        #     saveincome.project_id = id
-        #     saveincome.income = finalJSON
-        #     saveincome.save()
-        
-        # saveincome = FinanceModel()
-        # saveincome.project_id = id
-        # saveincome.income = finalJSON
-        # saveincome.save()
-        
-        # return ProjectProfile(request, id)
-        # return render(request,"projectprofile.html",context)
-        
-    # details = HourVal.objects.all()
-    # freehouro = AdminValidation.objects.get(email = request.user.email)
-    # print(freehouro)
-    
-    # var = findtemp(request)
-    # context = {
-    #     "temp": var,
-    #     "details":details,
-    #     "freehourso":freehouro,
-    # }
-    # return ProjectProfile(request,id)
-    # return render(request,"projectprofile.html")
-    # return render(request,"projectprofile.html",context)
-    # return render(request,"projectprofile.html",pid)
-
-
-
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
@@ -420,23 +354,183 @@ def context(request): # send context to base.html
         }
         return context
 
-def editBasicFinanceInfo(request) :
-    return HttpResponse("/")
-    # if request.method == "POST":
-    #     username = request.POST.get( 'username' )
-    #     password = request.POST.get( 'password' )
-    #     user = authenticate(username = username, password = password)
-    #     if user != None:
-    #         login( request, user)
-    #         return HttpResponseRedirect('/backend')
-    #     else:
-    #         messages.error( request , "Enter your data correctly.")
-    #         messages.info( request , "Enter your data correctly.")
-    #         return HttpResponseRedirect('/')
+def editBasicFinanceInfo(request,id) :
 
-def addExpense(request) :
-    return HttpResponse("/")
+    if request.method == "POST":
+        basicAmt = request.POST.get('amount')
+        cuPercent = request.POST.get('percentage')
+
+        existingData = FinanceModel.objects.filter(project_id = id)
+        
+        if existingData:
+            existingData[0].amtreceived = basicAmt
+            existingData[0].cupercentage = cuPercent
+            existingData[0].save()
+        else :
+            projDetails = Project.objects.get(id = id)  
+            savebasicinfo = FinanceModel()
+            savebasicinfo.project_id = projDetails
+            savebasicinfo.amtreceived = basicAmt
+            savebasicinfo.cupercentage = cuPercent
+            savebasicinfo.save()
+
+    # newFinanceData = FinanceModel.objects.get(project_id = id)
+
+    # # return ProjectProfile(request, id)
+    # return projects(request)
+    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
+    return render(request,"projectprofile.html",context)
+
+def addIncome(request, id) :
+    if request.method == "POST":
+        particular = request.POST.get('particular')
+        amt = request.POST.get('amount')
+        tempDict = {
+            "particular": particular,
+            "amount": amt,
+        }
+
+        existingFinance = FinanceModel.objects.filter(project_id = id)
+        if existingFinance:
+            # saving when its already there
+            if not existingFinance[0].incomes:
+                # when income is empty
+                incomeJson = json.dumps(tempDict)
+                incomeArr = []
+                incomeArr.append(incomeJson)
+                finalDict = {'add': incomeArr}
+                finalJson = json.dumps(finalDict)
+                existingFinance[0].incomes = finalJson
+                existingFinance[0].save()
+
+            else:
+                # when income already exists
+                existingIncomeData = json.loads(existingFinance[0].incomes)
+                newIncomeDict = existingIncomeData['add']
+                tempDict = json.dumps(tempDict)
+                newIncomeDict.append(tempDict)
+                finalDict = json.dumps(newIncomeDict)
+                existingFinance[0].incomes = finalDict
+                existingFinance[0].save()
+        
+        else:
+            # saving a new row
+            projDetails = Project.objects.get(id = id)
+            incomeJson = json.dumps(tempDict)
+            incomeArr = []
+            incomeArr.append(incomeJson)
+            finalDict = {'add': incomeArr}
+            finalJson = json.dumps(finalDict)
+            saveIncome = FinanceModel()
+            saveIncome.incomes = finalJson
+            saveIncome.project_id = projDetails
+            saveIncome.save()
+
+    # newFinanceData = FinanceModel.objects.get(project_id = id)
+
+    # # return ProjectProfile(request, id)
+    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
+    return render(request,"projectprofile.html",context)
+
+def addExpense(request,id) :
+    if request.method == "POST":
+        particular = request.POST.get('particular')
+        amt = request.POST.get('amount')
+        tempDict = {
+            "particular": particular,
+            "amount": amt,
+        }
+
+        existingExpense = FinanceModel.objects.filter(project_id = id)
+        if existingExpense:
+            # saving when its already there
+            if not existingExpense[0].expenses:
+                # when income is empty
+                expenseJson = json.dumps(tempDict)
+                expenseArr = []
+                expenseArr.append(expenseJson)
+                finalDict = {'less': expenseArr}
+                finalJson = json.dumps(finalDict)
+                existingExpense[0].expenses = finalJson
+                existingExpense[0].save()
+
+            else:
+                # when income already exists
+                existingExpenseData = json.loads(existingExpense[0].expenses)
+                newExpenseDict = existingExpenseData['less']
+                tempDict = json.dumps(tempDict)
+                newExpenseDict.append(tempDict)
+                finalDict = json.dumps(newExpenseDict)
+                existingExpense[0].expenses = finalDict
+                existingExpense[0].save()
+        
+        else:
+            # saving a new row
+            projDetails = Project.objects.get(id = id)
+            expenseJson = json.dumps(tempDict)
+            expenseArr = []
+            expenseArr.append(expenseJson)
+            finalDict = {'less': expenseArr}
+            finalJson = json.dumps(finalDict)
+            saveExpense = FinanceModel()
+            saveExpense.expenses = finalJson
+            saveExpense.project_id = projDetails
+            saveExpense.save()
+
+    # newFinanceData = FinanceModel.objects.get(project_id = id)
+    # # return ProjectProfile(request, id)
+    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
+    return render(request,"projectprofile.html",context)
 
 
-def addProfessor(request) :
-    return HttpResponse("/")
+def addProfessor(request, id) :
+    if request.method == "POST":
+        profname = request.POST.get('name')
+        disburseRatio = request.POST.get('ratio')
+        desc = request.POST.get('desc')
+        tempDict= {
+            "Professor": profname,
+            "ratio": disburseRatio,
+            "desc": desc,
+        }
+
+        existingProf = FinanceModel.objects.filter(project_id = id)
+        if existingProf:
+            # saving when its already there
+            if not existingProf[0].professor:
+                # when income is empty
+                profJson = json.dumps(tempDict)
+                profArr = []
+                profArr.append(profJson)
+                finalDict = {'professors': profArr}
+                finalJson = json.dumps(finalDict)
+                existingProf[0].professor = finalJson
+                existingProf[0].save()
+
+            else:
+                # when income already exists
+                existingProfData = json.loads(existingProf[0].professor)
+                newProfDict = existingProfData['professors']
+                tempDict = json.dumps(tempDict)
+                newProfDict.append(tempDict)
+                finalDict = json.dumps(newProfDict)
+                existingProf[0].professor = finalDict
+                existingProf[0].save()
+        
+        else:
+            # saving a new row
+            projDetails = Project.objects.get(id = id)
+            profJson = json.dumps(tempDict)
+            profArr = []
+            profArr.append(profJson)
+            finalDict = {'professors': profArr}
+            finalJson = json.dumps(finalDict)
+            saveProfessor = FinanceModel()
+            saveProfessor.professor = finalJson
+            saveProfessor.project_id = projDetails
+            saveProfessor.save()
+
+    # newFinanceData = FinanceModel.objects.get(project_id = id)
+    # # return ProjectProfile(request, id)
+    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
+    return render(request,"projectprofile.html",context)

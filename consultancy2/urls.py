@@ -51,10 +51,10 @@ urlpatterns = [
     path("calendar/", include("calendarapp.urls")),
     path("finance/", include("finance.urls")),
 
-    path("editbasicfinanceinfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
-    path("add-expense", views.addExpense, name="addExpense"),
+    path("projects/project/<int:id>/editBasicFinanceInfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
+    path("projects/project/<int:id>/addexpense", views.addExpense, name="addExpense"),
     path("projects/project/<int:id>/addincome", views.addIncome, name="addIncome"),
-    path("add-professor", views.addProfessor, name="addProfessor"),
+    path("projects/project/<int:id>/addprofessor", views.addProfessor, name="addProfessor"),
 
     # path('srintern/', include('srintern.urls', namespace='srintern')),
     # path('', include('core.urls', namespace='core')),
