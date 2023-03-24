@@ -304,11 +304,27 @@
                                                     </span>
                                                     <span class="text-muted small">deadline: </span><span class="text-dark">{{ project.dead_line }}</span><span class="text-muted small ml-2">({{ project.complete_per }}%)</span>
                                                 </span>
+
+                                                {% if project.complete_per < 30%}
                                                 <div class="bars mt-2">
-                                                    <div class="progress progress-xs" style="height:15px;">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ project.complete_per }}%" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress  progress-xs" style="height:15px;">
+                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
                                                     </div>
                                                 </div>
+                                                {% elif project.complete_per < 100%}
+                                                <div class="bars mt-2">
+                                                    <div class="progress  progress-xs" style="height:15px;">
+                                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="bars mt-2">
+                                                    <div class="progress  progress-xs" style="height:15px;">
+                                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ project.complete_per }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ project.complete_per }}%"></div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -373,7 +389,7 @@
                                                     {% endif %}
                                                 </p>
                                             </td>
-                                            <td class="align-middle">{{ project.dead_line }}</td>
+                                            <td class="align-middle text-dark">{{ project.dead_line }}</td>
                                             <td class="align-middle" style="position: relative;top: 8px;">
                                                 <p style="font-size: .8rem; color: black;">
                                                     {% if project.status == '2' %}Stuck
