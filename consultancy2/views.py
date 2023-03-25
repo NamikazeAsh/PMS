@@ -97,28 +97,46 @@ def SignIn(request):
 def LogIn(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
-            login(request, authenticated_user)
-            if request.user.groups.filter(name='Intern').exists():
-                return render(request,'intern/tempintern.html')
-            elif request.user.groups.filter(name='Sr Intern').exists():
-                return render(request,'srintern/tempsrintern.html')
-            elif request.user.groups.filter(name='Professor').exists():
-                return render(request,'srintern/tempsrintern.html')
-            elif request.user.groups.filter(name='Lead Consultant').exists():
-                return render(request,'consultant/tempprof.html')
-            elif request.user.groups.filter(name='Head Consultant').exists():
-                return render(request,'consultant/tempprof.html')
-            elif request.user.groups.filter(name='Finance Manager').exists():
-                return render(request,'financeHome.html')
+        av = SignInInsert.objects.values('username','password')
+        
+        print("AV ", av)
+        avc = {}
+        avc['username'] = request.POST['username']
+        avc['password'] = request.POST['password']
+        print("AVC ",avc)
+        
+        
+        if avc not in av:
+            if form.is_valid():
+                
+                    authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
+                    login(request, authenticated_user)
+                    if request.user.groups.filter(name='Intern').exists():
+                        return render(request,'intern/tempintern.html')
+                    elif request.user.groups.filter(name='Sr Intern').exists():
+                        return render(request,'srintern/tempsrintern.html')
+                    elif request.user.groups.filter(name='Professor').exists():
+                        return render(request,'srintern/tempsrintern.html')
+                    elif request.user.groups.filter(name='Lead Consultant').exists():
+                        return render(request,'consultant/tempprof.html')
+                    elif request.user.groups.filter(name='Head Consultant').exists():
+                        return render(request,'consultant/tempprof.html')
+                    elif request.user.groups.filter(name='Finance Manager').exists():
+                        return render(request,'financeHome.html')
+                    else:
+                        return render(request,'admindashboard.html')
+
             else:
-                return render(request,'admindashboard.html')
+                var = findtemp(request)
+                return render(request, 'login.html', {'login_form':form,'temp':var,})
         else:
+            adminvalerrormsg = True
             var = findtemp(request)
-            return render(request, 'login.html', {'login_form':form,'temp':var,})
+            return render(request, 'login.html', {'login_form':form,'temp':var,'adminvalerrormsg':adminvalerrormsg})
+        
     else:
         form = AuthenticationForm()
+        
     var = findtemp(request)
     return render(request, 'login.html', {'login_form':form,'temp':var,})
 
