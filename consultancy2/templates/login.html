@@ -74,13 +74,14 @@
 
                                                 {% if login_form.errors %}
                                                 <div class="alert alert-danger col-12 mt-3" role="alert">
+
                                                     Wrong username or password!
-                                                </div>
-                                                {% endif %}
-                                                
-                                                {% if adminvalerrormsg %}
-                                                <div class="alert alert-danger col-12 mt-3" role="alert">
+                                                    
+                                                    {% if adminvalerrormsg %}
+                                                    <br>
                                                     User has to be validated by administration!
+                                                    {% endif %}
+
                                                 </div>
                                                 {% endif %}
 
