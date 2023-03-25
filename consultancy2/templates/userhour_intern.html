@@ -42,7 +42,15 @@
                                         <img src="{% static "icons/user.svg" %}"></img>                                        
                                         <input type="number" name="hours" placeholder="Enter hours worked" id="" required  style="width: 90%; outline:none; border:none; margin-left:.5rem;">
                                     </div>
-                                </div>                               
+                                </div> 
+                                
+                                <div class="form-group border p-2" style="border-radius: .5rem;">
+                                    <label class="col-form-label ml-2">Description</label>
+                                    <div class="input-group border-top">
+                                    <img src="/static/icons/description.svg">
+                                    <textarea name="description" cols="40" rows="10" class="form-control" placeholder="Enter event description" required="" id="id_description"></textarea>
+                                    </div>
+                                </div>
 
                                 <div class="button-section">
                                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>

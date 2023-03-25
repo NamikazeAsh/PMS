@@ -234,12 +234,13 @@ def UserHourTrackingIntern(request):
         saverecord.hours_claimed = request.POST.get('hours')
         saverecord.date_claimed = datetime.datetime.now()
         saverecord.team = request.POST.get('team')
+        saverecord.description = request.POST.get('description')
         saverecord.save()
         
-        if request.POST.get('freehouri') == True:
-            print("checked")
-        else:
-            print("not checked")
+        # if request.POST.get('freehouri') == True:
+        #     print("checked")
+        # else:
+        #     print("not checked")
         
         return redirect('signup')
         
@@ -283,6 +284,7 @@ def UserHourTrackingProfessor(request):
         "details":details,
         "freehourso":freehouro,
     }
+    
     return render(request,"userhour_professor.html",context)
 
 @login_required(login_url='login')
