@@ -1,6 +1,89 @@
 {% extends temp %}
 {% load static %}
 
+
+{% block extrascripts %}
+<script>
+    function search_name()
+    {
+        var input,table,tr,td,filter,txtdata;
+        input=document.getElementById("search");
+        filter=input.value.toUpperCase();
+        table=document.getElementById("teams_table");
+        tr=table.getElementsByTagName("tr");
+        
+        for(i=0;i<tr.length;i++)
+        {
+            td=tr[i].getElementsByTagName("td")[0];
+            if(td)
+            {
+                txtdata=td.innerText;
+                if(txtdata.toUpperCase().indexOf(filter)>-1)
+                {
+                    tr[i].style.display="";
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+            }
+        }
+
+    }
+
+    function search_member()
+    {
+        var input,table,tr,td,filter,txtdata;
+        input=document.getElementById("search");
+        filter=input.value.toUpperCase();
+        table=document.getElementById("teams_table");
+        tr=table.getElementsByTagName("tr");
+        
+        for(i=0;i<tr.length;i++)
+        {
+            td=tr[i].getElementsByTagName("td")[1];
+            if(td)
+            {
+                txtdata=td.innerText;
+                if(txtdata.toUpperCase().indexOf(filter)>-1)
+                {
+                    tr[i].style.display="";
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+            }
+        }
+
+    }
+
+        
+
+    function option()
+    {
+        var ch=document.getElementById("choice");
+        if(ch.value=="name")
+        {
+            search_name();
+        }
+        else if(ch.value=="members")
+        {
+            search_member();
+        }
+        
+    }
+
+    function clear()
+            {
+                // var getVal=document.getElementById("search");
+                // if (getVal.value!="")
+                //     getVal.value="";
+                print("Working")
+            }
+</script>
+{% endblock extrascripts %}
+
 {% block content %}
 
 <div style="height:216px; background-color: #624bff; padding-top: 3.5rem;">
