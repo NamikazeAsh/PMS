@@ -31,12 +31,19 @@ body {
                     <div class="courses-container m-0">
                         <div class="course mt-0">
                             <div class="course-preview d-flex align-item-center justify-content-start flex-column" style="color: #fff; background-color: #29363d; border-color: #29363d;">
-                                <h6>Status</h6>
+                                <h6 class="mt-1" style="padding-bottom: 10px;">Project</h6>
+
                                 <h5 class="mt-1 text-light">Task Name</h5>
-                                <h6 class="mt-1">Project</h6>
+                                <h6 style="padding-bottom: 10px;padding-top: 10px;">Required</h6>
+                                <h6>Status</h6>
                             </div>
                             <div class="course-info d-flex align-item-center justify-content-center py-0 pl-0">
                                 <div class="course-info d-flex align-item-center justify-content-around flex-column">
+                                <h6 class="mt-2" style="padding-bottom: 10px;">{{tk.project}}</h6>
+
+                                <h2>{{tk.task_name}}</h2>
+
+                                <h6 style="padding-bottom: 10px;padding-top: 10px;">{{tk.hours_required}} hours</h6>
                                 {% if tk.status == '1' %}
                                 <h6>Working</h6>
                                 {% elif tk.status == '2' %}
@@ -44,8 +51,7 @@ body {
                                 {%else%}
                                 <h6>Done</h6>
                                 {% endif %}
-                                <h2>{{tk.task_name}}</h2>
-                                <h6 class="mt-2">{{tk.project}}</h6>
+                                
                                 </div>
                                 <div class="button-section d-flex align-item-center justify-content-around flex-column">
                                     <a href="/projects/projects/edit_task/{{tk.id}}"><button class="btn btn-dark"  style="width: 5rem;">Edit</button></a>

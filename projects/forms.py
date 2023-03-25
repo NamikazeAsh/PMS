@@ -11,12 +11,6 @@ from projects.models import Team
 from django.forms import DateInput
 
 
-difficulty = (
-    ('1', 'Easy'),
-    ('2', 'Mediocre'),
-    ('3', 'Hard'),
-)
-
 status = (
     ('1', 'Working'),
     ('2', 'Stuck'),
@@ -35,19 +29,19 @@ class TaskRegistrationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
     assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
     task_name = forms.CharField(max_length=80)
-    difficulty = forms.ChoiceField(choices=difficulty)
+    hours_required = forms.FloatField(min_value=0, max_value=200)
     status = forms.ChoiceField(choices=status)
 
     class Meta:
         model = Task
-        fields = ('project','assign','task_name','difficulty','status')
+        fields = ('project','assign','task_name','hours_required','status')
 
 
     def save(self, commit=True):
         task = super(TaskRegistrationForm, self).save(commit=False)
         task.project = self.cleaned_data['project']
         task.task_name = self.cleaned_data['task_name']
-        task.difficulty = self.cleaned_data['difficulty']
+        task.hours_required = self.cleaned_data['hours_required']
         task.status = self.cleaned_data['status']
         task.save()
         assigns = self.cleaned_data['assign']
@@ -67,7 +61,8 @@ class TaskRegistrationForm(forms.ModelForm):
         self.fields['project'].widget.attrs['placeholder'] = 'Project Name'
         self.fields['task_name'].widget.attrs['class'] = 'form-control'
         self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
-        self.fields['difficulty'].widget.attrs['class'] = 'form-control'
+        self.fields['hours_required'].widget.attrs['class'] = 'form-control'
+        self.fields['hours_required'].widget.attrs['placeholder'] = 'Hours %'
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
 
@@ -76,10 +71,6 @@ class ProjectRegistrationForm(forms.ModelForm):
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
     category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
-    # dead_line = forms.DateField(widget=DateInput(
-    #     attrs={"type": "date", "class": "form-control"},
-    #             format="%Y-%m-%dT%H:%M",
-    #         ))
     dead_line = forms.DateField()
     company = forms.CharField(max_length=80)
     complete_per = forms.FloatField(min_value=0, max_value=100)
@@ -121,7 +112,6 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
         self.fields['dead_line'].widget.attrs['placeholder'] = 'mm/dd/yyyy'
-        # self.fields["dead_line"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields['company'].widget.attrs['class'] = 'form-control'
         self.fields['company'].widget.attrs['placeholder'] = 'Company'
         self.fields['complete_per'].widget.attrs['class'] = 'form-control'

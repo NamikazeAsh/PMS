@@ -7,11 +7,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from consultancy2.models import *
 
 
-difficulty = (
-    ('1', 'Easy'),
-    ('2', 'Mediocre'),
-    ('3', 'Hard'),
-)
 
 status = (
     ('1', 'Working'),
@@ -67,7 +62,7 @@ class Task(models.Model):
     assign = models.ManyToManyField(User)
     task_name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=250)
-    difficulty = models.CharField(max_length=7, choices=difficulty, default=1)
+    hours_required = models.FloatField(max_length=2, validators = [MinValueValidator(0), MaxValueValidator(200)],default=1)
     status = models.CharField(max_length=7, choices=status, default=1)
 
     class Meta:
