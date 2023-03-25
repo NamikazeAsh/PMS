@@ -85,17 +85,26 @@
                                 <div class="card-group">
                                     <div class="card p-4 mb-5 rounded-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                                         <div class="card-body">
+                                            
+                                            
                                             {% if created %}
-                                              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                      <span aria-hidden="true">&times;</span>
-                                                  </button>
-                                                 A new user has been sent for approval!
-                                              </div>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                A new user has been sent for approval!
+                                            </div>
                                             {% endif %}
+
+
                                                 {% csrf_token %}
                                                 <h1 class="text-center">Sign Up</h1>
-                                                {% comment %} <p class="text-muted">Enter user details here</p> {% endcomment %}
+                                                
+                                                {% comment %} 
+                                                <p class="text-muted">Enter user details here</p> 
+                                                {% endcomment %}
+
+
                                     <form action="" method="post">
                                         {% csrf_token %}
                                         <div class="form-group mt-3">
