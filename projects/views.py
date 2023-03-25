@@ -9,6 +9,7 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
+from consultancy2.decorators import allowed_users
 
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -209,6 +210,8 @@ def projects(request):
     for project in projc:
         if project.documents:
             project.status = 3
+            if project.status == 3:
+                project.complete_per=100
             project.save()
     # ----------------------------------- xxxx ----------------------------------- #
     
@@ -257,7 +260,7 @@ def edit_project(request,id):
     return render(request, 'projects/edit_project.html', context)    
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
+@allowed_users(allowed_roles=['Head Consultant'])
 def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
