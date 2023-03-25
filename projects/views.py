@@ -411,3 +411,17 @@ def UploadProjectDocs(request,id):
             print("Nothing to upload")
     
     return projects(request)
+
+@login_required(login_url='login')
+def UploadRefProjectDocs(request,id):
+    
+    fuo = Project.objects.get(id=id)
+    
+    if request.method == 'POST':
+        if request.FILES:
+            fuo.refdocuments = request.FILES['refupload']
+            fuo.save()
+        else:
+            print("Nothing to upload")
+    
+    return projects(request)

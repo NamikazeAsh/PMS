@@ -467,11 +467,17 @@
                                             </td>
 
                                             <td class="align-middle text-dark">
-                                                <form enctype="multipart/form-data" method="post" action="#">
+
+                                                <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadrefprojdoc/{{project.id}}">
                                                     {% csrf_token %}
-                                                    <input type="file" value="refupload" name="refupload" id="refupload" class="mt-2" style="max-width: 13rem; font-size:.8rem;">
-                                                    <input type="submit" class="mt-2 mb-2 btn btn-dark" value="Upload Ref Doc" style="font-weight:bold; font-size:.7rem;">
+                                                    {% if project.refdocuments %}
+                                                        <input type="button" class="my-2 ml-2 btn btn-dark" value="Download Ref Doc" style="font-weight:bold;  font-size:.7rem;" onclick='location.href= "{{ project.refdocuments.url }}"'>
+                                                    {% else %}
+                                                        <input type="file" value="refupload" name="refupload" id="refupload" class="mt-2" style="max-width: 13rem; font-size:.8rem;">
+                                                        <input type="submit" class="mt-2 mb-2 btn btn-dark" value="Upload Ref Doc" style="font-weight:bold; font-size:.7rem;">
+                                                    {% endif %}
                                                 </form>
+
                                             </td>
 
                                         </tr>
