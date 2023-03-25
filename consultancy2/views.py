@@ -99,11 +99,9 @@ def LogIn(request):
         form = AuthenticationForm(data=request.POST)
         av = SignInInsert.objects.values('username','password')
         
-        print("AV ", av)
         avc = {}
         avc['username'] = request.POST['username']
         avc['password'] = request.POST['password']
-        print("AVC ",avc)
         
         
         if avc not in av:
