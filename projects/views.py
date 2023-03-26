@@ -193,6 +193,8 @@ def deltask(request,task):
 
     task = get_object_or_404(Task,id=task)
     task.assign.remove(request.user.id)
+    if task.assign.exists() == False:
+        task.delete()
     
     tasks = Task.objects.filter(assign = request.user.id)
     var = findtemp(request)
