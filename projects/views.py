@@ -192,7 +192,7 @@ def taskprofile1(request):
 def deltask(request,task):
 
     task = get_object_or_404(Task,id=task)
-    task.delete()
+    task.assign.remove(request.user.id)
     
     tasks = Task.objects.filter(assign = request.user.id)
     var = findtemp(request)
