@@ -59,14 +59,27 @@ def SignIn(request):
             refprojectslist = []
             for tid in teamslist:
                 project = Project.objects.filter(assign = tid)
-                if project[0].refdocuments:
-                    refprojectslist.append(project[0])
-                
-            print("Refprojlist: ",refprojectslist)
+                if project.exists(): 
+                    if project[0].refdocuments:
+                        refprojectslist.append(project[0])
             
             return render(request,'intern/tempintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Sr Intern').exists():
-            return render(request,'srintern/tempsrintern.html')
+            
+            uid = request.user.id
+            teams = Team.objects.filter(assign = uid).values_list()
+            teamslist = []
+            for t in teams:
+                teamslist.append(t[0])
+
+            refprojectslist = []
+            for tid in teamslist:
+                project = Project.objects.filter(assign = tid)
+                if project.exists():    
+                    if project[0].refdocuments:
+                        refprojectslist.append(project[0])
+            
+            return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Professor').exists():
             return render(request,'srintern/tempsrintern.html')
         elif request.user.groups.filter(name='Lead Consultant').exists():
