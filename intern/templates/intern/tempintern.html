@@ -9,14 +9,18 @@
 
 {% block content %}
 
+    {% for refdoc in refprojectslist %}
 
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Project Name</h5>
-            <p class="card-text">Project Description</p>
-            <a href="#" class="btn btn-primary">Download Reference Document</a>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{refdoc.name}}</h5>
+                <p class="card-text">{{refdoc.description}}</p>
+                <button onclick='location.href= "{{ refdoc.refdocuments.url }}"' class="btn btn-primary">Download Reference Document</button>
+            </div>
         </div>
-    </div>
+
+    {% endfor %}
+
 
     {% block excerpt%}
     {% endblock %}

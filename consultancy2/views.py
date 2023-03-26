@@ -49,6 +49,7 @@ def SignIn(request):
     
     if request.user.is_authenticated:
         if request.user.groups.filter(name='Intern').exists():
+            
             uid = request.user.id
             teams = Team.objects.filter(assign = uid).values_list()
             teamslist = []
@@ -63,7 +64,7 @@ def SignIn(request):
                 
             print("Refprojlist: ",refprojectslist)
             
-            return render(request,'intern/tempintern.html')
+            return render(request,'intern/tempintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Sr Intern').exists():
             return render(request,'srintern/tempsrintern.html')
         elif request.user.groups.filter(name='Professor').exists():
