@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from multiprocessing import context
-from projects.models import Project
+from projects.models import Project,Team
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -49,6 +49,20 @@ def SignIn(request):
     
     if request.user.is_authenticated:
         if request.user.groups.filter(name='Intern').exists():
+            uid = request.user.id
+            teams = Team.objects.filter(assign = uid).values_list()
+            teamslist = []
+            for t in teams:
+                teamslist.append(t[0])
+
+            refprojectslist = []
+            for tid in teamslist:
+                project = Project.objects.filter(assign = tid)
+                if project[0].refdocuments:
+                    refprojectslist.append(project[0])
+                
+            print("Refprojlist: ",refprojectslist)
+            
             return render(request,'intern/tempintern.html')
         elif request.user.groups.filter(name='Sr Intern').exists():
             return render(request,'srintern/tempsrintern.html')
