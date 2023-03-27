@@ -28,18 +28,199 @@
   }
   </style>
   {% endblock extracss %}
+  <link href="{% static 'css/theme.css' %}" rel="stylesheet">
+{% endblock extracss %}
+
 
 <section style="background-color: #eee;">
     <div class="container py-5">
+      {% block content %}
+        <div style="height:216px; background-color: #624bff;" class="pt-5">
+          <div class="col-lg-12 col-md-12 col-12 mt-5" style="margin-bottom:2rem;">
+              <div>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="mb-2 mb-lg-0 pl-3">
+                          <h3 class="mb-0  text-white h1">Profile</h3>
+                          <p class="text-light mt-1 h6">View your profile here</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div id="db-wrapper">
+            <div id="page-content ml-0">
+              <div class="container-fluid p-6">
+                <div class="row align-items-center">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                    <div class="pt-3 rounded-top"></div>
+                    <div class="bg-white rounded smooth-shadow-sm ">
+                      <div class="d-flex align-items-center justify-content-between pt-4 pb-6 mb-2 px-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); ">
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-xxl me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
+                            <img src="https://as1.ftcdn.net/v2/jpg/00/64/67/52/1000_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg" class="avatar-xxl rounded-circle border border-4 border-white-color-40" alt="">
+                          </div>
+                          <div class="lh-1">
+                            <h2 class="mb-0">{{ user_val.username }}</h2>
+                            <p class="mb-0 d-block">{{ user_val.role}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="py-6">
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-6">
+                      <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                        <div class="card-body">
+                          <h4 class="card-title">About Me</h4>
+                          <div class="row">
+                            <div class="col-6 mb-5">
+                              <h6 class="text-uppercase fs-5 ls-2">Full Name</h6>
+                              <p class="mb-0">{{ user_val.firstname }} {{user_val.lastname}}</p>
+                            </div>
+                            <div class="col-6 mb-5">
+                              <h6 class="text-uppercase fs-5 ls-2">Role</h6>
+                              <p class="mb-0">{{ user_val.role}}</p>
+                            </div>
+                            <div class="col-6 mb-5">
+                              <h6 class="text-uppercase fs-5 ls-2">Email</h6>
+                              <p class="mb-0">{{ user_val.email }}</p>
+                            </div>
+                            <div class="col-6 mb-5">
+                              <h6 class="text-uppercase fs-5 ls-2">Campus</h6>
+                              <p class="mb-0">{{ user_val.campus}}</p>
+                            </div>
+                            <div class="col-6">
+                              <h6 class="text-uppercase fs-5 ls-2">Date joined</h6>
+                              <p class="mb-0">{{ user_view.user.date_joined }}</p>
+                            </div>
+                            <div class="col-6">
+                              <h6 class="text-uppercase fs-5 ls-2">Last login</h6>
+                              <p class="mb-0">{{ user_view.user.last_login }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-12 col-md-12 col-12 mb-6">
+                      <div class="card mb-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                        <div class="card-body">
+                          <h4 class="card-title">Tasks Involved</h4>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3 ">
+                                {% for task in user_view.user.task_set.all %}
+                                  <h5 class="mb-1">{{ task }}</h5>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="col-xl-3 col-lg-12 col-md-12 col-12 mb-6">
+                      <div class="card mb-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                        <div class="card-body">
+                          <h4 class="card-title">Teams Involved</h4>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3 ">
+                                {% for team in user_view.user.team_set.all %}
+                                  <h5 class="mb-1">{{ team }}</h5>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
 
-        {% block content %}
-  <div style="height:216px; background-color: #624bff; ">
-      <div class="row">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="https://as1.ftcdn.net/v2/jpg/00/64/67/52/1000_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg" alt="avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
+              <img src="https://as1.ftcdn.net/v2/jpg/00/64/67/52/1000_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{ user_val.username }}</h5>
               <p class="text-muted mb-1">{{ user_val.role}}</p>
               
@@ -153,9 +334,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    </div>
-  </section>
+      </div> -->
+
 
   {% endblock %}

@@ -253,13 +253,13 @@
                   <tr>
                     <td>Total amount received excluding GST and TDS</td>
                     <td></td>
-                    <td>{{financeData.amtreceived}}</td>
+                    <td>{{financeDetails.amtreceived}}</td>
                     <td>
                     </td>
                   </tr>
 
                   <tr>
-                    <td>{{financeData.cupercentage}} to Christ University</td>
+                    <td>{{financeDetails.cupercentage}}% to Christ University</td>
                     <td></td>
                     <td>2500</td>
                     <td style="width:fit-content;">
@@ -269,38 +269,44 @@
                   </tr>
 
                   <tr>
-                    <td><b>Less: Expenses incuured on the file</b></td>
+                    <td><b>Less: Expenses incurred on the file</b></td>
                     <td></td>
                     <td></td>
                     <td></td>
                   </tr>
 
+                  {% for expense in expenseDetails %}
                   <tr>
-                    <td>Expense1</td>
+                      {%for key, value in expense.items%}
+                      <td>{{value}}</td>
+                      {%endfor%}
+                      <td></td>
+                      <td>
+                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
+                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
+                      </td>
+                  </tr>
+                  {%endfor%}
+
+                  <tr>
+                    <td><b>Add: Incomes incurred on the file</b></td>
                     <td></td>
-                    <td>500</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+
+                  {% for income in incomeDetails %}
+                  <tr>
+                    {%for key, value in income.items%}
+                    <td>{{value}}</td>
+                    {%endfor%}
+                    <td></td>
                     <td>
                       <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
                       <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
                     </td>
                   </tr>
-
-                  <tr>
-                    <td><b>Add: Incomes incuured on the file</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-
-                  <tr>
-                    <td>Income1</td>
-                    <td></td>
-                    <td>500</td>
-                    <td>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
-                    </td>
-                  </tr>
+                  {%endfor%}
 
                   <tr>
                     {% comment %} {% for member in team_members %}
@@ -330,16 +336,12 @@
 
               </table>
 
-              {% for project in projdet %}
-
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add Expense</button>
               {% comment %} <a href="/projects/project/{{project.id}}/addincome"> {% endcomment %}
                 <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addIncomeModal">Add Incomes</button>
               {% comment %} </a> {% endcomment %}
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#editBasicFinanceInfoModal">Edit Basic Information</button>
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1rem; margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#addProfessorModal">Add Professor</button>
-
-              {% endfor %}
 
             </div>
             
@@ -364,7 +366,7 @@
                     <!-- <img src="{{user_view.img.url }}" class="img-avatar m-4" alt="{{ user_view }}" width="20%"> -->
 
                     <br><br><br><br><br>
-                    <div class="container">
+                     <div class="container">
                       <div class="row justify-content-md-center pt-5">
 
                         <div class="col-md-7">
@@ -439,7 +441,7 @@
 
                         </div>
                       </div>
-                    </div>
+                    </div> 
 
 
 

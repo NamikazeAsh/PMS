@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render,get_object_or_404
 # Create your views here.
 from multiprocessing import context
-from projects.models import Project
+from projects.models import Project,Team
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -49,11 +49,53 @@ def SignIn(request):
     
     if request.user.is_authenticated:
         if request.user.groups.filter(name='Intern').exists():
-            return render(request,'intern/tempintern.html')
+            
+            uid = request.user.id
+            teams = Team.objects.filter(assign = uid).values_list()
+            teamslist = []
+            for t in teams:
+                teamslist.append(t[0])
+
+            refprojectslist = []
+            for tid in teamslist:
+                project = Project.objects.filter(assign = tid)
+                if project.exists(): 
+                    if project[0].refdocuments:
+                        refprojectslist.append(project[0])
+            
+            return render(request,'intern/tempintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Sr Intern').exists():
-            return render(request,'srintern/tempsrintern.html')
+            
+            uid = request.user.id
+            teams = Team.objects.filter(assign = uid).values_list()
+            teamslist = []
+            for t in teams:
+                teamslist.append(t[0])
+
+            refprojectslist = []
+            for tid in teamslist:
+                project = Project.objects.filter(assign = tid)
+                if project.exists():    
+                    if project[0].refdocuments:
+                        refprojectslist.append(project[0])
+            
+            return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Professor').exists():
-            return render(request,'srintern/tempsrintern.html')
+            
+            uid = request.user.id
+            teams = Team.objects.filter(assign = uid).values_list()
+            teamslist = []
+            for t in teams:
+                teamslist.append(t[0])
+
+            refprojectslist = []
+            for tid in teamslist:
+                project = Project.objects.filter(assign = tid)
+                if project.exists():    
+                    if project[0].refdocuments:
+                        refprojectslist.append(project[0])
+                        
+            return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
         elif request.user.groups.filter(name='Lead Consultant').exists():
             return render(request,'consultant/tempprof.html')
         elif request.user.groups.filter(name='Head Consultant').exists():
@@ -392,12 +434,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return projects(request)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -427,8 +464,8 @@ def addIncome(request, id) :
                 newIncomeDict = existingIncomeData['add']
                 tempDict = json.dumps(tempDict)
                 newIncomeDict.append(tempDict)
-                finalDict = json.dumps(newIncomeDict)
-                existingFinance[0].incomes = finalDict
+                finalDict = {'add': newIncomeDict}
+                existingFinance[0].incomes = json.dumps(finalDict)
                 existingFinance[0].save()
         
         else:
@@ -444,11 +481,7 @@ def addIncome(request, id) :
             saveIncome.project_id = projDetails
             saveIncome.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -463,7 +496,7 @@ def addExpense(request,id) :
         if existingExpense:
             # saving when its already there
             if not existingExpense[0].expenses:
-                # when income is empty
+                # when expense is empty
                 expenseJson = json.dumps(tempDict)
                 expenseArr = []
                 expenseArr.append(expenseJson)
@@ -473,13 +506,13 @@ def addExpense(request,id) :
                 existingExpense[0].save()
 
             else:
-                # when income already exists
+                # when expense already exists
                 existingExpenseData = json.loads(existingExpense[0].expenses)
                 newExpenseDict = existingExpenseData['less']
                 tempDict = json.dumps(tempDict)
                 newExpenseDict.append(tempDict)
-                finalDict = json.dumps(newExpenseDict)
-                existingExpense[0].expenses = finalDict
+                finalDict = {'less': newExpenseDict}
+                existingExpense[0].expenses = json.dumps(finalDict)
                 existingExpense[0].save()
         
         else:
@@ -495,10 +528,7 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 
 def addProfessor(request, id) :
