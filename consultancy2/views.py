@@ -374,12 +374,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return projects(request)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -409,8 +404,8 @@ def addIncome(request, id) :
                 newIncomeDict = existingIncomeData['add']
                 tempDict = json.dumps(tempDict)
                 newIncomeDict.append(tempDict)
-                finalDict = json.dumps(newIncomeDict)
-                existingFinance[0].incomes = finalDict
+                finalDict = {'add': newIncomeDict}
+                existingFinance[0].incomes = json.dumps(finalDict)
                 existingFinance[0].save()
         
         else:
@@ -426,11 +421,7 @@ def addIncome(request, id) :
             saveIncome.project_id = projDetails
             saveIncome.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -445,7 +436,7 @@ def addExpense(request,id) :
         if existingExpense:
             # saving when its already there
             if not existingExpense[0].expenses:
-                # when income is empty
+                # when expense is empty
                 expenseJson = json.dumps(tempDict)
                 expenseArr = []
                 expenseArr.append(expenseJson)
@@ -455,13 +446,13 @@ def addExpense(request,id) :
                 existingExpense[0].save()
 
             else:
-                # when income already exists
+                # when expense already exists
                 existingExpenseData = json.loads(existingExpense[0].expenses)
                 newExpenseDict = existingExpenseData['less']
                 tempDict = json.dumps(tempDict)
                 newExpenseDict.append(tempDict)
-                finalDict = json.dumps(newExpenseDict)
-                existingExpense[0].expenses = finalDict
+                finalDict = {'less': newExpenseDict}
+                existingExpense[0].expenses = json.dumps(finalDict)
                 existingExpense[0].save()
         
         else:
@@ -477,10 +468,7 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 
 def addProfessor(request, id) :
