@@ -9,6 +9,7 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
+from finance.models import FinanceModel
 from consultancy2.decorators import allowed_users
 
 from django.urls import reverse
@@ -20,6 +21,7 @@ from django.core.mail import send_mail
 
 import pandas as pd
 
+import json
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
@@ -269,7 +271,6 @@ def ProjectProfile(request,id):
     pcomments = get_object_or_404(Project, id=id)
     username = request.user.is_authenticated
     allcomments = pcomments.proj_comments.filter(status=True)
-
     
     page = request.GET.get('page', 1)
 
@@ -314,7 +315,22 @@ def ProjectProfile(request,id):
         
     else:
         comment_form = ProjectCommentForm()
+
+    finance_details = FinanceModel.objects.filter(project_id = id)
+    incomeDetails = []
+    expenseDetails = []
+    basicDetails = {}
+
+    if finance_details:
+        basicDetails = finance_details[0]
+        if finance_details[0].incomes:
+            incomeDetails = json.loads(finance_details[0].incomes)['add']
+            incomeDetails = list(map(returnJson, incomeDetails))
         
+        if finance_details[0].expenses:
+            expenseDetails = json.loads(finance_details[0].expenses)['less']
+            expenseDetails = list(map(returnJson, expenseDetails))
+
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
         'temp':var,
@@ -326,8 +342,13 @@ def ProjectProfile(request,id):
         'comments': comments,
         'comment_form': comment_form, 
         'allcomments': allcomments,
+        'financeDetails': basicDetails,
+        'incomeDetails': incomeDetails,
+        'expenseDetails': expenseDetails,
         'username':username,})
 
+def returnJson(obj):
+    return json.loads(obj)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])

@@ -9,6 +9,6 @@ urlpatterns = [
     path('users/', views.usersView, name='users'),
     # path('users/<int:id>/', views.usersView, name='users'),
     path('users/<int:profile_id>/', views.user_view, name='user'),
+    path('users/deletetask/<int:task>',views.deltask,name='deletetask'),
 
 ]
-

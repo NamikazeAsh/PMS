@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
 # Create your views here.
 from multiprocessing import context
 from projects.models import Project,Team
@@ -300,7 +300,7 @@ def UserHourTrackingIntern(request):
         # else:
         #     print("not checked")
         
-        return redirect('signup')
+        return redirect('user-hours-i')
         
     var = findtemp(request)
     
@@ -318,7 +318,7 @@ def UserHourTrackingIntern(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Professor','Head Consultant','Lead Consultant'])
 def UserHourTrackingProfessor(request):
-
+    users = UserProfile.objects.all()
     if request.method == "POST":
         
         uhour = request.POST.get('hours')
@@ -330,7 +330,7 @@ def UserHourTrackingProfessor(request):
         valusers.hours = newhour
         valusers.save()
         
-        return redirect('signup') #home/signup autodirect home
+        return redirect('user-hours-p') #home/signup autodirect home
         
     details = HourVal.objects.all()
     freehouro = AdminValidation.objects.get(email = request.user.email)
@@ -341,6 +341,7 @@ def UserHourTrackingProfessor(request):
         "temp": var,
         "details":details,
         "freehourso":freehouro,
+        'users': users,
     }
     
     return render(request,"userhour_professor.html",context)
@@ -356,7 +357,6 @@ def UserHourTrackingAccept(request,id):
     vhour = hv.hours_claimed
     av.hours = vhour + av.hours
     av.save()
-    
     hv.delete()
     
     print("Successfully updated!")    
@@ -434,12 +434,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return projects(request)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -469,8 +464,8 @@ def addIncome(request, id) :
                 newIncomeDict = existingIncomeData['add']
                 tempDict = json.dumps(tempDict)
                 newIncomeDict.append(tempDict)
-                finalDict = json.dumps(newIncomeDict)
-                existingFinance[0].incomes = finalDict
+                finalDict = {'add': newIncomeDict}
+                existingFinance[0].incomes = json.dumps(finalDict)
                 existingFinance[0].save()
         
         else:
@@ -486,11 +481,7 @@ def addIncome(request, id) :
             saveIncome.project_id = projDetails
             saveIncome.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -505,7 +496,7 @@ def addExpense(request,id) :
         if existingExpense:
             # saving when its already there
             if not existingExpense[0].expenses:
-                # when income is empty
+                # when expense is empty
                 expenseJson = json.dumps(tempDict)
                 expenseArr = []
                 expenseArr.append(expenseJson)
@@ -515,13 +506,13 @@ def addExpense(request,id) :
                 existingExpense[0].save()
 
             else:
-                # when income already exists
+                # when expense already exists
                 existingExpenseData = json.loads(existingExpense[0].expenses)
                 newExpenseDict = existingExpenseData['less']
                 tempDict = json.dumps(tempDict)
                 newExpenseDict.append(tempDict)
-                finalDict = json.dumps(newExpenseDict)
-                existingExpense[0].expenses = finalDict
+                finalDict = {'less': newExpenseDict}
+                existingExpense[0].expenses = json.dumps(finalDict)
                 existingExpense[0].save()
         
         else:
@@ -537,10 +528,7 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')
 
 
 def addProfessor(request, id) :
