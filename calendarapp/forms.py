@@ -48,7 +48,7 @@ from django.contrib.auth.models import User
 class EventForm(ModelForm):
     user=forms.ModelChoiceField(queryset=User.objects.all())
     title = forms.CharField(widget=forms.TextInput)
-    members = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
+    members = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Head Consultant','Lead Consultant','Professor','Sr Intern','Intern']))
     description = forms.CharField(widget=forms.Textarea)
     start_time=forms.DateField(widget=DateInput(
         attrs={"type": "date", "class": "form-control"},
@@ -67,8 +67,13 @@ class EventForm(ModelForm):
 
 
     def save(self, commit=True):
-        
         Event = super(EventForm, self).save(commit=False)
+        Event.user=self.cleaned_data['user']
+        Event.title = self.cleaned_data['title']
+        Event.description = self.cleaned_data['description']
+        Event.start_time = self.cleaned_data['start_time']
+        Event.end_time = self.cleaned_data['end_time']
+        Event.save()
         evemembers = self.cleaned_data['members']
         for members in evemembers:
             Event.members.add((members))
