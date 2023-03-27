@@ -80,15 +80,18 @@ def user_view(request, profile_id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Sr Intern','Professor'])
 def deltask(request,task):
-
+    
     task = get_object_or_404(Task,id=task)
-    task.delete()
+    task.assign.remove(request.user.id)
+    if task.assign.exists() == False:
+        task.delete()
     
     tasks = Task.objects.filter(assign = request.user.id)
     var = findtemp(request)
+    # user = UserProfile.objects.get(user_id=request.user.id)
+    # user_val = AdminValidation.objects.get(username=user.user.username)
     context = {
         'tasks': tasks,
         'temp':var,
     }
-    # return render(request,'register/user.html',context)
-    return redirect('register:user',context,id= task.id)
+    return render(request,'register/user.html',context)

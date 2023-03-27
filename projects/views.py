@@ -9,11 +9,8 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
-<<<<<<< HEAD
 from finance.models import FinanceModel
-=======
 from consultancy2.decorators import allowed_users
->>>>>>> ba6008d9193310ee654c52c09c2238666d312489
 
 from django.urls import reverse
 from django.contrib.auth.models import User

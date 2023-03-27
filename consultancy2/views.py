@@ -300,7 +300,7 @@ def UserHourTrackingIntern(request):
         # else:
         #     print("not checked")
         
-        return redirect('signup')
+        return redirect('user-hours-i')
         
     var = findtemp(request)
     
@@ -330,7 +330,7 @@ def UserHourTrackingProfessor(request):
         valusers.hours = newhour
         valusers.save()
         
-        return redirect('signup') #home/signup autodirect home
+        return redirect('user-hours-p') #home/signup autodirect home
         
     details = HourVal.objects.all()
     freehouro = AdminValidation.objects.get(email = request.user.email)
