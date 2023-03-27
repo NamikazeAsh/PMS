@@ -256,7 +256,7 @@
                                     <!-- heading -->
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
-                                            <h4 class="mb-0">Projects Completeion</h4>
+                                            <h4 class="mb-0">Projects Completion</h4>
                                         </div>
                                         <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
                                             <img src="{% static "icons/percent.svg" %}" ></img>
@@ -370,6 +370,7 @@
                                             <th style="color:black;">Progress</th>
                                             <th style="color:black;">Download</th>
                                             <th style="color:black;">Document</th>
+                                            <th style="color:black;">Reference Doc</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -452,6 +453,7 @@
                                             <td class="align-middle text-dark">
                                                 <a href="/projects/projects/downloadprojreport/{{project.id}}" style="color: red; text-decoration:none; ">Download</a>
                                             </td>
+
                                             <td class="align-middle text-dark">
                                                 <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadprojdoc/{{project.id}}">
                                                     {% csrf_token %}
@@ -463,6 +465,21 @@
                                                     {% endif %}
                                                 </form>
                                             </td>
+
+                                            <td class="align-middle text-dark">
+
+                                                <form enctype="multipart/form-data" method="post" action="/projects/projects/uploadrefprojdoc/{{project.id}}">
+                                                    {% csrf_token %}
+                                                    {% if project.refdocuments %}
+                                                        <input type="button" class="my-2 ml-2 btn btn-dark" value="Download Ref Doc" style="font-weight:bold;  font-size:.7rem;" onclick='location.href= "{{ project.refdocuments.url }}"'>
+                                                    {% else %}
+                                                        <input type="file" value="refupload" name="refupload" id="refupload" class="mt-2" style="max-width: 13rem; font-size:.8rem;">
+                                                        <input type="submit" class="mt-2 mb-2 btn btn-dark" value="Upload Ref Doc" style="font-weight:bold; font-size:.7rem;">
+                                                    {% endif %}
+                                                </form>
+
+                                            </td>
+
                                         </tr>
                                         {% endfor %}
                                     </tbody>

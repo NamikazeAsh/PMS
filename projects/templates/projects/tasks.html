@@ -13,18 +13,37 @@ body {
 <link href="{% static 'core/css/teamstyle.css' %}" rel="stylesheet">
 
 <div style="height:216px; background-color: #624bff;" class="pt-5">
+    <div class="col-lg-12 col-md-12 col-12" style="margin-bottom:2rem;">
+        <!-- Page header -->
+        <div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="mb-2 mb-lg-0 pl-3">
+                    <h3 class="mb-0 text-white h1">Tasks</h3>
+                    <p class="text-light mt-1 h6">View your tasks here</p>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="row">
     {%for tk in tasks%}
   <div class="col-sm-6" style="width: 48%;">
-      <div class="card-body">
+      <div class="card-body pt-0">
                     <div class="courses-container m-0">
-                        <div class="course">
+                        <div class="course mt-0">
                             <div class="course-preview d-flex align-item-center justify-content-start flex-column" style="color: #fff; background-color: #29363d; border-color: #29363d;">
+                                <h6 class="mt-1" style="padding-bottom: 10px;">Project</h6>
+
+                                <h5 class="mt-1 text-light">Task Name</h5>
+                                <h6 style="padding-bottom: 10px;padding-top: 10px;">Required</h6>
                                 <h6>Status</h6>
-                                <h4 class="mt-1">Task Name</h4>
-                                <h6 class="mt-1">Project</h6>
                             </div>
-                            <div class="course-info d-flex align-item-center justify-content-around flex-column">
+                            <div class="course-info d-flex align-item-center justify-content-center py-0 pl-0">
+                                <div class="course-info d-flex align-item-center justify-content-around flex-column">
+                                <h6 class="mt-2" style="padding-bottom: 10px;">{{tk.project}}</h6>
+
+                                <h2>{{tk.task_name}}</h2>
+
+                                <h6 style="padding-bottom: 10px;padding-top: 10px;">{{tk.hours_required}} hours</h6>
                                 {% if tk.status == '1' %}
                                 <h6>Working</h6>
                                 {% elif tk.status == '2' %}
@@ -32,11 +51,11 @@ body {
                                 {%else%}
                                 <h6>Done</h6>
                                 {% endif %}
-                                <h2>{{tk.task_name}}</h2>
-                                <h6 class="mt-3">{{tk.project}}</h6>
-                                <div class="button-section mt-4 d-flex align-item-center justify-content-around">
-                                    <a href="/projects/projects/edit_task/{{tk.id}}"><button class="btn btn-dark">Edit</button></a>
-                                    <a href="{% url 'projects:deletetask' task=tk.id %}"><button class="btn btn-dark">Delete</button></a>
+                                
+                                </div>
+                                <div class="button-section d-flex align-item-center justify-content-around flex-column">
+                                    <a href="/projects/projects/edit_task/{{tk.id}}"><button class="btn btn-dark"  style="width: 5rem;">Edit</button></a>
+                                    <a href="{% url 'projects:deletetask' task=tk.id %}"><button class="btn btn-dark" style="width: 5rem;">Delete</button></a>
                                 </div>
                             </div>
                     </div>

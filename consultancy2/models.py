@@ -41,5 +41,6 @@ class HourVal(models.Model):
 
     email = models.CharField(max_length=100)
     hours_claimed = models.IntegerField()
+    description = models.CharField(max_length=100,default="-")
     
 

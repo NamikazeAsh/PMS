@@ -22,6 +22,7 @@ urlpatterns = [
     path('projects/downloadprojreport/<int:id>',views.DownloadProjectReport,name='DownloadProject'),
     path('projects/downloadallprojreport/',views.DownloadAllProjectReport,name='DownloadAllProject'),
     path('projects/uploadprojdoc/<int:id>',views.UploadProjectDocs,name='UploadProjDocs'),
+    path('projects/uploadrefprojdoc/<int:id>',views.UploadRefProjectDocs,name='UploadRefProjDocs'),
 ]
 
 if settings.DEBUG:

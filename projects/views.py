@@ -9,7 +9,11 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
+<<<<<<< HEAD
 from finance.models import FinanceModel
+=======
+from consultancy2.decorators import allowed_users
+>>>>>>> ba6008d9193310ee654c52c09c2238666d312489
 
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -193,7 +197,9 @@ def taskprofile1(request):
 def deltask(request,task):
 
     task = get_object_or_404(Task,id=task)
-    task.delete()
+    task.assign.remove(request.user.id)
+    if task.assign.exists() == False:
+        task.delete()
     
     tasks = Task.objects.filter(assign = request.user.id)
     var = findtemp(request)
@@ -211,6 +217,8 @@ def projects(request):
     for project in projc:
         if project.documents:
             project.status = 3
+            if project.status == 3:
+                project.complete_per=100
             project.save()
     # ----------------------------------- xxxx ----------------------------------- #
     
@@ -223,7 +231,7 @@ def projects(request):
     
     teams = Team.objects.all()
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
-    tasks = Task.objects.all() 
+    tasks = Task.objects.all()
     overdue_tasks = tasks.filter(status='2')
     var = findtemp(request)
     
@@ -259,7 +267,7 @@ def edit_project(request,id):
     return render(request, 'projects/edit_project.html', context)    
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Lead Consultant','Head Consultant'])
+@allowed_users(allowed_roles=['Head Consultant'])
 def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
@@ -424,6 +432,20 @@ def UploadProjectDocs(request,id):
     if request.method == 'POST':
         if request.FILES:
             fuo.documents = request.FILES['upload']
+            fuo.save()
+        else:
+            print("Nothing to upload")
+    
+    return projects(request)
+
+@login_required(login_url='login')
+def UploadRefProjectDocs(request,id):
+    
+    fuo = Project.objects.get(id=id)
+    
+    if request.method == 'POST':
+        if request.FILES:
+            fuo.refdocuments = request.FILES['refupload']
             fuo.save()
         else:
             print("Nothing to upload")
