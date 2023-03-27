@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
 # Create your views here.
 from multiprocessing import context
 from projects.models import Project
@@ -276,7 +276,7 @@ def UserHourTrackingIntern(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Professor','Head Consultant','Lead Consultant'])
 def UserHourTrackingProfessor(request):
-
+    users = UserProfile.objects.all()
     if request.method == "POST":
         
         uhour = request.POST.get('hours')
@@ -299,6 +299,7 @@ def UserHourTrackingProfessor(request):
         "temp": var,
         "details":details,
         "freehourso":freehouro,
+        'users': users,
     }
     
     return render(request,"userhour_professor.html",context)
@@ -314,7 +315,6 @@ def UserHourTrackingAccept(request,id):
     vhour = hv.hours_claimed
     av.hours = vhour + av.hours
     av.save()
-    
     hv.delete()
     
     print("Successfully updated!")    

@@ -65,7 +65,9 @@
                                                 <tbody>
                                                     {% for x in details %}
                                                     <tr>
-                                                        <td>{{x.email}}</td>
+                                                        <td>
+                                                            {% for user1 in users %}
+                                                            {% if x.email == user1.user.email %}<a href="{% url 'register:user' profile_id=user1.user.id %}">{{user1.user.username}}</a>{%endif%}{% endfor %}</td>
                                                         <td>{{x.hours_claimed}}</td>
                                                         <td>{{x.description}}</td>
                                                         <td ><a href="userhours-p/approve/{{x.id}}" style="color:green;text-decoration: none;font-weight: bolder;">Approve</a></td>

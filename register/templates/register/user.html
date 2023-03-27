@@ -1,6 +1,33 @@
 {% extends temp %}
 {% load static %}
 
+{% block extracss %}
+<style>
+  a:link {
+    color: #f86c6b;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: #f86c6b;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #f86c6b;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: #f86c6b;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  </style>
+  {% endblock extracss %}
 
 <section style="background-color: #eee;">
     <div class="container py-5">
@@ -26,7 +53,7 @@
                   <i class="fas fa-globe fa-lg text-warning"></i>
                   <hr>
                   
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
                     <p class="mb-0">Hours worked</p>
                   </div>
                   <div class="col-sm-9" >
@@ -91,24 +118,34 @@
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Tasks involved</span>
+                  <p class="mb-4"><span class="text-primary font-italic me-1"><b>Tasks involved</b></span>
                   </p>
-                  <ul class="m-4"></ul>
+                  <ol class="m-4" style="padding-left: 0px;">
                   {% for task in user_view.user.task_set.all %}
-                  <li><p class="mb-1" style="font-size: .77rem; display:inline;">{{ task }}</p></li>
+                  <li><p class="mb-1" style="font-size: .85rem; display:inline;">{{ task }} <a href="{% url 'register:deletetask' task=task.id %}"><b><p style="display: inline;font-size: .80rem;"> | Delete </p></b></a>
+                    <ul>
+                    <li style="font-size: .77rem;">Hours Required : <p style="font-size: .77rem; display:inline;color: #536c79;">{{task.hours_required}}</p></li>
+                    <li style="font-size: .77rem;">Status : {% if task.status == '1' %}
+                      <h6 style="font-size: .77rem; display:inline;color: #536c79;">Working</h6>
+                      {% elif task.status == '2' %}
+                      <h6 style="font-size: .77rem; display:inline;">Stuck</h6>
+                      {%else%}
+                      <h6 style="font-size: .77rem; display:inline;">Done</h6>            
+                      {% endif %}</li>
+                  </ul> </p></li>
                   {% endfor %}
-                </ul>
+                </ol>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Teams involved</span>
+                  <p class="mb-4"><span class="text-primary font-italic me-1"><b>Teams involved</b></span>
                   </p>
                 <ul class="m-4"></ul>
                   {% for team in user_view.user.team_set.all %}
-                  <li><p class="mb-1" style="font-size: .77rem; display:inline;">{{ team }}</p></li>
+                  <li><p class="mb-1" style="font-size: .85rem; display:inline;">{{ team }}</p></li>
                   {% endfor %}
                 </ul>
                 </div>

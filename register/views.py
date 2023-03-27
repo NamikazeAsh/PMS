@@ -7,6 +7,8 @@ from .models import UserProfile
 from .forms import RegistrationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
+from django.contrib.auth.decorators import login_required
+from consultancy2.decorators import allowed_users
 
 
 # Create your views here.
@@ -74,3 +76,19 @@ def user_view(request, profile_id):
         'temp':var,
     }
     return render(request, 'register/user.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Sr Intern','Professor'])
+def deltask(request,task):
+
+    task = get_object_or_404(Task,id=task)
+    task.delete()
+    
+    tasks = Task.objects.filter(assign = request.user.id)
+    var = findtemp(request)
+    context = {
+        'tasks': tasks,
+        'temp':var,
+    }
+    # return render(request,'register/user.html',context)
+    return redirect('register:user',context,id= task.id)

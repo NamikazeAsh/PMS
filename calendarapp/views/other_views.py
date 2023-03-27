@@ -88,40 +88,19 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
 
 @login_required(login_url="signup")
 def create_event(request):
-    if request.method == 'POST':
-        form = EventForm(request.POST)
-        var = findtemp(request)
-        context = {'form': form,'temp':var,}
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            start_time = form.cleaned_data["start_time"]
-            end_time = form.cleaned_data["end_time"]
-            Event.objects.get_or_create(
-                user=request.user,
-                title=title,
-                description=description,
-                start_time=start_time,
-                end_time=end_time,
-            )
-            form.save()
-            created = True
-            var = findtemp(request)
-            context = {
-                'created': created,
-                'form': form,
-                'temp':var,
-            }
-            return HttpResponseRedirect(reverse("calendarapp:calendar"))
-        return render(request, 'calendarapp/event.html', context)
-    else:
-        form = EventForm()
+    form = EventForm(request.POST or None)
+    if request.POST and form.is_valid():
+        form.fields["user"].initial = request.user
+        form.save()
+        created = True
         var = findtemp(request)
         context = {
+            'created': created,
             'form': form,
             'temp':var,
         }
-        return render(request,'calendarapp/event.html', context)
+        return HttpResponseRedirect(reverse("calendarapp:calendar"))
+    return render(request, 'calendarapp/calendar.html', context)
 
 
 class EventEdit(generic.UpdateView):
@@ -144,12 +123,13 @@ class EventEdit(generic.UpdateView):
 
 @login_required(login_url="signup")
 def event_details(request, event_id):
-    event = Event.objects.only("members")
-    # eventmember = EventMember.objects.filter(event=event)
-    var = findtemp(request)
-    context = {"event": event,
-    'temp':var,}
-    return render(request, "calendarapp/event-details.html", context)
+    # event = Event.objects.only("members")
+    # # eventmember = EventMember.objects.filter(event=event)
+    # var = findtemp(request)
+    # context = {"event": event,
+    # 'temp':var,}
+    # return render(request, "calendarapp/event-details.html", context)
+    pass
 
 
 def add_eventmember(request, event_id):
