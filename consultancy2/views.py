@@ -561,8 +561,8 @@ def addProfessor(request, id) :
                 newProfDict = existingProfData['professors']
                 tempDict = json.dumps(tempDict)
                 newProfDict.append(tempDict)
-                finalDict = json.dumps(newProfDict)
-                existingProf[0].professor = finalDict
+                finalDict = {'professors': newProfDict}
+                existingProf[0].professor = json.dumps(finalDict)
                 existingProf[0].save()
         
         else:
@@ -578,7 +578,4 @@ def addProfessor(request, id) :
             saveProfessor.project_id = projDetails
             saveProfessor.save()
 
-    # newFinanceData = FinanceModel.objects.get(project_id = id)
-    # # return ProjectProfile(request, id)
-    # return render(request,"projectprofile.html",{'financeData': newFinanceData})
-    return render(request,"projectprofile.html",context)
+    return redirect('/projects/projects/project/1')

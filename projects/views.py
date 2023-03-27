@@ -9,11 +9,8 @@ from projects.forms import TaskRegistrationForm
 from projects.forms import ProjectRegistrationForm
 from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
-<<<<<<< HEAD
 from finance.models import FinanceModel
-=======
 from consultancy2.decorators import allowed_users
->>>>>>> ba6008d9193310ee654c52c09c2238666d312489
 
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -322,17 +319,44 @@ def ProjectProfile(request,id):
     finance_details = FinanceModel.objects.filter(project_id = id)
     incomeDetails = []
     expenseDetails = []
+    profDetails = []
     basicDetails = {}
+    totalIncome = 0
+    totalExpense = 0
+    netAmount = 0
 
     if finance_details:
         basicDetails = finance_details[0]
+        cuShare = ((basicDetails.cupercentage)*(basicDetails.amtreceived))/100
         if finance_details[0].incomes:
             incomeDetails = json.loads(finance_details[0].incomes)['add']
             incomeDetails = list(map(returnJson, incomeDetails))
-        
+
+            for i in incomeDetails:
+                totalIncome = totalIncome + (int(i['amount']))
+
         if finance_details[0].expenses:
             expenseDetails = json.loads(finance_details[0].expenses)['less']
             expenseDetails = list(map(returnJson, expenseDetails))
+
+            for i in expenseDetails:
+                totalExpense = totalExpense + (int(i['amount']))
+
+        if finance_details[0].professor:
+            profDetails = json.loads(finance_details[0].professor)['professors']
+            profDetails = list(map(returnJson, profDetails))        
+                
+    netAmount = ((basicDetails.amtreceived)-(basicDetails.cupercentage)-(totalExpense) 
+    + (totalIncome))
+
+    for i in profDetails:
+        i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
+    
+    profNames = ""
+    profRatio = ""
+    for i in profDetails:
+        profNames = profNames + i['Professor'] + ", "
+        profRatio = profRatio + i['ratio'] + ":"
 
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
@@ -346,6 +370,13 @@ def ProjectProfile(request,id):
         'comment_form': comment_form, 
         'allcomments': allcomments,
         'financeDetails': basicDetails,
+        'cuShare': cuShare,
+        'totalIncome': totalIncome,
+        'totalExpense': totalExpense,
+        'netAmount': netAmount,
+        'profDetails': profDetails,
+        'profNames': profNames,
+        'profRatio': profRatio,
         'incomeDetails': incomeDetails,
         'expenseDetails': expenseDetails,
         'username':username,})

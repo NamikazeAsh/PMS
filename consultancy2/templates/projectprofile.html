@@ -223,11 +223,11 @@
                     <td> {{member}} </td>
                     <td> <b>{{name}}</b> </td> {% endcomment %}
 
-                    <td>50000</td>
-                    <td>5%</td>
-                    <td>2500</td>
-                    <td>Prof1:Prof2:Prof3</td>
-                    <td>2:3:5</td>
+                    <td>{{financeDetails.amtreceived}}</td>
+                    <td>{{financeDetails.cupercentage}}</td>
+                    <td>{{cuShare}}</td>
+                    <td>{{profNames}}</td>
+                    <td>{{profRatio}}</td>
 
                   </tr>
                   {% comment %} {% endfor %}
@@ -242,26 +242,26 @@
               <h2 style="text-align: center;">Detailed Finances</h2>
               <br><br><br>
               <table class="table">
-                <thead>
-                  <th>Particular</th>
+                <thead class="thead-dark">
+                  <th><b>Particular</b></th>
                   <th></th>
-                  <th>Amount</th>
+                  <th><b>Amount</b></th>
                   <th></th>
                 </thead>
                 <tbody>
 
-                  <tr>
+                  <tr class="text-muted">
                     <td>Total amount received excluding GST and TDS</td>
                     <td></td>
-                    <td>{{financeDetails.amtreceived}}</td>
+                    <td><b>{{financeDetails.amtreceived}}</b></td>
                     <td>
                     </td>
                   </tr>
 
-                  <tr>
+                  <tr  class="text-muted">
                     <td>{{financeDetails.cupercentage}}% to Christ University</td>
-                    <td></td>
-                    <td>2500</td>
+                    <td>{{cuShare}}</td>
+                    {% comment %} <td>{{financeDetails.cupercentage}} * {{financeDetails.amtreceived}}</td> {% endcomment %}
                     <td style="width:fit-content;">
                       {% comment %} <button type="button" class="btn btn-warning"><img src="{% static " /icons/edit.svg" %}"></button>
                       <button type="button" class="btn btn-danger"> <img style="width:80%" src="{% static "/icons/delete.svg" %}"></button> {% endcomment %}
@@ -276,10 +276,9 @@
                   </tr>
 
                   {% for expense in expenseDetails %}
-                  <tr>
-                      {%for key, value in expense.items%}
-                      <td>{{value}}</td>
-                      {%endfor%}
+                  <tr class="text-muted">
+                      <td>{{expense.particular}}</td>
+                      <td>{{expense.amount}}</td>
                       <td></td>
                       <td>
                         <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
@@ -289,6 +288,13 @@
                   {%endfor%}
 
                   <tr>
+                    <td><b>Total Expenses</b></td>
+                    <td></td>
+                    <td><b>{{totalExpense}}</b></td>
+                    <td></td>
+                  </tr>
+
+                  <tr>
                     <td><b>Add: Incomes incurred on the file</b></td>
                     <td></td>
                     <td></td>
@@ -296,10 +302,9 @@
                   </tr>
 
                   {% for income in incomeDetails %}
-                  <tr>
-                    {%for key, value in income.items%}
-                    <td>{{value}}</td>
-                    {%endfor%}
+                  <tr class="text-muted">
+                    <td>{{income.particular}}</td>
+                    <td>{{income.amount}}</td>
                     <td></td>
                     <td>
                       <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
@@ -309,27 +314,30 @@
                   {%endfor%}
 
                   <tr>
-                    {% comment %} {% for member in team_members %}
-                    {% for name in team_name %}
-                    <td> {{member}} </td>
-                    <td> <b>{{name}}</b> </td> {% endcomment %}
-                  </tr>
-                  {% comment %} {% endfor %}
-                  {% endfor %} {% endcomment %}
+                    <td><b>Total Incomes</b></td>
+                    <td></td>
+                    <td><b>{{totalIncome}}</b></td>
+                    <td></td>
+                  </tr>                 
 
                   <tr>
+                    <td><b>Net amount availabe for Disbursement</b></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-
-                  <tr>
-                    <td>Net amount availabe for Disbursement</td>
-                    <td></td>
-                    <td>10000</td>
+                    <td><b>{{netAmount}}</b></td>
                     <td></td>
                   </tr>
+ 
+                  {% for prof in profDetails %}
+                  <tr class="text-muted">
+                    <td>{{prof.Professor}}
+                     <p class="m-0" style="font-size:.8rem;">{{prof.desc}}</p>
+                    </td>
+                    <td></td>
+                    <td>{{prof.ratioAmount}}</td>
+                    <td></td>
+                  </tr>
+                  {%endfor%}
+                  
 
                 </tbody>
 
