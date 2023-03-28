@@ -7,16 +7,9 @@
                 <h1 class="modal-title fs-5" id="editProfessorModalLabel">Edit Professor</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/projects/project/1/editprofessor/{{thisProfId}}" method="POST">
+            <form action="/projects/project/{{projectid}}/editprofessor/{{thisProfId}}" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
-                    <div class="form-group border py-1" style="border-radius:.5rem;">
-                        <label class="col-form-label pl-2">I'D</label>
-                        <div class="input-group border-top pt-2">
-                            <img src="{% static "icons/id.svg" %}" style="width: 5%"></img>
-                            <input type="text" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="id" disabled value="{{thisProfId}}"/>
-                        </div>
-                    </div>
                     <div class="form-group border py-1" style="border-radius:.5rem;">
                         <label class="col-form-label pl-2">Professor Name</label>
                         <div class="input-group border-top pt-2">

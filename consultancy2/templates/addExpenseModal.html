@@ -7,7 +7,7 @@
                 <h1 class="modal-title fs-5" id="addExpenseModalLabel">Add Expense</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/projects/project/1/addexpense" method="POST">
+            <form action="/projects/project/{{projectid}}/addexpense" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div>

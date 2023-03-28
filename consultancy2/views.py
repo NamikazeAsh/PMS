@@ -265,7 +265,7 @@ def UsersProfile(request):
 @login_required(login_url='login')
 def ProjectProfile(request,id):
     
-    return render(request,"projectprofile.html",context)
+    return render(request,"projectprofile.html",context,id)
 
 @login_required(login_url='login')
 def UserHourTracking(request):
@@ -305,7 +305,7 @@ def UserHourTrackingIntern(request):
     var = findtemp(request)
     
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    print(freehouro)
+    # print(freehouro)
     
     context = {
         "temp": var,
@@ -334,7 +334,7 @@ def UserHourTrackingProfessor(request):
         
     details = HourVal.objects.all()
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    print(freehouro)
+    # print(freehouro)
     
     var = findtemp(request)
     context = {
@@ -434,7 +434,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    return redirect('/projects/projects/project/1')
+    return redirect(f'/projects/projects/project/{id}')
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -483,7 +483,7 @@ def addIncome(request, id) :
             saveIncome.incomes = finalJson
             saveIncome.project_id = projDetails
             saveIncome.save()
-    return redirect('/projects/projects/project/1')
+    return redirect(f'/projects/projects/project/{id}')
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -533,7 +533,7 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    return redirect('/projects/projects/project/1')
+    return redirect(f'/projects/projects/project/{id}')
 
 
 def addProfessor(request, id) :
@@ -586,7 +586,7 @@ def addProfessor(request, id) :
             saveProfessor.project_id = projDetails
             saveProfessor.save()
 
-    return redirect('/projects/projects/project/1')
+    return redirect(f'/projects/projects/project/{id}')
 
 
 

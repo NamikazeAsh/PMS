@@ -265,7 +265,7 @@ def edit_project(request,id):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Head Consultant'])
-def ProjectProfile(request,id):
+def ProjectProfile(request, id):
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
@@ -330,7 +330,6 @@ def ProjectProfile(request,id):
 
     if finance_details:
         basicDetails = finance_details[0]
-        print(basicDetails)
         cuShare = ((basicDetails.cupercentage)*(basicDetails.amtreceived))/100
         if finance_details[0].incomes:
             incomeDetails = json.loads(finance_details[0].incomes)['add']
