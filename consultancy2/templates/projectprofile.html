@@ -360,10 +360,10 @@
         </div>
         
         {% for project in projdet %}
-          {% include 'basicFinanceInfoModal.html' with projectid=projdet.id %}
-          {% include 'addProfessorModal.html' with projectid=projdet.id %}
-          {% include 'addIncomeModal.html' with projectid=projdet.id %}
-          {% include 'addExpenseModal.html' with projectid=projdet.id %}
+          {% include 'basicFinanceInfoModal.html' with projectid=pid %}
+          {% include 'addProfessorModal.html' with projectid=pid %}
+          {% include 'addIncomeModal.html' with projectid=pid %}
+          {% include 'addExpenseModal.html' with projectid=pid %}
         {% endfor %}
 
           {% include 'editProfessorModal.html' with thisProfId=155 thisProfName="Prof Test" thisprofRatio=5 thisProfDescription="Prof69 test" %}
