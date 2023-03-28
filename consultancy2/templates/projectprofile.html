@@ -281,7 +281,7 @@
                       <td>{{expense.amount}}</td>
                       <td></td>
                       <td>
-                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
+                        <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editExpenseModal"></img>
                         <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
                       </td>
                   </tr>
@@ -307,8 +307,8 @@
                     <td>{{income.amount}}</td>
                     <td></td>
                     <td>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-warning"><img src="{% static "icons/edit.svg" %}"></img></a>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
+                      <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editIncomeModal"></img>
+                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}" ></img></a>
                     </td>
                   </tr>
                   {%endfor%}
@@ -334,7 +334,10 @@
                     </td>
                     <td></td>
                     <td>{{prof.ratioAmount}}</td>
-                    <td></td>
+                    <td>
+                      <img src="{% static "icons/edit.svg" %}" data-bs-toggle="modal" data-bs-target="#editProfessorModal"></img>
+                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
+                      </td>
                   </tr>
                   {%endfor%}
                   
@@ -362,6 +365,11 @@
           {% include 'addIncomeModal.html' with projectid=projdet.id %}
           {% include 'addExpenseModal.html' with projectid=projdet.id %}
         {% endfor %}
+
+          {% include 'editProfessorModal.html' with thisProfId=155 thisProfName="Prof Test" thisprofRatio=5 thisProfDescription="Prof69 test" %}
+          {% include 'editIncomeModal.html' with thisIncomeId=5 thisIncomeParticular="Income Test" thisIncomeAmount=1000%}
+          {% include 'editExpenseModal.html' with thisExpenseId=22 thisExpenseParticular="Expense Test" thisExpenseAmount=500 %}
+
         
 
         <div class="container-fluid">
