@@ -589,3 +589,9 @@ def addProfessor(request, id) :
     return redirect('/projects/projects/project/1')
 
 
+
+# def editExpenseInfo(request, id, eid):
+
+# def editIncomeInfo(request, id, iid):
+
+# def editProfessorInfo(request, id, pid):
