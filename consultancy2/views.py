@@ -586,7 +586,7 @@ def addProfessor(request, id) :
             saveProfessor.project_id = projDetails
             saveProfessor.save()
 
-    return redirect('/projects/projects/project/1')
+    return redirect(f'/projects/projects/project/{id}')
 
 
 

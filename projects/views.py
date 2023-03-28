@@ -267,6 +267,7 @@ def edit_project(request,id):
 @allowed_users(allowed_roles=['Head Consultant'])
 def ProjectProfile(request,id):
     projdet = Project.objects.filter(id = id)
+    
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
     username = request.user.is_authenticated
