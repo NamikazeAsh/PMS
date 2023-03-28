@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from mptt.models import MPTTModel,TreeForeignKey
 from django.core.validators import MaxValueValidator, MinValueValidator
 from consultancy2.models import *
+from datetime import datetime 
 
 
 
@@ -37,7 +38,7 @@ class Project(models.Model):
     assign = models.ManyToManyField(Team)
     category = models.CharField(max_length=15, choices=category, default=1)
     status = models.CharField(max_length=7, choices=status, default=1)
-    dead_line = models.DateField()
+    dead_line = models.DateField(blank=True,default=datetime.now)
     company = models.CharField(max_length=80)
     complete_per = models.FloatField(max_length=2, validators = [MinValueValidator(0), MaxValueValidator(100)])
     description = models.TextField(blank=True)
