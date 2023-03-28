@@ -265,7 +265,7 @@ def edit_project(request,id):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Head Consultant'])
-def ProjectProfile(request,id):
+def ProjectProfile(request, id):
     projdet = Project.objects.filter(id = id)
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
@@ -320,10 +320,13 @@ def ProjectProfile(request,id):
     incomeDetails = []
     expenseDetails = []
     profDetails = []
+    profNames = ""
+    profRatio = ""
     basicDetails = {}
     totalIncome = 0
     totalExpense = 0
-    netAmount = 0
+    cuShare = 0
+    netAmount = 0 
 
     if finance_details:
         basicDetails = finance_details[0]
@@ -346,17 +349,15 @@ def ProjectProfile(request,id):
             profDetails = json.loads(finance_details[0].professor)['professors']
             profDetails = list(map(returnJson, profDetails))        
                 
-    netAmount = ((basicDetails.amtreceived)-(basicDetails.cupercentage)-(totalExpense) 
-    + (totalIncome))
+        netAmount = ((basicDetails.amtreceived)-(cuShare)-(totalExpense) 
+        + (totalIncome))
 
-    for i in profDetails:
-        i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
+        for i in profDetails:
+            i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
     
-    profNames = ""
-    profRatio = ""
-    for i in profDetails:
-        profNames = profNames + i['Professor'] + ", "
-        profRatio = profRatio + i['ratio'] + ":"
+        for i in profDetails:
+            profNames = profNames + i['Professor'] + ", "
+            profRatio = profRatio + i['ratio'] + ":"
 
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
