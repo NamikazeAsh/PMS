@@ -329,8 +329,8 @@
  
                   {% for prof in profDetails %}
                   <tr class="text-muted">
-                    <td>{{prof.Professor}}
-                     <p class="m-0" style="font-size:.8rem;">{{prof.desc}}</p>
+                    <td class="text-dark">{{prof.Professor}} (Ratio: {{prof.ratio}}/10)
+                     <p class="m-0 text-muted" style="font-size:.8rem;">{{prof.desc}}</p>
                     </td>
                     <td></td>
                     <td>{{prof.ratioAmount}}</td>

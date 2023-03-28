@@ -450,6 +450,7 @@ def addIncome(request, id) :
             # saving when its already there
             if not existingFinance[0].incomes:
                 # when income is empty
+                tempDict["id"] = 1
                 incomeJson = json.dumps(tempDict)
                 incomeArr = []
                 incomeArr.append(incomeJson)
@@ -462,6 +463,7 @@ def addIncome(request, id) :
                 # when income already exists
                 existingIncomeData = json.loads(existingFinance[0].incomes)
                 newIncomeDict = existingIncomeData['add']
+                tempDict["id"] = int(json.loads(newIncomeDict[len(newIncomeDict) - 1])["id"]) + 1
                 tempDict = json.dumps(tempDict)
                 newIncomeDict.append(tempDict)
                 finalDict = {'add': newIncomeDict}
@@ -471,6 +473,7 @@ def addIncome(request, id) :
         else:
             # saving a new row
             projDetails = Project.objects.get(id = id)
+            tempDict["id"] = 1
             incomeJson = json.dumps(tempDict)
             incomeArr = []
             incomeArr.append(incomeJson)
@@ -480,7 +483,6 @@ def addIncome(request, id) :
             saveIncome.incomes = finalJson
             saveIncome.project_id = projDetails
             saveIncome.save()
-
     return redirect('/projects/projects/project/1')
 
 def addExpense(request,id) :
@@ -497,6 +499,7 @@ def addExpense(request,id) :
             # saving when its already there
             if not existingExpense[0].expenses:
                 # when expense is empty
+                tempDict["id"] = 1
                 expenseJson = json.dumps(tempDict)
                 expenseArr = []
                 expenseArr.append(expenseJson)
@@ -509,6 +512,7 @@ def addExpense(request,id) :
                 # when expense already exists
                 existingExpenseData = json.loads(existingExpense[0].expenses)
                 newExpenseDict = existingExpenseData['less']
+                tempDict["id"] = int(json.loads(newExpenseDict[len(newExpenseDict) - 1])["id"]) + 1
                 tempDict = json.dumps(tempDict)
                 newExpenseDict.append(tempDict)
                 finalDict = {'less': newExpenseDict}
@@ -518,6 +522,7 @@ def addExpense(request,id) :
         else:
             # saving a new row
             projDetails = Project.objects.get(id = id)
+            tempDict["id"] = 1
             expenseJson = json.dumps(tempDict)
             expenseArr = []
             expenseArr.append(expenseJson)
@@ -547,6 +552,7 @@ def addProfessor(request, id) :
             # saving when its already there
             if not existingProf[0].professor:
                 # when income is empty
+                tempDict["id"] = 1
                 profJson = json.dumps(tempDict)
                 profArr = []
                 profArr.append(profJson)
@@ -559,6 +565,7 @@ def addProfessor(request, id) :
                 # when income already exists
                 existingProfData = json.loads(existingProf[0].professor)
                 newProfDict = existingProfData['professors']
+                tempDict["id"] = int(json.loads(newProfDict[len(newProfDict) - 1])["id"]) + 1
                 tempDict = json.dumps(tempDict)
                 newProfDict.append(tempDict)
                 finalDict = {'professors': newProfDict}
@@ -568,6 +575,7 @@ def addProfessor(request, id) :
         else:
             # saving a new row
             projDetails = Project.objects.get(id = id)
+            tempDict["id"] = 1
             profJson = json.dumps(tempDict)
             profArr = []
             profArr.append(profJson)
