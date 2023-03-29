@@ -141,7 +141,7 @@ class ProjectCommentForm(forms.ModelForm):
         fields = ('parent','content')
 
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'ml-3 mb-3 form-control border-0 comment-add rounded-0', 'rows': '1', 'placeholder': 'Add a comment'}),
+            'content': forms.Textarea(attrs={'class': 'ml-3 mb-3 form-control border-0 comment-add rounded-0', 'rows': '1', 'placeholder': 'Add a comment', 'style': 'width:100%;'}),
         }
 
     def save(self, *args, **kwargs):
