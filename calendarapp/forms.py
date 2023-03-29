@@ -54,7 +54,7 @@ class EventForm(ModelForm):
         attrs={"type": "date", "class": "form-control"},
                 format="%Y-%m-%dT%H:%M",
             ))
-    end_time = forms.DateField(widget=DateInput(
+    end_time = forms.DateField(widget = DateInput(
         attrs={"type": "date", "class": "form-control"},
                 format="%Y-%m-%dT%H:%M",
             ))
