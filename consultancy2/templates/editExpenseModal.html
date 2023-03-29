@@ -6,6 +6,7 @@
                 <h1 class="modal-title fs-5" id="editExpenseModalLabel">Edit Expense</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            {{projectid}} ---- {{thisExpenseId}} ----- {{thisExpenseParticular}} ---- {{thisExpenseAmount}}
             <form action="/projects/project/{{projectid}}/editexpense/{{thisExpenseId}}" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
@@ -22,7 +23,7 @@
                             <label class="col-form-label pl-2">Amount</label>
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/rupee.svg" %}" style="width: 5%"></img>
-                                <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="amount" placeholder="Amount" >
+                                <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="amount" placeholder="Amount" value="{{thisExpenseAmount}}">
                             </div>
                         </div>
                     </div>

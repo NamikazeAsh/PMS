@@ -285,6 +285,7 @@
                         <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
                       </td>
                   </tr>
+                  {% include 'editExpenseModal.html' with projectid=pid thisExpenseId=expense.id thisExpenseParticular=expense.particular thisExpenseAmount=expense.amount %}
                   {%endfor%}
 
                   <tr>
@@ -359,12 +360,10 @@
           </div>
         </div>
         
-        {% for project in projdet %}
           {% include 'basicFinanceInfoModal.html' with projectid=pid %}
           {% include 'addProfessorModal.html' with projectid=pid %}
           {% include 'addIncomeModal.html' with projectid=pid %}
           {% include 'addExpenseModal.html' with projectid=pid %}
-        {% endfor %}
 
           {% include 'editProfessorModal.html' with thisProfId=155 thisProfName="Prof Test" thisprofRatio=5 thisProfDescription="Prof69 test" %}
           {% include 'editIncomeModal.html' with thisIncomeId=5 thisIncomeParticular="Income Test" thisIncomeAmount=1000%}
