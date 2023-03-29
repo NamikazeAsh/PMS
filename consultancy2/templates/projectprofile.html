@@ -281,8 +281,8 @@
                       <td>{{expense.amount}}</td>
                       <td></td>
                       <td>
-                        <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editExpenseModal"></img>
-                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
+                        <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editExpenseModal{{expense.id}}" style="cursor: pointer;"></img>
+                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                       </td>
                   </tr>
                   {% include 'editExpenseModal.html' with projectid=pid thisExpenseId=expense.id thisExpenseParticular=expense.particular thisExpenseAmount=expense.amount %}
@@ -308,10 +308,11 @@
                     <td>{{income.amount}}</td>
                     <td></td>
                     <td>
-                      <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editIncomeModal"></img>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}" ></img></a>
+                      <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editIncomeModal{{income.id}}" style="cursor: pointer;"></img>
+                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;" ></img></a>
                     </td>
                   </tr>
+                  {% include 'editIncomeModal.html' with projectid=pid thisIncomeId=income.id thisIncomeParticular=income.particular thisIncomeAmount=income.amount%}
                   {%endfor%}
 
                   <tr>
@@ -336,10 +337,11 @@
                     <td></td>
                     <td>{{prof.ratioAmount}}</td>
                     <td>
-                      <img src="{% static "icons/edit.svg" %}" data-bs-toggle="modal" data-bs-target="#editProfessorModal"></img>
-                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}"></img></a>
+                      <img src="{% static "icons/edit.svg" %}" data-bs-toggle="modal" data-bs-target="#editProfessorModal{{prof.id}}" style="cursor: pointer;"></img>
+                      <a href="/projects/projects/edit_task/{{tk.id}}" class="btn btn-danger ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                       </td>
                   </tr>
+                  {% include 'editProfessorModal.html' with projectid=pid thisProfId=prof.id thisProfName=prof.Professor thisprofRatio=prof.ratio thisProfDescription=prof.desc %}
                   {%endfor%}
                   
 
@@ -365,9 +367,6 @@
           {% include 'addIncomeModal.html' with projectid=pid %}
           {% include 'addExpenseModal.html' with projectid=pid %}
 
-          {% include 'editProfessorModal.html' with thisProfId=155 thisProfName="Prof Test" thisprofRatio=5 thisProfDescription="Prof69 test" %}
-          {% include 'editIncomeModal.html' with thisIncomeId=5 thisIncomeParticular="Income Test" thisIncomeAmount=1000%}
-          {% include 'editExpenseModal.html' with thisExpenseId=22 thisExpenseParticular="Expense Test" thisExpenseAmount=500 %}
 
         
 

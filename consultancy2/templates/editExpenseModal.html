@@ -1,12 +1,11 @@
-<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="editExpenseModal{{thisExpenseId}}" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="mymodal">
         {% load static%}
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="editExpenseModalLabel">Edit Expense</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            {{projectid}} ---- {{thisExpenseId}} ----- {{thisExpenseParticular}} ---- {{thisExpenseAmount}}
             <form action="/projects/project/{{projectid}}/editexpense/{{thisExpenseId}}" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
