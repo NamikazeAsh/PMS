@@ -71,7 +71,11 @@ class ProjectRegistrationForm(forms.ModelForm):
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
     category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
-    dead_line = forms.DateField()
+    # dead_line = forms.DateField()
+    dead_line = forms.DateField(widget=DateInput(
+        attrs={"type": "date", "class": "form-control"},
+                format="%Y-%m-%d",
+            ))
     company = forms.CharField(max_length=80)
     complete_per = forms.FloatField(min_value=0, max_value=100)
     description = forms.CharField(widget=forms.Textarea)
@@ -137,7 +141,7 @@ class ProjectCommentForm(forms.ModelForm):
         fields = ('parent','content')
 
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'ml-3 mb-3 form-control border-0 comment-add rounded-0', 'rows': '1', 'placeholder': 'Add a comment'}),
+            'content': forms.Textarea(attrs={'class': 'ml-3 mb-3 form-control border-0 comment-add rounded-0', 'rows': '1', 'placeholder': 'Add a comment', 'style': 'width:100%;'}),
         }
 
     def save(self, *args, **kwargs):

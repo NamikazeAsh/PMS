@@ -1,5 +1,5 @@
-<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="editExpenseModal{{thisExpenseId}}" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="mymodal">
         {% load static%}
         <div class="modal-content">
             <div class="modal-header">
@@ -22,7 +22,7 @@
                             <label class="col-form-label pl-2">Amount</label>
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/rupee.svg" %}" style="width: 5%"></img>
-                                <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="amount" placeholder="Amount" >
+                                <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem" name="amount" placeholder="Amount" value="{{thisExpenseAmount}}">
                             </div>
                         </div>
                     </div>
