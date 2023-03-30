@@ -51,7 +51,7 @@ urlpatterns = [
     path("calendar/", include("calendarapp.urls")),
     path("finance/", include("finance.urls")),
 
-    # path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editBasicFinanceInfo"),
+    path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editBasicFinanceInfo"),
     # path("projects/project/<int:id>/editincome/<int:iid>", views.editIncomeInfo, name="editBasicFinanceInfo"),
     # path("projects/project/<int:id>/editprofessor/<int:pid>", views.editProfessorInfo, name="editBasicFinanceInfo"),
 
