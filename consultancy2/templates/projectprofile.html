@@ -256,7 +256,7 @@
                         <td></td>
                         <td>
                           <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editExpenseModal{{expense.id}}" style="cursor: pointer;"></img>
-                          <a href="/projects/projects/edit_task/{{tk.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
+                          <a href="/projects/projects/project/{{pid}}/deleteexpense/{{expense.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                         </td>
                     </tr>
                     {% include 'editExpenseModal.html' with projectid=pid thisExpenseId=expense.id thisExpenseParticular=expense.particular thisExpenseAmount=expense.amount %}
@@ -280,7 +280,7 @@
                       <td></td>
                       <td>
                         <img src="{% static "icons/edit.svg" %}"  data-bs-toggle="modal" data-bs-target="#editIncomeModal{{income.id}}" style="cursor: pointer;"></img>
-                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;" ></img></a>
+                        <a href="/projects/projects/project/{{pid}}/deleteincome/{{income.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;" ></img></a>
                       </td>
                     </tr>
                     {% include 'editIncomeModal.html' with projectid=pid thisIncomeId=income.id thisIncomeParticular=income.particular thisIncomeAmount=income.amount%}
@@ -306,7 +306,7 @@
                       <td>{{prof.ratioAmount}}</td>
                       <td>
                         <img src="{% static "icons/edit.svg" %}" data-bs-toggle="modal" data-bs-target="#editProfessorModal{{prof.id}}" style="cursor: pointer;"></img>
-                        <a href="/projects/projects/edit_task/{{tk.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
+                        <a href="/projects/projects/project/{{pid}}/deleteprofessor/{{expense.id}}" class="btn ml-4"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                         </td>
                     </tr>
                     {% include 'editProfessorModal.html' with projectid=pid thisProfId=prof.id thisProfName=prof.Professor thisprofRatio=prof.ratio thisProfDescription=prof.desc %}

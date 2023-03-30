@@ -591,9 +591,25 @@ def addProfessor(request, id) :
 
 
 def editExpenseInfo(request, id, eid):
-    print("Edit expense info")
+    # Expense Information Edit Code Here
     return redirect(f'/projects/projects/project/{id}')
 
-# def editIncomeInfo(request, id, iid):
+def editIncomeInfo(request, id, iid):
+    # Income Information Edit Code Here
+    return redirect(f'/projects/projects/project/{id}')
 
-# def editProfessorInfo(request, id, pid):
+def editProfessorInfo(request, id, pid):
+    # Professor Information Edit Code Here
+    return redirect(f'/projects/projects/project/{id}')
+
+def deleteExpenseInfo(request, id, eid):
+    # Expense Information Edit Code Here
+    return redirect(f'/projects/projects/project/{id}')
+
+def deleteIncomeInfo(request, id, iid):
+    # Income Information Edit Code Here
+    return redirect(f'/projects/projects/project/{id}')
+
+def deleteProfessorInfo(request, id, pid):
+    # Professor Information Edit Code Here
+    return redirect(f'/projects/projects/project/{id}')
