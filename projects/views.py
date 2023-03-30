@@ -484,3 +484,14 @@ def UploadRefProjectDocs(request,id):
             print("Nothing to upload")
     
     return projects(request)
+
+def editTeamInfo(request, teamname):
+    # Edit Team Code Here
+
+    return redirect('/projects/team-views/')
+
+def deleteTeamInfo(request, teamname):
+    # Delete Team Code Here
+    # teamname is the id of the table
+    # remove key pair from table where key is teamname
+    return redirect('/projects/team-views/')

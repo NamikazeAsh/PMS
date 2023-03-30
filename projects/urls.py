@@ -23,6 +23,8 @@ urlpatterns = [
     path('projects/downloadallprojreport/',views.DownloadAllProjectReport,name='DownloadAllProject'),
     path('projects/uploadprojdoc/<int:id>',views.UploadProjectDocs,name='UploadProjDocs'),
     path('projects/uploadrefprojdoc/<int:id>',views.UploadRefProjectDocs,name='UploadRefProjDocs'),
+    path('team-views/editteam/<str:teamname>',views.editTeamInfo,name='editTeamInfo'),
+    path('team-views/deleteteam/<str:teamname>',views.deleteTeamInfo,name='deleteTeamInfo'),
 ]
 
 if settings.DEBUG:
