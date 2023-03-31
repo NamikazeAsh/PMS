@@ -9,18 +9,35 @@
 
 {% block content %}
 
-    {% for refdoc in refprojectslist %}
-
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{refdoc.name}}</h5>
-                <p class="card-text">{{refdoc.description}}</p>
-                <button onclick='location.href= "{{ refdoc.refdocuments.url }}"' class="btn btn-primary">Download Reference Document</button>
+<div style="height:216px; background-color: #624bff; padding-top: 3.7rem;">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+            <div class="container-fluid">
+                <div class="pl-0">
+                    <div>
+                        <div>
+                            <div class="mb-1 mb-lg-0">
+                                <h3 class="mb-0 text-white h1">Reference Documents</h3>
+                                <p class="text-light mt-1 h6">View your projects reference docs here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-item-center flex-wrap">
+                {% for refdoc in refprojectslist %}
+                    <div class="card m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{refdoc.name}}</b></h5>
+                            <p class="card-text"><i>{{refdoc.description}}</i></p>
+                            <button onclick='location.href= "{{ refdoc.refdocuments.url }}"' class="btn btn-dark">Download Reference Document</button>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
             </div>
         </div>
-
-    {% endfor %}
-
+    </div>
+</div>
 
     {% block excerpt%}
     {% endblock %}
