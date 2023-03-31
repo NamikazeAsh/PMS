@@ -596,6 +596,35 @@ def editExpenseInfo(request, id, eid):
 
 def editIncomeInfo(request, id, iid):
     # Income Information Edit Code Here
+    if request.method == "POST":
+        particular = request.POST.get('particular')
+        amt = request.POST.get('amount')
+
+    tempDict = {
+        'particular' : particular,
+        'amount' : amt,
+    }
+
+    existingFinance = FinanceModel.objects.filter(project_id = id)
+    existingincome = json.loads(existingFinance[0].incomes)
+    
+    for i in range(len(existingincome['add'])):
+        updateIncome = json.loads(existingincome['add'][i])
+        if updateIncome['id'] == iid :
+           updateIncome['particular'] = particular
+           updateIncome['amount'] = amt
+           existingincome['add'][i] = json.dumps(updateIncome)
+    
+    finalDict = json.dumps(existingincome)
+    # existingFinance[0].incomes = finalDict
+    print(type(finalDict))
+        
+    
+                    
+       
+
+    
+    
     return redirect(f'/projects/projects/project/{id}')
 
 def editProfessorInfo(request, id, pid):
