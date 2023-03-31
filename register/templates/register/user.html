@@ -110,7 +110,13 @@
                             <div class="d-flex align-items-center">
                               <div class="ms-3 ">
                                 {% for task in user_view.user.task_set.all %}
-                                  <h5 class="mb-1">{{task }} <a href="{% url 'register:deletetask' task=task.id %}"><b><p style="display: inline;font-size: .80rem;"> | Delete </p></b></a> </h5>
+                                  <h5 class="mb-1">{{task }} 
+                                    {% if prof %}
+
+                                    <a href="{% url 'register:deletetask' task=task.id %}" class="btn btn-danger btn-sm">Delete</a> 
+                                    {% endif %}
+
+                                  </h5>
                                   <ul>
                                     <li style="font-size: .77rem;">Project : <p style="font-size: .77rem; display:inline;color: #536c79;">{{task.project}}</p></li>
                                     <li style="font-size: .77rem;">Hours Required : <p style="font-size: .77rem; display:inline;color: #536c79;">{{task.hours_required}}</p></li>

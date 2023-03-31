@@ -99,7 +99,7 @@ def create_event(request):
             'form': form,
             'temp':var,
         }
-        return HttpResponseRedirect(reverse("calendarapp:calendar"))
+        return redirect('/')
     return render(request, 'calendarapp/calendar.html', context)
 
 
