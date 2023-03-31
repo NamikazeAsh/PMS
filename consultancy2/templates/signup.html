@@ -99,10 +99,6 @@
 
                                                 {% csrf_token %}
                                                 <h1 class="text-center">Sign Up</h1>
-                                                
-                                                {% comment %} 
-                                                <p class="text-muted">Enter user details here</p> 
-                                                {% endcomment %}
 
 
                                     <form action="" method="post">
@@ -110,9 +106,6 @@
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/username.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div> {% endcomment %}
                                                 {{ form.username }}
                                                 {% if form.username.errors %}
                                                     <ol>
@@ -126,9 +119,6 @@
                                         <div class="form-group  mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/user.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div> {% endcomment %}
                                                 {{ form.first_name }}
                                                 {% if form.first_name.errors %}
                                                     <ol>
@@ -168,9 +158,6 @@
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/password.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
-                                                </div> {% endcomment %}
                                                 {{ form.password1 }}
                                                 {% if form.password1.errors %}
                                                     <ol>
@@ -179,19 +166,11 @@
                                                     {% endfor %}
                                                     </ol>
                                                 {% endif %}
-                                                {% comment %} <p>Show Password</p> {% endcomment %}
-                                                {% comment %} <img src="{% static "icons/eye.svg" %}" ></img> {% endcomment %}
-                                                {% comment %} <img src="{% static "icons/eye-off.svg" %}" ></img> {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/password.svg" %}" ></img>
-                                                {% comment %} <div class="input-group-append">
-                                                    <span class="input-group-text">
-                                                        <i class="fa fa-key"></i>
-                                                    </span>
-                                                </div> {% endcomment %}
                                                 {{ form.password2 }}
                                             </div>
                                             {% if form.password2.errors %}
@@ -246,8 +225,6 @@
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
-                {% comment %} <footer class="py-4 bg-light mt-auto text-center"> Christ Consulting ©2023
-                </footer> {% endcomment %}
             </div>
             <script>
 

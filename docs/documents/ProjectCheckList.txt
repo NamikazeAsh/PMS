@@ -1,0 +1,21 @@
+Head/Lead : user1/user3
+		Milestone -> Edit milestone, Add member
+
+Professor: user5
+		Milestone -> Edit milestone, Add Member
+
+Sr. Intern: user11
+		Milestone -> Edit milestone, Add Member
+
+Intern: user2
+		Milestone -> Edit milestone, Add Member
+
+
+
+
+Edit Milestone
+Add Members
+
+Edit Milestone
+Add Members
+edit team, delete team

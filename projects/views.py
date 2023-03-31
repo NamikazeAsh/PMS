@@ -265,8 +265,9 @@ def edit_project(request,id):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Head Consultant'])
-def ProjectProfile(request,id):
+def ProjectProfile(request, id):
     projdet = Project.objects.filter(id = id)
+    
     var = findtemp(request)
     pcomments = get_object_or_404(Project, id=id)
     username = request.user.is_authenticated
@@ -319,17 +320,45 @@ def ProjectProfile(request,id):
     finance_details = FinanceModel.objects.filter(project_id = id)
     incomeDetails = []
     expenseDetails = []
+    profDetails = []
+    profNames = ""
+    profRatio = ""
     basicDetails = {}
+    totalIncome = 0
+    totalExpense = 0
+    cuShare = 0
+    netAmount = 0 
 
     if finance_details:
         basicDetails = finance_details[0]
+        cuShare = ((basicDetails.cupercentage)*(basicDetails.amtreceived))/100
         if finance_details[0].incomes:
             incomeDetails = json.loads(finance_details[0].incomes)['add']
             incomeDetails = list(map(returnJson, incomeDetails))
-        
+
+            for i in incomeDetails:
+                totalIncome = totalIncome + (int(i['amount']))
+
         if finance_details[0].expenses:
             expenseDetails = json.loads(finance_details[0].expenses)['less']
             expenseDetails = list(map(returnJson, expenseDetails))
+
+            for i in expenseDetails:
+                totalExpense = totalExpense + (int(i['amount']))
+
+        if finance_details[0].professor:
+            profDetails = json.loads(finance_details[0].professor)['professors']
+            profDetails = list(map(returnJson, profDetails))        
+                
+        netAmount = ((basicDetails.amtreceived)-(cuShare)-(totalExpense) 
+        + (totalIncome))
+
+        for i in profDetails:
+            i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
+    
+        for i in profDetails:
+            profNames = profNames + i['Professor'] + ", "
+            profRatio = profRatio + i['ratio'] + ":"
 
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
@@ -343,6 +372,13 @@ def ProjectProfile(request,id):
         'comment_form': comment_form, 
         'allcomments': allcomments,
         'financeDetails': basicDetails,
+        'cuShare': cuShare,
+        'totalIncome': totalIncome,
+        'totalExpense': totalExpense,
+        'netAmount': netAmount,
+        'profDetails': profDetails,
+        'profNames': profNames,
+        'profRatio': profRatio,
         'incomeDetails': incomeDetails,
         'expenseDetails': expenseDetails,
         'username':username,})
@@ -449,3 +485,41 @@ def UploadRefProjectDocs(request,id):
             print("Nothing to upload")
     
     return projects(request)
+
+# def editTeamInfo(request, teamname):
+#     # Edit Team Code Here
+
+#     return redirect('/projects/team-views/')
+
+def deleteTeamInfo(request, teamname):
+    # Delete Team Code Here
+    # teamname is the id of the table
+    # remove key pair from table where key is teamname
+    return redirect('/projects/team-views/')
+
+@login_required(login_url='login')
+def editTeamInfo(request, teamname):
+    if request.method == 'POST':
+        form = TeamRegistrationForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            created = True
+            form = TeamRegistrationForm()
+            var = findtemp(request)
+            context = {
+                'created': created,
+                'form': form,
+                'temp':var,
+            }
+            return render(request, 'projects/editTeam.html', context)
+        else:
+            return render(request, 'projects/editTeam.html', context)
+    else:
+        form = TeamRegistrationForm()
+        var = findtemp(request)
+        context = {
+            'form': form,
+            'temp':var,
+        }
+        return render(request,'projects/editTeam.html', context)
