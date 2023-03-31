@@ -119,10 +119,11 @@
                                     <a href="{% url 'projects:teams'%}"><input type="button" value="Reset" style="height: 2rem;  top: -2px; border-radius: .5rem;" class="ml-1  py-0 btn btn-dark position-relative"></a>
                             </div>
 
-                            <table class="table table-bordered table-hover" style="width: 70%;" id="teams_table">
+                            <table class="table table-bordered table-hover" style="width:70%;" id="teams_table">
                                 <tr class="thead-dark">
-                                    <th class="w-50 text-center h4"><b>Name</b></th>
-                                    <th class="w-50 text-center h4"><b>Members</b></th>
+                                    <th class="text-center h4" style="width: 40% !important;"><b>Name</b></th>
+                                    <th class="text-center h4" style="width: 40% !important;"><b>Members</b></th>
+                                    <th class="text-center h4" style="width: 20% !important;"></th>
                                 </tr>
 
                                 {% for key,value in teamd.items %}
@@ -130,10 +131,12 @@
                                         <td class="text-center h5">{{key}}</td>
                                         <td class="text-center h5">
                                             {% for c in value %}
-                                            
-                                            <li class="my-1">{{c}}</li>
-                                        
-                                        {% endfor %}
+                                                <li class="my-1">{{c}}</li>
+                                            {% endfor %}
+                                        </td>
+                                        <td class="d-flex justify-content-between w-100 border-0">
+                                            <a href="/projects/team-views/editteam/{{key}}" class="btn"><img src="{% static "icons/edit.svg" %}" style="cursor: pointer;"></img></a>
+                                            <a href="/projects/team-views/deleteteam/{{key}}" class="btn"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                                         </td>
                                     </tr>
                                 {% endfor %}
