@@ -485,13 +485,40 @@ def UploadRefProjectDocs(request,id):
     
     return projects(request)
 
-def editTeamInfo(request, teamname):
-    # Edit Team Code Here
+# def editTeamInfo(request, teamname):
+#     # Edit Team Code Here
 
-    return redirect('/projects/team-views/')
+#     return redirect('/projects/team-views/')
 
 def deleteTeamInfo(request, teamname):
     # Delete Team Code Here
     # teamname is the id of the table
     # remove key pair from table where key is teamname
     return redirect('/projects/team-views/')
+
+@login_required(login_url='login')
+def editTeamInfo(request, teamname):
+    if request.method == 'POST':
+        form = TeamRegistrationForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            created = True
+            form = TeamRegistrationForm()
+            var = findtemp(request)
+            context = {
+                'created': created,
+                'form': form,
+                'temp':var,
+            }
+            return render(request, 'projects/editTeam.html', context)
+        else:
+            return render(request, 'projects/editTeam.html', context)
+    else:
+        form = TeamRegistrationForm()
+        var = findtemp(request)
+        context = {
+            'form': form,
+            'temp':var,
+        }
+        return render(request,'projects/editTeam.html', context)
