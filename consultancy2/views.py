@@ -592,6 +592,30 @@ def addProfessor(request, id) :
 
 def editExpenseInfo(request, id, eid):
     # Expense Information Edit Code Here
+    if request.method == "POST":
+        particular = request.POST.get('particular')
+        amt = request.POST.get('amount')
+
+        tempDict = {
+            "particular": particular,
+            "amount": amt,
+            "id": eid,
+        }
+
+        financeExpense = FinanceModel.objects.get(project_id = id)
+        existingexpenses = json.loads(financeExpense.expenses)['less']
+    
+        for i in range(len(existingexpenses)):
+            updateExpense = json.loads(existingexpenses[i])
+            if updateExpense['id'] == eid:
+                existingexpenses[i] = json.dumps(tempDict)
+                break
+
+        updatedExpenseDict = {'less': existingexpenses} 
+
+        financeExpense.expenses = json.dumps(updatedExpenseDict)
+        financeExpense.save()
+
     return redirect(f'/projects/projects/project/{id}')
 
 def editIncomeInfo(request, id, iid):
@@ -600,35 +624,55 @@ def editIncomeInfo(request, id, iid):
         particular = request.POST.get('particular')
         amt = request.POST.get('amount')
 
-    tempDict = {
-        'particular' : particular,
-        'amount' : amt,
-    }
+        tempDict = {
+            "particular": particular,
+            "amount": amt,
+            "id": iid,
+        }
 
-    existingFinance = FinanceModel.objects.filter(project_id = id)
-    existingincome = json.loads(existingFinance[0].incomes)
-    
-    for i in range(len(existingincome['add'])):
-        updateIncome = json.loads(existingincome['add'][i])
-        if updateIncome['id'] == iid :
-           updateIncome['particular'] = particular
-           updateIncome['amount'] = amt
-           existingincome['add'][i] = json.dumps(updateIncome)
-    
-    finalDict = json.dumps(existingincome)
-    # existingFinance[0].incomes = finalDict
-    print(type(finalDict))
+        finance = FinanceModel.objects.get(project_id = id)
         
+        existingincomes = json.loads(finance.incomes)['add']
     
-                    
-       
+        for i in range(len(existingincomes)):
+            updateIncome = json.loads(existingincomes[i])
+            if updateIncome['id'] == iid:
+                existingincomes[i] = json.dumps(tempDict)
+                break
 
-    
-    
+        updatedIncomeDict = {'add': existingincomes}
+
+        finance.incomes = json.dumps(updatedIncomeDict)
+        finance.save()
+
     return redirect(f'/projects/projects/project/{id}')
 
 def editProfessorInfo(request, id, pid):
     # Professor Information Edit Code Here
+    if request.method == "POST":
+        profname = request.POST.get('name')
+        disburseRatio = request.POST.get('ratio')
+        desc = request.POST.get('desc')
+        tempDict= {
+            "Professor": profname,
+            "ratio": disburseRatio,
+            "desc": desc,
+            "id": pid,
+        }
+
+        financeProf = FinanceModel.objects.get(project_id = id)
+        existingProf = json.loads(financeProf.professor)['professors']
+    
+        for i in range(len(existingProf)):
+            updateProf = json.loads(existingProf[i])
+            if updateProf['id'] == pid:
+                existingProf[i] = json.dumps(tempDict)
+                break
+
+        updatedProfDict = {'professors': existingProf} 
+
+        financeProf.professor = json.dumps(updatedProfDict)
+        financeProf.save()
     return redirect(f'/projects/projects/project/{id}')
 
 def deleteExpenseInfo(request, id, eid):
