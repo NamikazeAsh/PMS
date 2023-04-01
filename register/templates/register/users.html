@@ -135,13 +135,15 @@
                 }
                 
             }
-            
-            function clear()
+            function clearInput()
             {
-                // var getVal=document.getElementById("search");
-                // if (getVal.value!="")
-                //     getVal.value="";
-                print("Working")
+                var table = document.getElementById("users_table");
+                var searchBox = document.getElementById("search");
+                searchBox.value = "";
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].style.display = "";
+                }
             }
 </script>
 {% endblock extrascripts %}
@@ -176,8 +178,7 @@
                 </select>
                 
                 <input type="text" id="search" placeholder="Search Records" onkeyup="option();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
-                <input type="button" value="Clear" onclick= "clear();" class="ml-1 btn btn-dark position-relative" style="height: 2rem; top: -2px; border-radius: .5rem;">
-                <a href="{% url 'register:users' %}"><input type="button" value="Reset" style="height: 2rem;  top: -2px; border-radius: .5rem;" class="ml-1 btn btn-dark position-relative"></a>
+                <input type="button" value="Clear" id="clearField" onclick="clearInput();" class="ml-1 btn btn-dark position-relative" style="height: 2rem; top: -2px; border-radius: .5rem;">
         </div>
         <div class="d-flex justify-content-center">
             <table class="table table-responsive-sm table-hover table-bordered mb-5" style="border-radius: .5rem; width: 80vw;" id="users_table">
@@ -187,9 +188,7 @@
                     <th>User</th>
                     <th class="text-center">Role</th>
                     <th class="text-center">Campus</th>
-                    <!-- <th class="text-center">Assigned Projects</th> -->
                     <th class="text-center">Tasks</th>
-                    <!-- <th class="text-center">User Activity</th> -->
                     <th class="text-center">Last Login</th>
                     <th class="text-center">Hours Worked</th>
                 </tr>
