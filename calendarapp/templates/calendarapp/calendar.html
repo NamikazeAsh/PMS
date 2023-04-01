@@ -18,9 +18,14 @@
   textarea {
     height: 5rem;
   }
+  .form-group {
+    border: 1px solid #ced4da;
+    padding: 0px 5px;
+    border-radius: 10px;
+  }
 </style>
-<!-- 
-<div class="container-fluid">
+
+{% comment %} <div class="container-fluid">
   
   <div id="ui-view" style="opacity: 1;"><div class="animated fadeIn">
 <div class="row">
@@ -99,7 +104,7 @@
     </div>
 </div>
 </div>
-</div> -->
+</div> {% endcomment %}
 
 
 
@@ -161,21 +166,37 @@
                       <form method="post">
                         {% csrf_token %}
                         <div class="modal-body">
+
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Milestone Title:</label>
-                            {{ form.title }}
+                              <label class="col-form-label">Milestone Title:</label>
+                              <div class="input-group border-top">
+                                  <img src="{% static "icons/flag.svg" %}"></img>
+                                  {{ form.title }}
+                              </div>
                           </div>
+
                           <div class="form-group">
-                            <label for="message-text" class="col-form-label">Description:</label>
-                            {{ form.description }}
+                              <label class="col-form-label">Description:</label>
+                              <div class="input-group border-top">
+                                  <img src="{% static "icons/description.svg" %}"></img>
+                                  {{ form.description }}
+                              </div>
                           </div>
+
                           <div class="form-group">
-                            <label for="message-text" class="col-form-label">Start Date:</label>
-                            {{ form.start_time }}
+                              <label class="col-form-label">Start Date:</label>
+                              <div class="input-group border-top">
+                                  <img src="{% static "icons/calendar.svg" %}"></img>
+                                  {{ form.start_time }}
+                              </div>
                           </div>
+
                           <div class="form-group">
-                            <label for="message-text" class="col-form-label">End Date:</label>
-                            {{ form.end_time }}
+                              <label class="col-form-label">End Date:</label>
+                              <div class="input-group border-top">
+                                  <img src="{% static "icons/calendar.svg" %}"></img>
+                                  {{ form.end_time }}
+                              </div>
                           </div>
                         </div>
                         <div class="modal-footer">
