@@ -161,28 +161,7 @@ def newProject(request):
         }
         return render(request,'projects/new_project.html', context)
 
-class edittask(generic.UpdateView):
-    model = Task
-    fields = ["status"]
-    template_name = "projects/etask.html"
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        var = findtemp(self.request)
-        context["temp"] = var
-        
-        return context
-        
 
-class editproject(generic.UpdateView):
-    model = Project
-    fields = ["status","assign","efforts","dead_line"]
-    template_name = "projects/eproject.html"
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        var = findtemp(self.request)
-        context["temp"] = var
-        
-        return context
         
 def taskprofile1(request):
     tasks = Task.objects.filter()
@@ -486,8 +465,9 @@ def UploadRefProjectDocs(request,id):
     
     return projects(request)
 
-# def editTeamInfo(request, teamname):
-#     # Edit Team Code Here
+def editTeamInfo(request, teamname):
+    # Edit Team Code Here
+    pass
 
 #     return redirect('/projects/team-views/')
 
@@ -495,31 +475,32 @@ def deleteTeamInfo(request, teamname):
     # Delete Team Code Here
     # teamname is the id of the table
     # remove key pair from table where key is teamname
-    return redirect('/projects/team-views/')
+    # return redirect('/projects/team-views/')
+    pass
 
-@login_required(login_url='login')
-def editTeamInfo(request, teamname):
-    if request.method == 'POST':
-        form = TeamRegistrationForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            created = True
-            form = TeamRegistrationForm()
-            var = findtemp(request)
-            context = {
-                'created': created,
-                'form': form,
-                'temp':var,
-            }
-            return render(request, 'projects/editTeam.html', context)
-        else:
-            return render(request, 'projects/editTeam.html', context)
-    else:
-        form = TeamRegistrationForm()
-        var = findtemp(request)
-        context = {
-            'form': form,
-            'temp':var,
-        }
-        return render(request,'projects/editTeam.html', context)
+# @login_required(login_url='login')
+# def editTeamInfo(request, teamname):
+#     if request.method == 'POST':
+#         form = TeamRegistrationForm(request.POST)
+#         context = {'form': form}
+#         if form.is_valid():
+#             form.save()
+#             created = True
+#             form = TeamRegistrationForm()
+#             var = findtemp(request)
+#             context = {
+#                 'created': created,
+#                 'form': form,
+#                 'temp':var,
+#             }
+#             return render(request, 'projects/editTeam.html', context)
+#         else:
+#             return render(request, 'projects/editTeam.html', context)
+#     else:
+#         form = TeamRegistrationForm()
+#         var = findtemp(request)
+#         context = {
+#             'form': form,
+#             'temp':var,
+#         }
+#         return render(request,'projects/editTeam.html', context)

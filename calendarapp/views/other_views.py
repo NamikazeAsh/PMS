@@ -1,4 +1,4 @@
-    # cal/views.py
+# cal/views.py
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -11,9 +11,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from itertools import chain
 
-from calendarapp.models import Event
+from calendarapp.models import EventMember, Event
 from calendarapp.utils import Calendar
-from calendarapp.forms import EventForm
+from calendarapp.forms import EventForm, AddMemberForm
+
 from django.core.mail import send_mail
 
 def findtemp(request):
@@ -68,39 +69,23 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         return context
 
 
-# @login_required(login_url="signup")
-# def create_event(request):
-#     form = EventForm(request.POST or None)
-#     if request.POST and form.is_valid():
-#         title = form.cleaned_data["title"]
-#         description = form.cleaned_data["description"]
-#         start_time = form.cleaned_data["start_time"]
-#         end_time = form.cleaned_data["end_time"]
-#         Event.objects.get_or_create(
-#             user=request.user,
-#             title=title,
-#             description=description,
-#             start_time=start_time,
-#             end_time=end_time,
-#         )
-#         return HttpResponseRedirect(reverse("calendarapp:calendar"))
-#     return render(request, "calendarapp/event.html", {"form": form})
-
 @login_required(login_url="signup")
 def create_event(request):
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
-        form.fields["user"].initial = request.user
-        form.save()
-        created = True
-        var = findtemp(request)
-        context = {
-            'created': created,
-            'form': form,
-            'temp':var,
-        }
-        return redirect('/')
-    return render(request, 'calendarapp/calendar.html', context)
+        title = form.cleaned_data["title"]
+        description = form.cleaned_data["description"]
+        start_time = form.cleaned_data["start_time"]
+        end_time = form.cleaned_data["end_time"]
+        Event.objects.get_or_create(
+            user=request.user,
+            title=title,
+            description=description,
+            start_time=start_time,
+            end_time=end_time,
+        )
+        return HttpResponseRedirect(reverse("calendarapp:calendar"))
+    return render(request, "calendarapp/event.html", {"form": form})
 
 
 class EventEdit(generic.UpdateView):
@@ -123,56 +108,52 @@ class EventEdit(generic.UpdateView):
 
 @login_required(login_url="signup")
 def event_details(request, event_id):
-    # event = Event.objects.only("members")
-    # # eventmember = EventMember.objects.filter(event=event)
-    # var = findtemp(request)
-    # context = {"event": event,
-    # 'temp':var,}
-    # return render(request, "calendarapp/event-details.html", context)
-    pass
+    event = Event.objects.get(id=event_id)
+    eventmember = EventMember.objects.filter(event=event)
+    var = findtemp(request)
+    context = {"event": event, "eventmember": eventmember,
+    'temp':var,}
+    return render(request, "calendarapp/event-details.html", context)
 
 
 def add_eventmember(request, event_id):
-    # forms = AddMemberForm()
-    # if request.method == "POST":
-    #     forms = AddMemberForm(request.POST)
-    #     if forms.is_valid():
-    #         member = EventMember.objects.filter(event=event_id)
-    #         event = Event.objects.get(id=event_id)
-    #         if member.count() <= 9:
+    forms = AddMemberForm()
+    if request.method == "POST":
+        forms = AddMemberForm(request.POST)
+        if forms.is_valid():
+            member = EventMember.objects.filter(event=event_id)
+            event = Event.objects.get(id=event_id)
+            if member.count() <= 9:
                 
-    #             user = forms.cleaned_data["user"]
-    #             print(user)
-    #             # EventMember.objects.create(event=event, user=user)
-    #             # instance=EventMember.objects.create(event=event)
-    #             # instance.user.set(user)
-    #             return redirect("calendarapp:calendar")
-    #         else:
-    #             print("--------------User limit exceed!-----------------")
-    # var = findtemp(request)
-    # context = {"form": forms,'temp':var,}
-    # return render(request, "calendarapp/add_member.html", context)
-    pass
-
+                user = forms.cleaned_data["user"]
+                print(user)
+                EventMember.objects.create(event=event, user=user)
+                # instance=EventMember.objects.create(event=event)
+                # instance.user.set(user)
+                return redirect("calendarapp:calendar")
+            else:
+                print("--------------User limit exceed!-----------------")
+    var = findtemp(request)
+    context = {"form": forms,'temp':var,}
+    return render(request, "calendarapp/add_member.html", context)
 
 
 class EventMemberDeleteView(generic.DeleteView):
-    # model = EventMember
-    # template_name = "calendarapp/event_delete.html"
-    # success_url = reverse_lazy("calendarapp:calendar")
+    model = EventMember
+    template_name = "calendarapp/event_delete.html"
+    success_url = reverse_lazy("calendarapp:calendar")
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     d = get_date(self.request.GET.get("month", None))
-    #     cal = Calendar(d.year, d.month)
-    #     html_cal = cal.formatmonth(withyear=True)
-    #     var = findtemp(self.request)
-    #     context["calendar"] = mark_safe(html_cal)
-    #     context["prev_month"] = prev_month(d)
-    #     context["next_month"] = next_month(d)
-    #     context["temp"] = var
-    #     return context
-    pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get("month", None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth(withyear=True)
+        var = findtemp(self.request)
+        context["calendar"] = mark_safe(html_cal)
+        context["prev_month"] = prev_month(d)
+        context["next_month"] = next_month(d)
+        context["temp"] = var
+        return context
 
 
 class CalendarViewNew(LoginRequiredMixin, generic.View):
@@ -185,10 +166,10 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         id = request.user.id
         events = Event.objects.get_all_events(user=request.user)
         k = []
-        # s = EventMember.objects.all()
-        # for item in s:
-        #     if item.user == request.user:
-        #         k.append(item.event)
+        s = EventMember.objects.all()
+        for item in s:
+            if item.user == request.user:
+                k.append(item.event)
         # s = EventMember.objects.filter(user_id=request.user.id, is_active=True, is_deleted=False).values_list('event_id')
         # k = Event.objects.get()
         eve = Event.objects.get_running_events(user=request.user)
