@@ -5,6 +5,7 @@ from .other_views import (
     create_event,
     EventEdit,
     event_details,
+    add_eventmember,
     EventMemberDeleteView,
 )
 
@@ -17,5 +18,6 @@ __all__ = [
     create_event,
     EventEdit,
     event_details,
+    add_eventmember,
     EventMemberDeleteView,
 ]
