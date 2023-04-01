@@ -8,109 +8,154 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock extracss %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item">Projects</li>
+<li class="breadcrumb-item active">Milestone</li>
+{% endblock breadcrumb %}
+
 {% block content %}
 
 <style>
-
-    input, textarea {
-      border: none !important;
-      outline: none !important;
+  .middle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    }
+    .btn {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: #f1f1f1;
+    margin: 10px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.22);
+    color: #446eac;
+    overflow: hidden;
+    position: relative;
+    }
+    .btn i {
+    line-height: 42px;
+    margin-left: 2px;
+    font-size: 20px;
+    transition: 0.2s linear;
+    }
+    .btn:hover i {
+    transform: scale(1.3);
+    color: #f1f1f1;
+    }
+    .btn::before {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: #446eac;
+    transform: rotate(45deg);
+    left: -110%;
+    top: 90%;
+    }
+    .btn:hover::before {
+    animation: aaa 0.7s 1;
+    top: -10%;
+    left: -10%;
+    }
+    @keyframes aaa {
+    0% {
+    left: -110%;
+    top: 90%;
+    }
+    50% {
+    left: 10%;
+    top: -30%;
+    }
+    100% {
+    top: -10%;
+    left: -10%;
+    }
     }
 
-    textarea {
-      height: 5rem;
+    .fc-icon-chevron-left::before{
+      background: url('../../../consultancy2/static/icons/left.svg') no-repeat center center/cover;
     }
 
     .fc-icon-chevron-left::before{
       background: url('../../../consultancy2/static/icons/left.svg') no-repeat center center/cover;
     }
 </style>
-<div style="height:216px; background-color: #624bff;" class="pt-5">
+
 <div class="container-fluid">
-<div id="ui-view" style="opacity: 1;"><div class="animated fadeIn">
+  
+  <div id="ui-view" style="opacity: 1;"><div class="animated fadeIn">
 <div class="row">
     <div class="col-md-12">
         <div class="tile row">
-            <div class="col-md-3 my-3">  
+            <div class="col-md-3">  
         
-                <a class="" href="https://meet.new">
-                  <button id="modalClose2" type="button" class="btn btn-dark mt-1" style="border-radius: 100%; height: 3rem; width: 3rem;"><img src="{% static "icons/video.svg" %}"></img></button>
+                <a class="btn" href="https://meet.new">
+                  <i class="fas fa-video"></i>
                 </a>
-                <div id="external-events" class="mt-4">
-                    <h4 class="mb-3 text-white">Running milestones</h4>
+
+                <div id="external-events">
+                    <h4 class="mb-4">Running milestones</h4>
                     {% for event in events_month %}
-                      <div class="card" style="width: 100%; box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                      <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                          <h4 class="card-title"><b>{{ event.title }}</b></h4>
+                          <!-- <a href="{% url "calendarapp:event-detail" event_id=event.id %}"> -->
+                          <h5 class="card-title">{{ event.title }}</h5>
                           <hr>
                           <p class="card-text"><b> From:</b> {{ event.start_time }}</p>
                           <p class="card-text"><b>To:</b> {{ event.end_time }}</p>
-                          <a href="{% url "calendarapp:event-detail" event_id=event.id %}"><button style="height: 35%; width: 40%; font-weight: bolder; border-radius: .5rem;" class="btn btn-dark">Details</button></a>
+                          <a href="{% url "calendarapp:event-detail" event_id=event.id %}"><button style="background-color: rgb(75, 115, 226); border: 0px; color: #f1f1f1; height: 35%; width: 40%; font-weight: bolder;">Details</button></a>
                         </div>
+                      <!-- </a> -->
                       </div>
                     {% empty %}
-                      <p class=" text-white">No Running Events Found</p>
+                      <p>No Running Events Found</p>
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-9 my-4">
-              <div class="container-fluid py-4" style="background:white; box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); border-radius: .5rem;">
-                <div id="ui-view" style="opacity: 1;">
-                  <div class="animated fadeIn">
-                    <div id="calendar"></div>
-                  </div>
+            <div class="col-md-9">
+              <div class="container-fluid" style="background:white;">
+                <div id="ui-view" style="opacity: 1;"><div class="animated fadeIn">
+                <div id="calendar"></div>
                 </div>
               </div>
+            </div>
 
             <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fs-5" id="exampleModalLongTitle" >Add New Milestone</h5>
-                            <button id="modalClose1" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Milestone</h5>
+                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <form method="post">
                             {% csrf_token %}
                             <div class="modal-body">
-                              <div class="form-group border p-2" style="border-radius: .5rem;">
-                                <label class="col-form-label ml-2">Milestone Title:</label>
-                                <div class="input-group border-top">
-                                  <img src="{% static "icons/flag.svg" %}"></img>
-                                  {{ form.title }}
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Milestone Title:</label>
+                                    {{ form.title }}
                                 </div>
-                              </div>
-                              <div class="form-group border p-2" style="border-radius: .5rem;">
-                                <label class="col-form-label ml-2">Members:</label>
-                                <div class="input-group border-top">
-                                  <img src="{% static "icons/description.svg" %}"></img>
-                                  {{ form.members }}
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Description:</label>
+                                    {{ form.description }}
                                 </div>
-                              </div>
-                              <div class="form-group border p-2" style="border-radius: .5rem;">
-                                <label class="col-form-label ml-2">Description:</label>
-                                <div class="input-group border-top">
-                                  <img src="{% static "icons/description.svg" %}"></img>
-                                  {{ form.description }}
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Start Date:</label>
+                                    {{ form.start_time }}
                                 </div>
-                              </div>
-                              <div class="form-group border p-2" style="border-radius: .5rem;">
-                                <label class="col-form-label ml-2">Start Date:</label>
-                                <div class="input-group border-top">
-                                  <img src="{% static "icons/calendar.svg" %}"></img>
-                                  {{ form.start_time }}
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">End Date:</label>
+                                    {{ form.end_time }}
                                 </div>
-                              </div>
-                              <div class="form-group border p-2" style="border-radius: .5rem;">
-                                <label class="col-form-label ml-2">End Date:</label>
-                                <div class="input-group border-top">
-                                  <img src="{% static "icons/calendar.svg" %}"></img>
-                                  {{ form.end_time }}
-                                </div>
-                              </div>
                             </div>
-                            <div class="modal-footer button-section">
-                                <button id="modalClose2" type="button" class="btn btn-dark" style="border-radius: .5rem;">Close</button>
-                                <button type="submit" class="btn btn-dark" style="border-radius: .5rem;">Save</button>
+                            <div class="modal-footer">
+                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -118,7 +163,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 </div>
