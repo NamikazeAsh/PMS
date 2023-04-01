@@ -48,6 +48,7 @@ def HomePage(request):
 def SignIn(request): 
     
     if request.user.is_authenticated:
+        
         if request.user.groups.filter(name='Intern').exists():
             
             uid = request.user.id
@@ -64,6 +65,7 @@ def SignIn(request):
                         refprojectslist.append(project[0])
             
             return render(request,'intern/tempintern.html',{"refprojectslist":refprojectslist})
+        
         elif request.user.groups.filter(name='Sr Intern').exists():
             
             uid = request.user.id
@@ -80,6 +82,7 @@ def SignIn(request):
                         refprojectslist.append(project[0])
             
             return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
+        
         elif request.user.groups.filter(name='Professor').exists():
             
             uid = request.user.id
@@ -96,10 +99,13 @@ def SignIn(request):
                         refprojectslist.append(project[0])
                         
             return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
+        
         elif request.user.groups.filter(name='Lead Consultant').exists():
-            return render(request,'consultant/tempprof.html')
+            return render(request,'consultant/templeadc.html')
+        
         elif request.user.groups.filter(name='Head Consultant').exists():
-            return render(request,'consultant/tempprof.html')
+            return render(request,'consultant/tempheadc.html')
+        
         else:
             return render(request,'admindashboard.html')
     else:    
@@ -240,18 +246,7 @@ def AdminValDel(request,id):
 
 @login_required(login_url='login')
 def TempIntern(request):
-    if request.user.groups.filter(name='Intern').exists():
-        return render(request,'intern/tempintern.html')
-    elif request.user.groups.filter(name='Sr Intern').exists():
-        return render(request,'srintern/tempsrintern.html')
-    elif request.user.groups.filter(name='Professor').exists():
-        return render(request,'srintern/tempsrintern.html')
-    elif request.user.groups.filter(name='Lead Consultant').exists():
-        return render(request,'consultant/tempprof.html')
-    elif request.user.groups.filter(name='Head Consultant').exists():
-        return render(request,'consultant/tempprof.html')
-    else:
-        return redirect('home')
+    return render(request,'intern/tempintern.html')
 
 
 @login_required(login_url='login')
@@ -590,7 +585,6 @@ def addProfessor(request, id) :
             saveProfessor.save()
 
     return redirect(f'/projects/projects/project/{id}')
-
 
 
 def editExpenseInfo(request, id, eid):
