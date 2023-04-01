@@ -62,7 +62,7 @@ class TaskRegistrationForm(forms.ModelForm):
         self.fields['task_name'].widget.attrs['class'] = 'form-control'
         self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
         self.fields['hours_required'].widget.attrs['class'] = 'form-control'
-        self.fields['hours_required'].widget.attrs['placeholder'] = 'Hours %'
+        self.fields['hours_required'].widget.attrs['placeholder'] = 'Hours'
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
 

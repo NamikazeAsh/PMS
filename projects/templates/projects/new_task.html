@@ -88,17 +88,16 @@ function reset() {
                                     <div class="form-group">
                                         <label class="col-form-label">Hours Required</label>
                                         <div class="input-group border-top">
-                                            <img src="{% static "icons/percent.svg" %}"></img>
+                                            <img src="{% static "icons/clock.svg" %}"></img>
                                             {{ form.hours_required }}
                                         </div>
-    
                                         {% if form.hours_required.errors %}
                                                 <ol>
                                                 {% for error in form.hours_required.errors %}
                                                     <li><strong>{{ error|escape }}</strong></li>
                                                 {% endfor %}
                                                 </ol>
-                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Status</label>
