@@ -690,10 +690,10 @@ def AdminUserDelete(request,id):
     
     for teamid in teamslist:
         team = Team.objects.get(id = teamid)
-        teamc = Team.objects.filter(id = teamid)
+        teamname = team.team_name
         team.assign.remove(uid)
-        if teamc.exists() == False:
-            teamc.delete() 
+        if team.assign.values_list().exists() == False:
+            team.delete()
     # -------------------------------- AdminVal User Delete ------------------------------- #
     auser = AdminValidation.objects.get(username = User.objects.get(id = uid))
     auser.delete()
