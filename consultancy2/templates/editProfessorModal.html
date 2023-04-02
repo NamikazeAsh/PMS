@@ -15,7 +15,7 @@
                         <div class="input-group border-top pt-2">
                             <img src="{% static "icons/user.svg" %}" style="width: 5%"></img>
                             <input type="text" class="btn-block border-0 pl-2" style="width:95%; height:2rem"
-                                name="name" placeholder="Professor Name" value="{{thisProfName}}" />
+                                name="name" placeholder="Professor Name" value="{{thisProfName}}" required/>
                         </div>
                     </div>
                     <div class="form-group border py-1" style="border-radius:.5rem;">
@@ -23,7 +23,7 @@
                         <div class="input-group border-top pt-2">
                             <img src="{% static "icons/percent.svg" %}" style="width: 5%"></img>
                             <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem"
-                                name="ratio" placeholder="Disbursement ratio(Out of 10)" value="{{thisprofRatio}}" />
+                                name="ratio" placeholder="Disbursement ratio(Out of 10)" value="{{thisprofRatio}}" required/>
                         </div>
                     </div>
                     <div class="form-group border py-1" style="border-radius:.5rem;">

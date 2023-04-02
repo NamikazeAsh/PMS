@@ -15,7 +15,7 @@
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/item.svg" %}"></img>
                                 <input type="text" class="btn-block border-0 pl-2" style="width:95%; height:2rem"
-                                    name="particular" placeholder="Particular" value="{{thisIncomeParticular}}">
+                                    name="particular" placeholder="Particular" value="{{thisIncomeParticular}}" required>
                             </div>
                         </div>
                         <div class="form-group border py-1" style="border-radius:.5rem;">
@@ -23,7 +23,7 @@
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/rupee.svg" %}" style="width: 5%"></img>
                                 <input type="number" class="btn-block border-0 pl-2" style="width:95%; height:2rem"
-                                    name="amount" placeholder="Amount" value="{{thisIncomeAmount}}">
+                                    name="amount" placeholder="Amount" value="{{thisIncomeAmount}}" required>
                             </div>
                         </div>
                     </div>

@@ -25,9 +25,9 @@ def findtemp(request):
     elif request.user.groups.filter(name='Professor').exists():
         return 'srintern/tempsrintern.html'
     elif request.user.groups.filter(name='Lead Consultant').exists():
-        return 'consultant/tempprof.html'
+        return 'consultant/templeadc.html'
     elif request.user.groups.filter(name='Head Consultant').exists():
-        return 'consultant/tempprof.html'
+        return 'consultant/tempheadc.html'
 
 def get_date(req_day):
     if req_day:

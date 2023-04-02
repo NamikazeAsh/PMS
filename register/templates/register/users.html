@@ -3,13 +3,6 @@
 
 {% block extracss %}
 <link href="{% static 'core/css/filters.css' %}" rel="stylesheet">
-<style>
-    a:hover, a:visited, a:link, a:active
-{
-    text-decoration: none;
-}
-
-</style>
 {% endblock extracss %}
 
 {% block extrascripts %}
@@ -95,6 +88,32 @@
 
             }
 
+            function search_hours()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("search").value;
+                table=document.getElementById("users_table");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[6];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(+txtdata>=+input)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
             function option()
             {
                 var ch=document.getElementById("choice");
@@ -112,7 +131,7 @@
                 }
                 else
                 {
-                    se4();
+                    search_hours();
                 }
                 
             }
@@ -153,8 +172,6 @@
                     <option value="name">Name</option>
                     <option value="role">Role</option>
                     <option value="campus">Campus</option>
-                    <option value="team">Team</option>
-                    <option value="free">Free Hours</option>
                     <option value="exp">Hours worked</option>
                 </select>
                 

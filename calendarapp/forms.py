@@ -1,6 +1,7 @@
 from django.forms import ModelForm, DateInput
 from calendarapp.models import Event, EventMember
 from django import forms
+from django.contrib.auth.models import User
 
 
 class EventForm(ModelForm):
@@ -37,6 +38,7 @@ class EventForm(ModelForm):
 
 
 class AddMemberForm(forms.ModelForm):
+    user = forms.ModelChoiceField(queryset=User.objects.filter(groups__name__in=['Head COnsultant','Lead Consultant','Professor','Sr Intern','Intern']))
     class Meta:
         model = EventMember
         fields = ["user"]
