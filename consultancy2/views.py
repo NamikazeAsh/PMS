@@ -678,15 +678,14 @@ def editProfessorInfo(request, id, pid):
 
 @allowed_users(allowed_roles=['Admin'])
 def AdminUserDelete(request,id):
-    
+
     uid = id
-    
+
     # -------------------------------- Team Remove ------------------------------- #
     teams = Team.objects.filter(assign = uid).values_list()
     teamslist = []
     for t in teams:
         teamslist.append(t[0])
-    print(User.objects.get(id=uid)," ",teamslist)
     
     for teamid in teamslist:
         team = Team.objects.get(id = teamid)
@@ -701,7 +700,8 @@ def AdminUserDelete(request,id):
     user = User.objects.get(id = uid)
     user.delete()
     
-    return AdminDashboard(request)
+    # return AdminDashboard(request)
+    return HttpResponseRedirect(reverse('admindashboard'))
 
 @allowed_users(allowed_roles=['Admin'])
 def AdminTeamDelete(request,id):
