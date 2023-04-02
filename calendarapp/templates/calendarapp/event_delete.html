@@ -6,9 +6,33 @@ Event Delete
 {% endblock %}
 
 {% block content %}
-    <h1>Delete</h1>
-    <form action="" method="post">{% csrf_token %}
-        <p>Are you sure you want to delete this event?</p>
-        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
-    </form>
+
+    <div style="height:216px; background-color: #624bff;" class="pt-5">
+        <div class="col-lg-12 col-md-12 col-12" style="margin-bottom:2rem;">
+            <!-- Page header -->
+            <div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mb-2 mb-lg-0 pl-3 pt-1">
+                        <h3 class="mb-0 text-white h1 pt-1">Confirm Delete?</h3>
+                        <p class="text-light mt-1 h6">Delete your milestone Member here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="animated fade-in d-flex justify-content-center">
+                <div class="card p-4 d-flex justify-content-center align-items-center w-50" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <h1>Delete</h1>
+                    <form action="" method="post" class="d-flex justify-content-center flex-column">{% csrf_token %}
+                        <p>Are you sure you want to delete this event?</p>
+                        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
 {% endblock content %}
