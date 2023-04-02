@@ -24,6 +24,9 @@ urlpatterns = [
     path('projects/uploadrefprojdoc/<int:id>',views.UploadRefProjectDocs,name='UploadRefProjDocs'),
     path('team-views/editteam/<str:teamname>',views.editTeamInfo,name='editTeamInfo'),
     path('team-views/deleteteam/<str:teamname>',views.deleteTeamInfo,name='deleteTeamInfo'),
+    path("projects/project/<int:id>/deleteexpense/<int:eid>", views.deleteExpenseInfo, name="deleteExpenseInfo"),
+    path("projects/project/<int:id>/deleteincome/<int:iid>", views.deleteIncomeInfo, name="deleteIncomeInfo"),
+    path("projects/project/<int:id>/deleteprofessor/<int:pid>", views.deleteProfessorInfo, name="deleteProfessorInfo"),
 ]
 
 if settings.DEBUG:

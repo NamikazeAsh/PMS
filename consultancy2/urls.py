@@ -54,11 +54,6 @@ urlpatterns = [
     path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editExpenseInfo"),
     path("projects/project/<int:id>/editincome/<int:iid>", views.editIncomeInfo, name="editIncomeInfo"),
     path("projects/project/<int:id>/editprofessor/<int:pid>", views.editProfessorInfo, name="editProfessorInfo"),
-
-    path("projects/project/<int:id>/deleteexpense/<int:eid>", views.deleteExpenseInfo, name="deleteExpenseInfo"),
-    path("projects/project/<int:id>/deleteincome/<int:iid>", views.deleteIncomeInfo, name="deleteIncomeInfo"),
-    path("projects/project/<int:id>/deleteprofessor/<int:pid>", views.deleteProfessorInfo, name="deleteProfessorInfo"),
-
     path("projects/project/<int:id>/editBasicFinanceInfo", views.editBasicFinanceInfo, name="editBasicFinanceInfo"),
     path("projects/project/<int:id>/addexpense", views.addExpense, name="addExpense"),
     path("projects/project/<int:id>/addincome", views.addIncome, name="addIncome"),
