@@ -75,84 +75,94 @@
             </div>
 
             <div id="layoutSidenav_content">
-                <br><br><br>
-                <p style="font-size:40px;font-weight:200;text-align:center">Projects</p>
 
-                <table class="table" style="font-size:17px;">
-                    <thead class="thead-primary">
-                        <tr>
-                        <th>ID</th>
-                        <th>Project Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Description</th>
-                        <th>Budget</th>
-                        <th>Status</th>
-                        <th>Team For Project</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in projects %}  
-                        <tr>
-                        <td>{{x.id}}</td>
-                        <td>{{x.project_name}}</td>
-                        <td>{{x.start_date}}</td>
-                        <td>{{x.end_date}}</td>
-                        <td>{{x.desc}}</td>
-                        <td >{{x.budget}}</td>
-                        <td>
-                            {% if x.active == 0 %}
-                            No
-                            {% elif x.active == 1 %}
-                            Yes
-                            {% else %}
-                            ---
-                            {% endif %}
-                        </td>
-                        <td>{{x.team_for_project}}</td>
-                        </tr>
-                    {% endfor %} 
-                    </tbody>
-                </table>
-                <br><br><br><br><br>
 
-                <p style="font-size:40px;font-weight:200;text-align:center">Teams</p>
-
-                <table class="table" style="font-size:17px;">
-                    <thead class="thead-primary">
-                        <tr>
-                        <th>ID</th>
-                        <th>Team Name</th>
-                        <th>Team Member</th>
-                        <th>Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in teams %}  
-                        <tr>
-                        <td>{{x.id}}</td>
-                        <td>{{x.team_name}}</td>
-                        <td>{{x.team_member}}</td>
-                        <td>{{x.role}}</td>
-                        </tr>
-                    {% endfor %} 
-                    </tbody>
-                </table>
                 
+                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    User Management
+                    <div class="col-sm-12">
+                        Search Bar
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead class="thead-dark">
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr role="row" class="odd">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    Team Management
+                    <div class="col-sm-12">
+                        Search Bar
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead class="thead-dark">
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Team</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for team in teams %}
+                                <tr role="row" class="odd">
+                                    <td>{{team.id}}</td>
+                                    <td>{{team.team_name}}</td>
+                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 
+                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    Project Management
+                    <div class="col-sm-12">
+                        Search Bar
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead class="thead-dark">
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Project</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for project in projects %}
+                                <tr role="row" class="odd">
+                                    <td>{{project.id}}</td>
+                                    <td>{{project.name}}</td>
+                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-
-
-
-
-
-
-                <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                     </div>
                 </footer>
             </div>
         </div>
+        
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
         

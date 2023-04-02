@@ -106,8 +106,8 @@ def SignIn(request):
         elif request.user.groups.filter(name='Head Consultant').exists():
             return render(request,'consultant/tempheadc.html')
         
-        # else:
-        #     return render(request,'admindashboard.html')
+        else:
+            return AdminDashboard(request)
     else:    
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
@@ -368,10 +368,18 @@ def UserHourTrackingDeny(request,id):
 @login_required(login_url='admin:login')
 @allowed_users(allowed_roles=['Admin'])
 def AdminDashboard(request):
+    users = User.objects.all()
+    vusers = AdminValidation.objects.all()
+    teams = Team.objects.all()
     projects = Project.objects.all()
-            
-    # context = {"teams":teams,"projects":projects}
-    return render(request,"admindashboard.html")
+    
+    context = {
+        'users':users,
+        'vusers':vusers,
+        'teams':teams,
+        'projects':projects
+    }
+    return render(request,"admindashboard.html",context=context)
 
 
 
@@ -667,3 +675,39 @@ def editProfessorInfo(request, id, pid):
         financeProf.professor = json.dumps(updatedProfDict)
         financeProf.save()
     return redirect(f'/projects/projects/project/{id}')
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminUserDelete(request,id):
+    
+    uid = id
+    
+    # -------------------------------- Team Remove ------------------------------- #
+    teams = Team.objects.filter(assign = uid).values_list()
+    teamslist = []
+    for t in teams:
+        teamslist.append(t[0])
+    print(User.objects.get(id=uid)," ",teamslist)
+    
+    for teamid in teamslist:
+        team = Team.objects.get(id = teamid)
+        teamc = Team.objects.filter(id = teamid)
+        team.assign.remove(uid)
+        if teamc.exists() == False:
+            teamc.delete() 
+    # -------------------------------- AdminVal User Delete ------------------------------- #
+    auser = AdminValidation.objects.get(username = User.objects.get(id = uid))
+    auser.delete()
+    # ---------------------------- Django User Delete ---------------------------- #
+    user = User.objects.get(id = uid)
+    user.delete()
+    
+    return AdminDashboard(request)
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminTeamDelete(request,id):
+    return AdminDashboard(request)
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminProjectDelete(request,id):
+    return AdminDashboard(request)
+
