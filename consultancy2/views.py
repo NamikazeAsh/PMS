@@ -167,6 +167,8 @@ def LogIn(request):
                         return 'consultant/templeadc.html'
                     elif request.user.groups.filter(name='Head Consultant').exists():
                         return 'consultant/tempheadc.html'
+                    elif request.user.groups.filter(name='Admin').exists():
+                        return redirect('admindashboard')
                     
 
             else:
