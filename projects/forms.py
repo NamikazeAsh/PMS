@@ -69,6 +69,7 @@ class TaskRegistrationForm(forms.ModelForm):
 class ProjectRegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all())
+    # assign = forms.ModelMultipleChoiceField(queryset=Team.objects.all(),widget=FilteredSelectMultiple(Team._meta.verbose_name_plural, False))
     category=forms.ChoiceField(choices=category)
     status = forms.ChoiceField(choices=status)
     # dead_line = forms.DateField()
