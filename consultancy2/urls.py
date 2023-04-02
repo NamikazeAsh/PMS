@@ -49,8 +49,11 @@ urlpatterns = [
     path('projects/', include('projects.urls', namespace='projects')),
     path('core/', include('core.urls', namespace='core')),
     path("calendar/", include("calendarapp.urls")),
+    path("adminuserdelete/<int:id>",views.AdminUserDelete),
+    path("adminteamdelete/<int:id>",views.AdminTeamDelete),
+    path("adminprojectdelete/<int:id>",views.AdminProjectDelete),
+    
     path("finance/", include("finance.urls")),
-
     path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editExpenseInfo"),
     path("projects/project/<int:id>/editincome/<int:iid>", views.editIncomeInfo, name="editIncomeInfo"),
     path("projects/project/<int:id>/editprofessor/<int:pid>", views.editProfessorInfo, name="editProfessorInfo"),
