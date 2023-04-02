@@ -164,9 +164,9 @@ def LogIn(request):
                     elif request.user.groups.filter(name='Professor').exists():
                         return render(request,'srintern/tempsrintern.html')
                     elif request.user.groups.filter(name='Lead Consultant').exists():
-                        return render(request,'consultant/tempprof.html')
+                        return render(request,'srintern/tempsrintern.html')
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        return render(request,'consultant/tempprof.html')
+                        return render(request,'srintern/tempsrintern.html')
                     elif request.user.groups.filter(name='Finance Manager').exists():
                         return render(request,'financeHome.html')
                     else:
@@ -249,7 +249,7 @@ def TempIntern(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Sr Intern'])
 def TempSrIntern(request):
-    return render(request,'srintern/tempprof.html')
+    return render(request,'srintern/tempsrintern.html')
 
 
 @login_required(login_url='login')
