@@ -270,7 +270,7 @@ def UserHourTracking(request):
     if request.user.groups.filter(name='Intern').exists():
         return redirect('user-hours-i')
     elif request.user.groups.filter(name='Sr Intern').exists():
-        return redirect('user-hours-i')
+        return redirect('user-hours-p')
     elif request.user.groups.filter(name='Professor').exists():
         return redirect('user-hours-p')
     elif request.user.groups.filter(name='Head Consultant').exists():
@@ -280,7 +280,7 @@ def UserHourTracking(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Sr Intern','Intern'])
+@allowed_users(allowed_roles=['Intern'])
 def UserHourTrackingIntern(request):
     
     if request.method == "POST":
@@ -314,7 +314,7 @@ def UserHourTrackingIntern(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Professor','Head Consultant','Lead Consultant'])
+@allowed_users(allowed_roles=['Sr Intern','Professor','Head Consultant','Lead Consultant'])
 def UserHourTrackingProfessor(request):
     users = UserProfile.objects.all()
     if request.method == "POST":
