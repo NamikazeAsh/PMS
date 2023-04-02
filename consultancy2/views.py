@@ -158,19 +158,16 @@ def LogIn(request):
                     authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
                     login(request, authenticated_user)
                     if request.user.groups.filter(name='Intern').exists():
-                        return render(request,'intern/tempintern.html')
+                        return 'intern/tempintern.html'
                     elif request.user.groups.filter(name='Sr Intern').exists():
-                        return render(request,'srintern/tempsrintern.html')
+                        return 'srintern/tempsrintern.html'
                     elif request.user.groups.filter(name='Professor').exists():
-                        return render(request,'srintern/tempsrintern.html')
+                        return 'srintern/tempsrintern.html'
                     elif request.user.groups.filter(name='Lead Consultant').exists():
-                        return render(request,'srintern/tempsrintern.html')
+                        return 'consultant/templeadc.html'
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        return render(request,'srintern/tempsrintern.html')
-                    elif request.user.groups.filter(name='Finance Manager').exists():
-                        return render(request,'financeHome.html')
-                    else:
-                        return render(request,'admindashboard.html')
+                        return 'consultant/tempheadc.html'
+                    
 
             else:
                 var = findtemp(request)
