@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'consultancy2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'finaldb2',
+        'NAME': 'finaldb1',
         'USER' : 'root',
         'PASSWORD' : '',
         'HOST' : 'localhost',
