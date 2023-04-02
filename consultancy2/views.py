@@ -106,8 +106,8 @@ def SignIn(request):
         elif request.user.groups.filter(name='Head Consultant').exists():
             return render(request,'consultant/tempheadc.html')
         
-        else:
-            return render(request,'admindashboard.html')
+        # else:
+        #     return render(request,'admindashboard.html')
     else:    
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
@@ -158,15 +158,15 @@ def LogIn(request):
                     authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
                     login(request, authenticated_user)
                     if request.user.groups.filter(name='Intern').exists():
-                        return 'intern/tempintern.html'
+                        return render(request,'intern/tempintern.html')
                     elif request.user.groups.filter(name='Sr Intern').exists():
-                        return 'srintern/tempsrintern.html'
+                        return render(request,'srintern/tempsrintern.html')
                     elif request.user.groups.filter(name='Professor').exists():
-                        return 'srintern/tempsrintern.html'
+                        return render(request,'srintern/tempsrintern.html')
                     elif request.user.groups.filter(name='Lead Consultant').exists():
-                        return 'consultant/templeadc.html'
+                        return render(request,'consultant/templeadc.html')
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        return 'consultant/tempheadc.html'
+                        return render(request,'consultant/tempheadc.html')
                     elif request.user.groups.filter(name='Admin').exists():
                         return redirect('admindashboard')
                     
