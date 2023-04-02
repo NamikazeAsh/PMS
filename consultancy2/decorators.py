@@ -1,6 +1,7 @@
 from textwrap import wrap
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.shortcuts import render
 
 
 def unauthorized_users(view_func):
@@ -24,7 +25,8 @@ def allowed_users(allowed_roles=[]):
             if group in allowed_roles:
                 return view_func(request,*args,**kwargs)
             else:
-                return HttpResponse("Not authorized to view this page! (\-W-/)")
+                # return HttpResponse("Not authorized to view this page! (\-W-/)")
+                return render(request,"errorPage.html")
             
             return view_func(request,*args,**kwargs)
         return wrapper_func
