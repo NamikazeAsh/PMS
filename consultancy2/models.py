@@ -44,3 +44,8 @@ class HourVal(models.Model):
     description = models.CharField(max_length=100,default="-")
     
 
+class RequestModel(models.Model):
+
+    name = models.CharField(max_length=100)
+    requestmsg = models.CharField(max_length=200)
+

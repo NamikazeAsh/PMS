@@ -35,7 +35,7 @@ class Team(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=80)
-    assign = models.ManyToManyField(Team,blank=True,null=True)
+    assign = models.ManyToManyField(Team,blank=True)
     category = models.CharField(max_length=15, choices=category, default=1)
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField(blank=True,default=datetime.now)
