@@ -36,9 +36,9 @@ def findtemp(request):
     elif request.user.groups.filter(name='Professor').exists():
         return 'srintern/tempsrintern.html'
     elif request.user.groups.filter(name='Lead Consultant').exists():
-        return 'consultant/tempprof.html'
+        return 'consultant/templeadc.html'
     elif request.user.groups.filter(name='Head Consultant').exists():
-        return 'consultant/tempprof.html'
+        return 'consultant/tempheadc.html'
 
 @login_required(login_url='login')
 def HomePage(request):
