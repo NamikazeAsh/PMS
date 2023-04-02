@@ -368,10 +368,18 @@ def UserHourTrackingDeny(request,id):
 @login_required(login_url='admin:login')
 @allowed_users(allowed_roles=['Admin'])
 def AdminDashboard(request):
+    users = User.objects.all()
+    vusers = AdminValidation.objects.all()
+    teams = Team.objects.all()
     projects = Project.objects.all()
-            
-    # context = {"teams":teams,"projects":projects}
-    return render(request,"admindashboard.html")
+    
+    context = {
+        'users':users,
+        'vusers':vusers,
+        'teams':teams,
+        'projects':projects
+    }
+    return render(request,"admindashboard.html",context=context)
 
 
 
@@ -667,3 +675,16 @@ def editProfessorInfo(request, id, pid):
         financeProf.professor = json.dumps(updatedProfDict)
         financeProf.save()
     return redirect(f'/projects/projects/project/{id}')
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminUserDelete(request):
+    return AdminDashboard(request)
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminTeamDelete(request):
+    return AdminDashboard(request)
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminProjectDelete(request):
+    return AdminDashboard(request)
+
