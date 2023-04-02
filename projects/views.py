@@ -203,8 +203,12 @@ def projects(request):
     projteamassoc = []
     for a in projects:
         for idi in Project.objects.values_list('assign').filter(id = a.pk):
-            teamname = Team.objects.get(id = idi[0]).team_name
-            projteamassoc.append([a.name,idi[0],teamname])
+            if idi[0] != None:    
+                if Team.objects.get(id = idi[0]).team_name:    
+                    teamname = Team.objects.get(id = idi[0]).team_name
+                    projteamassoc.append([a.name,idi[0],teamname])
+            else:
+                projteamassoc.append([a.name,"-","-"])
     
     teams = Team.objects.all()
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
@@ -274,8 +278,12 @@ def ProjectProfile(request, id):
     for tm in projteam:    
         team_id.append(tm[0])
     for tid in team_id:
-        team_name.append(Team.objects.get(id = tid))
-    
+        print("TID: ",tid)
+        if tid != None:
+            team_name.append(Team.objects.get(id = tid))
+        else:
+            team_name.append("-")
+        
     projteam_mem = Team.objects.filter(id = tid).values_list('assign')
     for tm2 in projteam_mem:
         team_members_id.append(tm2[0])

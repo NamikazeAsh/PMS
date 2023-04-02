@@ -700,14 +700,32 @@ def AdminUserDelete(request,id):
     user = User.objects.get(id = uid)
     user.delete()
     
-    # return AdminDashboard(request)
     return HttpResponseRedirect(reverse('admindashboard'))
 
 @allowed_users(allowed_roles=['Admin'])
 def AdminTeamDelete(request,id):
-    return AdminDashboard(request)
+    tid = id
+    teamobj = Team.objects.get(id=tid)
+    team = Team.objects.filter(id=tid).values_list('assign')
+    teammebers = []
+    for t in team:
+        teammebers.append(t[0])
+    for t2 in teammebers:
+        teamobj.assign.remove(t2)
+    
+    projectsid = Project.objects.filter(assign = tid).values_list('id')
+    for pid in projectsid:
+        project = Project.objects.filter(id = pid[0])
+        project[0].assign.remove(tid)
+    
+    if teamobj.assign.values_list().exists() == False:
+        teamobj.delete()
+
+    return HttpResponseRedirect(reverse('admindashboard'))
 
 @allowed_users(allowed_roles=['Admin'])
 def AdminProjectDelete(request,id):
-    return AdminDashboard(request)
+    pid = id
+    
+    return HttpResponseRedirect(reverse('admindashboard'))
 
