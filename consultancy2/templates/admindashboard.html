@@ -86,13 +86,15 @@
                             <thead class="thead-dark">
                                 <tr role="row">
                                     <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
                                     <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- {% for user in users %} -->
                                 <tr role="row" class="odd">
-                                    <td>{{user.username}}</td>
+                                    <td>User</td>
+                                    <td>Message</td>
                                     <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
                                 </tr>
                                 <!-- {% endfor %} -->
