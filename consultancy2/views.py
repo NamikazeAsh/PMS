@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from consultancy2 import models
 from register.forms import RegistrationForm
-from .models import AdminValidation, SignInInsert,HourVal
+from .models import AdminValidation, SignInInsert,HourVal,RequestModel
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User,Group
@@ -42,6 +42,7 @@ def findtemp(request):
         return 'consultant/templeadc.html'
     elif request.user.groups.filter(name='Head Consultant').exists():
         return 'consultant/tempheadc.html'
+
 
 @login_required(login_url='login')
 def HomePage(request):
@@ -374,7 +375,6 @@ def AdminDashboard(request):
     return render(request,"admindashboard.html",context=context)
 
 
-
 def context(request): # send context to base.html
     # if not request.session.session_key:
     #     request.session.create()
@@ -408,6 +408,7 @@ def context(request): # send context to base.html
         }
         return context
 
+
 def editBasicFinanceInfo(request,id) :
 
     if request.method == "POST":
@@ -429,6 +430,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.save()
 
     return redirect(f'/projects/projects/project/{id}')
+
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -478,6 +480,7 @@ def addIncome(request, id) :
             saveIncome.project_id = projDetails
             saveIncome.save()
     return redirect(f'/projects/projects/project/{id}')
+
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -611,6 +614,7 @@ def editExpenseInfo(request, id, eid):
 
     return redirect(f'/projects/projects/project/{id}')
 
+
 def editIncomeInfo(request, id, iid):
     # Income Information Edit Code Here
     if request.method == "POST":
@@ -640,6 +644,7 @@ def editIncomeInfo(request, id, iid):
 
     return redirect(f'/projects/projects/project/{id}')
 
+
 def editProfessorInfo(request, id, pid):
     # Professor Information Edit Code Here
     if request.method == "POST":
@@ -668,6 +673,7 @@ def editProfessorInfo(request, id, pid):
         financeProf.save()
     return redirect(f'/projects/projects/project/{id}')
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminUserDelete(request,id):
 
@@ -694,6 +700,7 @@ def AdminUserDelete(request,id):
     
     return HttpResponseRedirect(reverse('admindashboard'))
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminTeamDelete(request,id):
     tid = id
@@ -715,6 +722,7 @@ def AdminTeamDelete(request,id):
 
     return HttpResponseRedirect(reverse('admindashboard'))
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminProjectDelete(request,id):
     pid = id
@@ -733,3 +741,20 @@ def AdminProjectDelete(request,id):
     
     return HttpResponseRedirect(reverse('admindashboard'))
 
+def SendAdminRequest(request):
+    if request.method == 'POST':
+        requesto = RequestModel()
+        requesto.name = request.user.username
+        requesto.requestmsg = request.POST.get('requestmsg')
+
+    return SignIn(request)
+            
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminDelRequest(request,id):
+    rid = id
+    
+    requesto = RequestModel.objects.get(id = rid)
+    requesto.delete()
+    
+    return HttpResponseRedirect(reverse('admindashboard'))
