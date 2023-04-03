@@ -510,45 +510,63 @@ def deleteExpenseInfo(request, id, eid):
     # Expense Information Delete Code Here
     financeExpense = FinanceModel.objects.get(project_id = id)
     existingexpenses = json.loads(financeExpense.expenses)['less']
-    for i in range(len(existingexpenses)):
-        updateExpense = json.loads(existingexpenses[i])
-        if updateExpense['id'] == eid:
+
+    if(len(existingexpenses) == 1):
+        financeExpense.expenses = None
+        financeExpense.save()
+    else:
+
+        for i in range(len(existingexpenses)):
+            updateExpense = json.loads(existingexpenses[i])
+            if updateExpense['id'] == eid:
                 del existingexpenses[i]
                 break
-    
-    updatedExpenseDict = {'less': existingexpenses}
-    financeExpense.expenses = json.dumps(updatedExpenseDict)
-    financeExpense.save()
 
-        
+        updatedExpenseDict = {'less': existingexpenses}
+        financeExpense.expenses = json.dumps(updatedExpenseDict)
+        financeExpense.save()
+      
     return redirect(f'/projects/projects/project/{id}')
 
 def deleteIncomeInfo(request, id, iid):
     # Income Information Edit Code Here
     financeIncome = FinanceModel.objects.get(project_id = id)
     existingincome = json.loads(financeIncome.incomes)['add']
-    for i in range(len(existingincome)):
-        updateIncome = json.loads(existingincome[i])
-        if updateIncome['id'] == iid:
-                del existingincome[i]
-                break
-    
-    updatedIncomeDict = {'add': existingincome}
-    financeIncome.incomes = json.dumps(updatedIncomeDict)
-    financeIncome.save()
+
+    if(len(existingincome) == 1):
+        financeIncome.incomes = None
+        financeIncome.save()
+
+    else:
+        for i in range(len(existingincome)):
+            updateIncome = json.loads(existingincome[i])
+            if updateIncome['id'] == iid:
+                    del existingincome[i]
+                    break
+        
+        updatedIncomeDict = {'add': existingincome}
+        financeIncome.incomes = json.dumps(updatedIncomeDict)
+        financeIncome.save()
+
     return redirect(f'/projects/projects/project/{id}')
 
 def deleteProfessorInfo(request, id, pid):
     # Professor Information Edit Code Here
     financeProf = FinanceModel.objects.get(project_id = id)
     existingprof = json.loads(financeProf.professor)['professors']
-    for i in range(len(existingprof)):
-        updateProf = json.loads(existingprof[i])
-        if updateProf['id'] == pid:
-                del existingprof[i]
-                break
-    
-    updatedProfDict = {'professors': existingprof}
-    financeProf.professor = json.dumps(updatedProfDict)
-    financeProf.save()
+
+    if(len(existingprof) == 1):
+        financeProf.professor = None
+        financeProf.save()
+    else:
+        for i in range(len(existingprof)):
+            updateProf = json.loads(existingprof[i])
+            if updateProf['id'] == pid:
+                    del existingprof[i]
+                    break
+            
+        updatedProfDict = {'professors': existingprof}
+        financeProf.professor = json.dumps(updatedProfDict)
+        financeProf.save()
+
     return redirect(f'/projects/projects/project/{id}')
