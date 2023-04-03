@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from consultancy2 import models
 from register.forms import RegistrationForm
-from .models import AdminValidation, SignInInsert,HourVal
+from .models import AdminValidation, SignInInsert,HourVal,RequestModel
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User,Group
@@ -20,9 +20,12 @@ from django.urls import reverse
 from register.models import UserProfile
 from finance.models import *
 from projects import views
+from projects.models import ProjectComment
+from projects.models import Task
 
 import datetime
 import json
+
 
 from .decorators import unauthorized_users,allowed_users
 flag = True
@@ -39,6 +42,7 @@ def findtemp(request):
         return 'consultant/templeadc.html'
     elif request.user.groups.filter(name='Head Consultant').exists():
         return 'consultant/tempheadc.html'
+
 
 @login_required(login_url='login')
 def HomePage(request):
@@ -216,11 +220,9 @@ def AdminValAcc(request,id):
     
     user = User.objects.create_user(auser.username,auser.email,auser.password)
     user.save()
-    print(user)
     
     up = UserProfile.objects.create(user=user)
     up.save()
-    print("up saved")
     
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)
@@ -289,17 +291,11 @@ def UserHourTrackingIntern(request):
         saverecord.description = request.POST.get('description')
         saverecord.save()
         
-        # if request.POST.get('freehouri') == True:
-        #     print("checked")
-        # else:
-        #     print("not checked")
-        
         return redirect('user-hours-i')
         
     var = findtemp(request)
     
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    # print(freehouro)
     
     context = {
         "temp": var,
@@ -328,7 +324,6 @@ def UserHourTrackingProfessor(request):
         
     details = HourVal.objects.all()
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    # print(freehouro)
     
     var = findtemp(request)
     context = {
@@ -351,9 +346,7 @@ def UserHourTrackingAccept(request,id):
     vhour = hv.hours_claimed
     av.hours = vhour + av.hours
     av.save()
-    hv.delete()
-    
-    print("Successfully updated!")    
+    hv.delete() 
     
     return HttpResponseRedirect(reverse('user-hours-p'))
 
@@ -380,7 +373,6 @@ def AdminDashboard(request):
         'projects':projects
     }
     return render(request,"admindashboard.html",context=context)
-
 
 
 def context(request): # send context to base.html
@@ -416,6 +408,7 @@ def context(request): # send context to base.html
         }
         return context
 
+
 def editBasicFinanceInfo(request,id) :
 
     if request.method == "POST":
@@ -437,6 +430,7 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.save()
 
     return redirect(f'/projects/projects/project/{id}')
+
 
 def addIncome(request, id) :
     if request.method == "POST":
@@ -486,6 +480,7 @@ def addIncome(request, id) :
             saveIncome.project_id = projDetails
             saveIncome.save()
     return redirect(f'/projects/projects/project/{id}')
+
 
 def addExpense(request,id) :
     if request.method == "POST":
@@ -619,6 +614,7 @@ def editExpenseInfo(request, id, eid):
 
     return redirect(f'/projects/projects/project/{id}')
 
+
 def editIncomeInfo(request, id, iid):
     # Income Information Edit Code Here
     if request.method == "POST":
@@ -648,6 +644,7 @@ def editIncomeInfo(request, id, iid):
 
     return redirect(f'/projects/projects/project/{id}')
 
+
 def editProfessorInfo(request, id, pid):
     # Professor Information Edit Code Here
     if request.method == "POST":
@@ -676,6 +673,7 @@ def editProfessorInfo(request, id, pid):
         financeProf.save()
     return redirect(f'/projects/projects/project/{id}')
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminUserDelete(request,id):
 
@@ -702,6 +700,7 @@ def AdminUserDelete(request,id):
     
     return HttpResponseRedirect(reverse('admindashboard'))
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminTeamDelete(request,id):
     tid = id
@@ -723,9 +722,39 @@ def AdminTeamDelete(request,id):
 
     return HttpResponseRedirect(reverse('admindashboard'))
 
+
 @allowed_users(allowed_roles=['Admin'])
 def AdminProjectDelete(request,id):
     pid = id
     
+    # ------------------------------ Delete Finances ----------------------------- #
+    finances = FinanceModel.objects.filter(project_id_id = pid)
+    for finance in finances:
+        finance.delete()
+    # ------------------------------- Delete Tasks ------------------------------- #
+    tasks = Task.objects.filter(project_id = pid)
+    for task in tasks:
+        task.delete()
+    # ------------------------------ Delete Project ------------------------------ #
+    project = Project.objects.get(id = pid)
+    project.delete()
+    
     return HttpResponseRedirect(reverse('admindashboard'))
 
+def SendAdminRequest(request):
+    if request.method == 'POST':
+        requesto = RequestModel()
+        requesto.name = request.user.username
+        requesto.requestmsg = request.POST.get('requestmsg')
+
+    return SignIn(request)
+            
+
+@allowed_users(allowed_roles=['Admin'])
+def AdminDelRequest(request,id):
+    rid = id
+    
+    requesto = RequestModel.objects.get(id = rid)
+    requesto.delete()
+    
+    return HttpResponseRedirect(reverse('admindashboard'))

@@ -197,7 +197,31 @@
             <div id="layoutSidenav_content">
 
 
-                
+                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    Requests
+                    <div class="col-sm-12">
+                        Search Bar
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead class="thead-dark">
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td>User</td>
+                                    <td>Message</td>
+                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
                 <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                     User Management
                     <div class="col-sm-12">
@@ -222,7 +246,7 @@
                                 <tr role="row" class="odd">
                                     <td>{{user.id}}</td>
                                     <td>{{user.username}}</td>
-                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -282,7 +306,7 @@
                                 <tr role="row" class="odd">
                                     <td>{{project.id}}</td>
                                     <td>{{project.name}}</td>
-                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="/adminprojectdelete/{{project.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

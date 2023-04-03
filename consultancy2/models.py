@@ -21,6 +21,7 @@ class SignInInsert(models.Model):
     class Meta:
         db_table = "signin_users"
         
+
 class AdminValidation(models.Model):
     
     # user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
@@ -37,15 +38,17 @@ class AdminValidation(models.Model):
     class Meta:
         db_table = "val_users"
 
+
 class HourVal(models.Model):
 
     email = models.CharField(max_length=100)
     hours_claimed = models.IntegerField()
     description = models.CharField(max_length=100,default="-")
-    
+
 
 class RequestModel(models.Model):
 
     name = models.CharField(max_length=100)
     requestmsg = models.CharField(max_length=200)
+
 
