@@ -20,9 +20,12 @@ from django.urls import reverse
 from register.models import UserProfile
 from finance.models import *
 from projects import views
+from projects.models import ProjectComment
+from projects.models import Task
 
 import datetime
 import json
+
 
 from .decorators import unauthorized_users,allowed_users
 flag = True
@@ -726,6 +729,18 @@ def AdminTeamDelete(request,id):
 @allowed_users(allowed_roles=['Admin'])
 def AdminProjectDelete(request,id):
     pid = id
+    
+    # ------------------------------ Delete Finances ----------------------------- #
+    finances = FinanceModel.objects.filter(project_id_id = pid)
+    for finance in finances:
+        finance.delete()
+    # ------------------------------- Delete Tasks ------------------------------- #
+    tasks = Task.objects.filter(project_id = pid)
+    for task in tasks:
+        task.delete()
+    # ------------------------------ Delete Project ------------------------------ #
+    project = Project.objects.get(id = pid)
+    project.delete()
     
     return HttpResponseRedirect(reverse('admindashboard'))
 

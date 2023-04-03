@@ -52,7 +52,6 @@ urlpatterns = [
     path("adminuserdelete/<int:id>",views.AdminUserDelete),
     path("adminteamdelete/<int:id>",views.AdminTeamDelete),
     path("adminprojectdelete/<int:id>",views.AdminProjectDelete),
-    path("adminteamdelete/<int:id>",views.AdminProjectDelete),
     
     path("finance/", include("finance.urls")),
     path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editExpenseInfo"),
