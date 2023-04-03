@@ -219,11 +219,9 @@ def AdminValAcc(request,id):
     
     user = User.objects.create_user(auser.username,auser.email,auser.password)
     user.save()
-    print(user)
     
     up = UserProfile.objects.create(user=user)
     up.save()
-    print("up saved")
     
     group = Group.objects.get(name=auser.role)
     user.groups.add(group)
@@ -292,17 +290,11 @@ def UserHourTrackingIntern(request):
         saverecord.description = request.POST.get('description')
         saverecord.save()
         
-        # if request.POST.get('freehouri') == True:
-        #     print("checked")
-        # else:
-        #     print("not checked")
-        
         return redirect('user-hours-i')
         
     var = findtemp(request)
     
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    # print(freehouro)
     
     context = {
         "temp": var,
@@ -331,7 +323,6 @@ def UserHourTrackingProfessor(request):
         
     details = HourVal.objects.all()
     freehouro = AdminValidation.objects.get(email = request.user.email)
-    # print(freehouro)
     
     var = findtemp(request)
     context = {
@@ -354,9 +345,7 @@ def UserHourTrackingAccept(request,id):
     vhour = hv.hours_claimed
     av.hours = vhour + av.hours
     av.save()
-    hv.delete()
-    
-    print("Successfully updated!")    
+    hv.delete() 
     
     return HttpResponseRedirect(reverse('user-hours-p'))
 
