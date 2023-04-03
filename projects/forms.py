@@ -174,12 +174,34 @@ class TeamRegistrationForm(forms.ModelForm):
         self.fields['team_name'].widget.attrs['class'] = 'form-control'
         self.fields['team_name'].widget.attrs['placeholder'] = 'Team Name'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
+
+class TeamEditForm(forms.ModelForm):
+    team_existing_name = forms.CharField(max_length=100)
+    existing_assign = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern']))
+    class Meta:
+        model = Team
+        fields = '__all__'
         
+    def save(self, commit=True):
+        team=super(TeamEditForm, self).save(commit=False)
+        team.team_name = self.cleaned_data['team_existing_name']
+        team.save()
+        existing_assigns = self.cleaned_data['existing_assign']
+        for existing_assign in existing_assigns:
+            team.assign.add((existing_assign))
+
+        if commit:
+            team.save()
+
+        return team
+    
+    def __init__(self, *args, **kwargs):
+        super(TeamEditForm, self).__init__(*args, **kwargs)
+        self.fields['team_existing_name'].widget.attrs['class'] = 'form-control'
+        self.fields['team_existing_name'].widget.attrs['placeholder'] = 'Team Name'
+        self.fields['existing_assign'].widget.attrs['class'] = 'form-control'
         
 class FileForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["documents"]
-        
-        
-        
