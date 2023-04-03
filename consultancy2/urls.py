@@ -27,7 +27,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,name='admin'),
     path('home',views.HomePage,name="home"),
     path('',views.SignIn,name="signup"),
     path('login/',views.LogIn,name="login"), 
@@ -49,8 +49,13 @@ urlpatterns = [
     path('projects/', include('projects.urls', namespace='projects')),
     path('core/', include('core.urls', namespace='core')),
     path("calendar/", include("calendarapp.urls")),
+    path("adminuserdelete/<int:id>",views.AdminUserDelete),
+    path("adminteamdelete/<int:id>",views.AdminTeamDelete),
+    path("adminprojectdelete/<int:id>",views.AdminProjectDelete),
+    path("adminrequest",views.SendAdminRequest),
+    path("adminrequestdel/<int:id>",views.AdminDelRequest),
+    
     path("finance/", include("finance.urls")),
-
     path("projects/project/<int:id>/editexpense/<int:eid>", views.editExpenseInfo, name="editExpenseInfo"),
     path("projects/project/<int:id>/editincome/<int:iid>", views.editIncomeInfo, name="editIncomeInfo"),
     path("projects/project/<int:id>/editprofessor/<int:pid>", views.editProfessorInfo, name="editProfessorInfo"),

@@ -1,0 +1,15 @@
+----------------------------------------------------|
+CHECKLIST:							    |
+----------------------------------------------------|
+Edit and delete finances				DONE|
+edit and delete teams					    |
+Home Page Graphs						    |
+Milestone Error						DONE|
+Cards CSS in reference docs homescreen		DONE|
+removing all icons from buttons			DONE|
+sorting Icons						DONE|
+some icons not appearing				DONE|
+edit milestone UI						DONE|
+add members UI						DONE|
+New Project me search					DONE|
+----------------------------------------------------|

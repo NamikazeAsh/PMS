@@ -107,65 +107,65 @@
                                             <div class="input-group">
                                                 <img src="{% static "icons/username.svg" %}" ></img>
                                                 {{ form.username }}
-                                                {% if form.username.errors %}
+                                                {% comment %} {% if form.username.errors %}
                                                     <ol>
                                                     {% for error in form.username.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group  mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/user.svg" %}" ></img>
                                                 {{ form.first_name }}
-                                                {% if form.first_name.errors %}
+                                                {% comment %} {% if form.first_name.errors %}
                                                     <ol>
                                                     {% for error in form.first_name.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/user.svg" %}" ></img>
                                                 {{ form.last_name }}
-                                                {% if form.last_name.errors %}
+                                                {% comment %} {% if form.last_name.errors %}
                                                     <ol>
                                                     {% for error in form.last_name.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/mail.svg" %}" ></img>
                                                 {{ form.email }}
-                                                {% if form.email.errors %}
+                                                {% comment %} {% if form.email.errors %}
                                                     <ol>
                                                     {% for error in form.email.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
                                             <div class="input-group">
                                                 <img src="{% static "icons/password.svg" %}" ></img>
                                                 {{ form.password1 }}
-                                                {% if form.password1.errors %}
+                                                {% comment %} {% if form.password1.errors %}
                                                     <ol>
                                                     {% for error in form.password1.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">
@@ -173,16 +173,16 @@
                                                 <img src="{% static "icons/password.svg" %}" ></img>
                                                 {{ form.password2 }}
                                             </div>
-                                            {% if form.password2.errors %}
+                                            {% comment %} {% if form.password2.errors %}
                                                     <ol>
                                                     {% for error in form.password2.errors %}
                                                         <li><strong>{{ error|escape }}</strong></li>
                                                     {% endfor %}
                                                     </ol>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                         </div>
                                         
-                                        <div class="d-flex mt-12 mb-0  flex-sm-row">
+                                        <div class="d-flex mt-12 mb-0  flex-sm-row justify-content-around flex-wrap align-items-center">
 
 
                                             <div class="field-selection">
@@ -207,7 +207,7 @@
 
                                         </div>
                 
-                                        <div class="button-section">
+                                        <div class="button-section flex-wrap">
                                             <button type="submit" class="btn btn-sm btn-dark" style="font-size: 1.2rem;">Submit</button>
                                             <button type="reset" class="btn btn-sm btn-dark" style="font-size: 1.2rem;">Reset</button>
                                         </div>

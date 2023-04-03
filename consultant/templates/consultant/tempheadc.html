@@ -2,19 +2,60 @@
 {% load static %}
 
 {% block content %}
-
-Welcome, {{request.user}}
-<br><br><br>    
-Financials
-<br>
-Graph 1 -
-<br>
-Graph 2 - 
-<br>
-Mini - Guide
-<br>
-
-
+<div style="height:216px; background-color: #624bff; padding-top: 3.7rem;">
+    <div id="ui-view" style="opacity: 1;">
+        <div class="animated fadeIn">
+            <div class="container-fluid">
+                <div class="pl-0">
+                    <div>
+                        <div>
+                            <div class="mb-1 mb-lg-0">
+                                <h3 class="mb-0 text-white h1">Dashboard</h3>
+                                <p class="text-light mt-1 h6">Home Page</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2.1rem;">
+                    <div class="col-md-12 col-12">
+                        <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                            <div class="py-4 px-4">
+                                <h4 class="mb-0 pl-1"><b>Quick Start Guide</b></h4>
+                            </div>
+                            <div class="px-5 pb-4" style="font-size:1rem ;">
+                                <li><b>Home:</b> Access graphs of all projects and their finances here.</li>
+                
+                                <li class="mt-2"><b>Views:</b> Access all the information about Christ Consulting here.</li>
+                                <li class="ml-3"><b>Project View:</b> View details of each project here. Edit existing projects
+                                    here.Also, view more detailed information regarding projects here. Fianances of all projects can also be accessed frpm here by clicking on project name.</li>
+                                <li class="ml-3"><b>User Views:</b> View all the users that exists here. Detailed information of each
+                                    user can also be viewed from here.</li>
+                                <li class="ml-3"><b>Team View:</b> View all the teams and their members here. Also, edit and delete team
+                                    here.</li>
+                
+                                <li class="mt-2"><b>Projects:</b> Manage Projects here.</li>
+                                <li class="ml-3"><b>New Project:</b> Create new Project here.</li>
+                                <li class="ml-3"><b>New Task:</b> Create new Tasks for each project and assign to other users from here.
+                                </li>
+                
+                                <li class="mt-2"><b>Teams:</b> Manage Projects here.</li>
+                                <li class="ml-3"><b>New Team:</b> Create new Team and assign users to it here.</li>
+                
+                                <li class="mt-2"><b>Milestone:</b> Create your private milestones here and more.</li>
+                                <li class="ml-3"><b>Calendar:</b> Create your milestones using the calendar, view their details, edit
+                                    milestone and add/remove other members to your milestones.</li>
+                                <li class="ml-3"><b>All:</b> Watch out all your active milestones here.</li>
+                
+                                <li class="mt-2"><b>Users:</b> Access users information here.</li>
+                                <li class="ml-3"><b>Hours:</b> Approve and Deny interns Hours Worked for Christ Consulting here.</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% block excerpt%}
 {% endblock %}
 {% endblock %}
