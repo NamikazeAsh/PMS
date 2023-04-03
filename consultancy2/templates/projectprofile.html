@@ -347,10 +347,10 @@
                 <div id="{{ node.id }}" class="my-2 p-4" style="border: 1px solid grey; border-radius: 1rem; width:70%">
                   <div class="d-flex justify-content-between"><b>By {{ node.username }}</b><div class="text-muted">{{node.date_time }}</div></div>
                   <div>{{ node.content }}</div>
-                  <div class="d-flex flex-row-reverse">
+                  <div class="d-flex align-items-center justify-content-end">
                   {% if node.level < 3 %} 
-                    <button class="btn btn-dark mx-2" style="border-radius:.5rem;"><a href="/projects/projects/deletecomment/{{node.id}}" class="text-light">Delete</a></button>
-                    <button class="btn btn-dark mx-2" style="border-radius:.5rem;" onclick="myFunction({{node.id}})">Reply</button>
+                  <button class="btn btn-dark mx-2" style="border-radius:.5rem;" onclick="myFunction({{node.id}})">Reply</button>
+                  <a href="/projects/projects/deletecomment/{{node.id}}" class="text-light mx-2"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                   {% endif %}
                 </div>
                 <hr>
