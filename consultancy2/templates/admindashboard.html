@@ -15,6 +15,126 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{% static 'adminstyle.css' %}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script>
+            function search_user()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("user_search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("sampleTable");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[1];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+            function clearField()
+            {
+                var table = document.getElementById("sampleTable");
+                var searchBox = document.getElementById("user_search");
+                searchBox.value = "";
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].style.display = "";
+                }
+            }
+
+            function search_team()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("team_search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("sampleTable1");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[1];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+
+            function clearField1()
+            {
+                var table = document.getElementById("sampleTable1");
+                var searchBox = document.getElementById("team_search");
+                searchBox.value = "";
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].style.display = "";
+                }
+            }
+
+            function search_project()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("project_search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("sampleTable2");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[1];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+
+            function clearField2()
+            {
+                var table = document.getElementById("sampleTable2");
+                var searchBox = document.getElementById("project_search");
+                searchBox.value = "";
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].style.display = "";
+                }
+            }
+        </script>
+        </script>
+
+        
     </head>
 
 
@@ -105,7 +225,13 @@
                 <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                     <h3 class="text-center">User Management</h3>
                     <div class="col-sm-12">
-                        Search Bar
+
+                        <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
+                            <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
+                                <input type="text" id="user_search" placeholder="Search Records" onkeyup="search_user();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
+                                <input type="button" value="Clear" onclick= "clearField();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
+                        </div>
+
                         <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
@@ -131,8 +257,12 @@
                 <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                     <h3 class="text-center">Team Management</h3>
                     <div class="col-sm-12">
-                        Search Bar
-                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                        <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
+                            <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
+                                <input type="text" id="team_search" placeholder="Search Records" onkeyup="search_team();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
+                                <input type="button" value="Clear" onclick= "clearField1();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
+                        </div>
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable1" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
@@ -157,8 +287,12 @@
                 <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                     <h3 class="text-center">Project Management</h3>
                     <div class="col-sm-12">
-                        Search Bar
-                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                        <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
+                            <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
+                                <input type="text" id="project_search" placeholder="Search Records" onkeyup="search_project();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
+                                <input type="button" value="Clear" onclick= "clearField2();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
+                        </div>
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable2" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">

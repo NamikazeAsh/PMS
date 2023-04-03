@@ -457,7 +457,7 @@ def addIncome(request, id) :
 
             else:
                 # when income already exists
-                existingIncomeData = json.loads(existingFinance[0].incomes)
+                existingIncomeData = json.loads(existingFinance[0].incomes) #dictionary
                 newIncomeDict = existingIncomeData['add']
                 tempDict["id"] = int(json.loads(newIncomeDict[len(newIncomeDict) - 1])["id"]) + 1
                 tempDict = json.dumps(tempDict)
