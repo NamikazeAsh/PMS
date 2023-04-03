@@ -3,7 +3,7 @@
         {% load static%}
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="feedbackModalLabel">Give Your Feedback Here</h1>
+                <h3 class="modal-title fs-5" id="feedbackModalLabel">Send a message to Admin</h3>
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <form action="" method="POST">
@@ -11,10 +11,10 @@
                     {% csrf_token %}
                     <div>
                         <div class="form-group border py-1" style="border-radius:.5rem;">
-                            <label class="col-form-label pl-2">Feedback</label>
+                            <label class="col-form-label pl-2">Message</label>
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/description.svg" %}"></img>
-                                <textarea class="btn-block border-0 pl-2" style="width:90%; height:6rem" name="feedback" placeholder="Feedback"
+                                <textarea class="btn-block border-0 pl-2" style="width:90%; height:6rem" name="message" placeholder="Type your message here"
                                     required></textarea>
                             </div>
                         </div>
