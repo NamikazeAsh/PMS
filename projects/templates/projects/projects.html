@@ -64,7 +64,7 @@
         
         for(i=0;i<tr.length;i++)
         {
-            td=tr[i].getElementsByTagName("td")[1];
+            td=tr[i].getElementsByTagName("td")[2];
             if(td)
             {
                 txtdata=td.innerText;
@@ -135,6 +135,33 @@
 
     }
         
+    function search_category()
+    {
+        var input,table,tr,td,filter,txtdata;
+        input=document.getElementById("search");
+        filter=input.value.toUpperCase();
+        table=document.getElementById("projects_table");
+        tr=table.getElementsByTagName("tr");
+        
+        for(i=0;i<tr.length;i++)
+        {
+            td=tr[i].getElementsByTagName("td")[1];
+            if(td)
+            {
+                txtdata=td.innerText;
+                if(txtdata.toUpperCase().indexOf(filter)>-1)
+                {
+                    tr[i].style.display="";
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+            }
+        }
+
+    }
+
 
     function option()
     {
@@ -151,20 +178,27 @@
         {
             search_status();
         }
-        else
+        else if(ch.value=="team")
         {
             search_team();
+        }
+        else
+        {
+            search_category();
         }
         
     }
 
-    function clear()
-            {
-                // var getVal=document.getElementById("search");
-                // if (getVal.value!="")
-                //     getVal.value="";
-                print("Working")
-            }
+    function clearInput()
+    {
+        var table = document.getElementById("projects_table");
+        var searchBox = document.getElementById("search");
+        searchBox.value = "";
+        const rows = table.getElementsByTagName("tr");
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].style.display = "";
+        }
+    }
 </script>
 {% endblock extrascripts %}
 
@@ -341,13 +375,14 @@
                     <p style="display:inline; font-size: 1.3rem; color:black;"><b> Filters</b></p>
                     <select id="choice" style="text-align:center; margin-left: .7rem; height:2rem; border-radius: .5rem;" onchange="reset();">
                         <option value="title">Title</option>
+                        <option value="category">Category</option>
                         <option value="ddate">Due Date</option>
                         <option value="status">Status</option>
                         <option value="team">Team</option>
                     </select>
                 
                     <input type="text" id="search" placeholder="Search Records" onkeyup="option();" style="top: -2px; position: relative; height: 2rem; margin-left:1rem; border-radius: .5rem; border: 1px solid black">
-                    <input type="button" class="ml-3 btn btn-dark py-0" value="Clear" onclick="clear();" style="height:2rem;top: -2px;position: relative;">
+                    <input type="button" class="ml-3 btn btn-dark py-0" value="Clear" onclick="clearInput();" style="height:2rem;top: -2px;position: relative;">
                     <button type="button" value="Download All" style="height: 2rem;top: -2px;position: relative;" class="ml-3 btn btn-dark py-0" onclick="location.href = '/projects/projects/downloadallprojreport' " %}>Download All</button>
                     <input type="button" value="Upload Project CSV" class="ml-3 btn btn-dark py-0" style="height: 2rem;top: -2px;position: relative;">                
                 </div>
@@ -359,7 +394,7 @@
                                 <h4 class="mb-0">Active Projects</h4>
                             </div>
                             <div class="table-responsive" id="style-4">
-                                <table class="table text-nowrap mb-0">
+                                <table class="table text-nowrap mb-0" id="projects_table">
                                     <thead class="table-light">
                                         <tr>
                                             <th style="color:black;">Project Name</th>
