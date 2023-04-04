@@ -49,6 +49,6 @@ class HourVal(models.Model):
 class RequestModel(models.Model):
 
     name = models.CharField(max_length=100)
-    requestmsg = models.CharField(max_length=200)
+    requestmsg = models.CharField(max_length=1000)
 
 
