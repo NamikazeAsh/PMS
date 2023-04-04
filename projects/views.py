@@ -380,9 +380,7 @@ def deletecomment(request,id):
     users_comment = get_object_or_404(ProjectComment, id=id)
     
     users_comment.delete()
-    # return redirect('projects:project-profile',id=users_comment.id)
     pid = users_comment.project.id
-    # return ProjectProfile(request,pid)
     return redirect('projects:project-profile',pid)
 
 @login_required(login_url='login')

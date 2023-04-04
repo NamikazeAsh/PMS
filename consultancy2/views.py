@@ -26,6 +26,9 @@ from projects.models import Task
 import datetime
 import json
 
+from plotly.offline import plot
+import plotly.graph_objects as go
+
 
 from .decorators import unauthorized_users,allowed_users
 flag = True
@@ -108,7 +111,33 @@ def SignIn(request):
             return render(request,'consultant/templeadc.html')
         
         elif request.user.groups.filter(name='Head Consultant').exists():
-            return render(request,'consultant/tempheadc.html')
+
+            finanaceData = FinanceModel.objects.all()
+            print(finanaceData[0].project_id_id)
+
+            fig = go.Figure(go.Waterfall(
+                # name = "20", orientation = "v",
+                measure = ["relative", "relative", "relative", "relative", "total"],
+                x = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"],
+                textposition = "outside",
+                text = ["5000", "-500", "-500", "4000", "Total"],
+                y = [5000, -500, -500, 4000, 8000],
+                connector = {"line":{"color":"rgb(63, 63, 63)"}},
+            ))
+
+            fig.update_layout(
+                title = "Project1",
+                showlegend = False
+            )
+
+            waterfall_plot = plot(fig, output_type="div")
+            context = {'plot_div': waterfall_plot}
+            return render(request, 'consultant/tempheadc.html', context)
+
+            # labels = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"]
+            # data = [5000, 500, 500, 4000, 8000]
+            # return render(request,'consultant/tempheadc.html', {"labels": labels, "data": data})
+            # return render(request,'consultant/tempheadc.html')
         
         else:
             return AdminDashboard(request)
@@ -170,7 +199,12 @@ def LogIn(request):
                     elif request.user.groups.filter(name='Lead Consultant').exists():
                         return render(request,'consultant/templeadc.html')
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        return render(request,'consultant/tempheadc.html')
+                        labels = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"]
+                        data = [5000, 500, 500, 4000, 8000]
+                        context = {'labels': labels, 'data': data}
+                        return render(request,'consultant/tempheadc.html', context)
+                        # return render(request,'consultant/tempheadc.html')
+
                     elif request.user.groups.filter(name='Admin').exists():
                         return redirect('admindashboard')
                     
