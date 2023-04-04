@@ -21,7 +21,7 @@
                 var input,table,tr,td,filter,txtdata;
                 input=document.getElementById("user_search");
                 filter=input.value.toUpperCase();
-                table=document.getElementById("sampleTable");
+                table=document.getElementById("sampleTableU");
                 tr=table.getElementsByTagName("tr");
                 
                 for(i=0;i<tr.length;i++)
@@ -45,7 +45,7 @@
 
             function clearField()
             {
-                var table = document.getElementById("sampleTable");
+                var table = document.getElementById("sampleTableU");
                 var searchBox = document.getElementById("user_search");
                 searchBox.value = "";
                 const rows = table.getElementsByTagName("tr");
@@ -211,11 +211,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for request in requests %}
                                 <tr role="row" class="odd text-center">
-                                    <td>User</td>
-                                    <td>Message</td>
-                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
+                                    <td>{{request.name}}</td>
+                                    <td>{{request.requestmsg}}</td>
+                                    <td><a href="/adminrequestdel/{{request.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -232,7 +234,7 @@
                                 <input type="button" value="Clear" onclick= "clearField();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
                         </div>
 
-                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
+                        <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTableU" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
