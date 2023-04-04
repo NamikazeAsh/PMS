@@ -215,7 +215,7 @@
                                 <tr role="row" class="odd text-center">
                                     <td>{{request.name}}</td>
                                     <td>{{request.requestmsg}}</td>
-                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
+                                    <td><a href="/adminrequestdel/{{request.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
