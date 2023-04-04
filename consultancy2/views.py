@@ -750,7 +750,7 @@ def SendAdminRequest(request):
         requesto.requestmsg = request.POST.get('feedback')
         requesto.save()
         
-    return SignIn(request)
+    return HttpResponseRedirect(reverse('signup'))
             
 
 @allowed_users(allowed_roles=['Admin'])
