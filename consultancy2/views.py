@@ -361,7 +361,7 @@ def UserHourTrackingDeny(request,id):
 @login_required(login_url='admin:login')
 @allowed_users(allowed_roles=['Admin'])
 def AdminDashboard(request):
-    users = User.objects.all()
+    users = User.objects.filter(groups__name__in=['Professor','Sr Intern','Intern','Head Consultant','Lead Consultant'])
     teams = Team.objects.all()
     projects = Project.objects.all()
     requests = RequestModel.objects.all()
