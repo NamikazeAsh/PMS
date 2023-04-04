@@ -197,24 +197,24 @@
             <div id="layoutSidenav_content">
 
 
-                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
-                    Requests
+                <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <h3 class="text-center">Requests</h3>
                     <div class="col-sm-12">
                         Search Bar
                         <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr role="row" class="odd">
+                                <tr role="row" class="odd text-center">
                                     <td>User</td>
                                     <td>Message</td>
-                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="/adminuserdelete/{{user.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -222,8 +222,8 @@
                 </div>
 
 
-                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
-                    User Management
+                <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <h3 class="text-center">User Management</h3>
                     <div class="col-sm-12">
 
                         <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
@@ -236,17 +236,17 @@
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                    <th class="text-center sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for user in users %}
-                                <tr role="row" class="odd">
+                                <tr role="row" class="odd text-center">
                                     <td>{{user.id}}</td>
                                     <td>{{user.username}}</td>
-                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="#" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -254,8 +254,8 @@
                     </div>
                 </div>
 
-                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
-                    Team Management
+                <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <h3 class="text-center">Team Management</h3>
                     <div class="col-sm-12">
                         <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
                             <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
@@ -266,17 +266,17 @@
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Team</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                    <th class="text-center sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Team</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for team in teams %}
-                                <tr role="row" class="odd">
+                                <tr role="row" class="odd text-center">
                                     <td>{{team.id}}</td>
                                     <td>{{team.team_name}}</td>
-                                    <td><a href="/adminteamdelete/{{team.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="/adminteamdelete/{{team.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -284,8 +284,8 @@
                     </div>
                 </div>
                 
-                <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
-                    Project Management
+                <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+                    <h3 class="text-center">Project Management</h3>
                     <div class="col-sm-12">
                         <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
                             <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
@@ -296,17 +296,17 @@
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Project</th>
-                                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
+                                    <th class="text-center sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending">ID</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Project</th>
+                                    <th class="text-center sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for project in projects %}
-                                <tr role="row" class="odd">
+                                <tr role="row" class="odd text-center">
                                     <td>{{project.id}}</td>
                                     <td>{{project.name}}</td>
-                                    <td><a href="/adminprojectdelete/{{project.id}}" style="color:red;text-decoration: none;font-weight: bolder;">Delete</a></td>
+                                    <td><a href="/adminprojectdelete/{{project.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

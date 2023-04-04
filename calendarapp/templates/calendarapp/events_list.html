@@ -21,21 +21,21 @@
                         aria-describedby="sampleTable_info">
                         <thead class="thead-dark">
                             <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">SL</th>
-                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Event Name</th>
-                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">Start Time</th>
-                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">End Time</th>
-                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">Delete</th>
+                                <th class="sorting_asc text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">SL</th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Event Name</th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">Start Time</th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">End Time</th>
+                                <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for event in object_list %}
                             <tr role="row" class="odd">
-                                <td class="sorting_1">{{ forloop.counter }}</td>
-                                <td>{{ event.title }}</td>
-                                <td>{{ event.start_time }}</td>
-                                <td>{{ event.end_time }}</td>
-                                <td><a href="/calendar/delete/{{event.id}}"><img src="{% static "icons/delete.svg" %}"
+                                <td class="sorting_1 text-center">{{ forloop.counter }}</td>
+                                <td class="text-center">{{ event.title }}</td>
+                                <td class="text-center">{{ event.start_time }}</td>
+                                <td class="text-center">{{ event.end_time }}</td>
+                                <td class="text-center"><a href="/calendar/delete/{{event.id}}"><img src="{% static "icons/delete.svg" %}"
                                             class="ml-2"></img></a></td>
                             </tr>
                             {% endfor %}

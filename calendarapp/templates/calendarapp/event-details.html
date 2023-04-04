@@ -1,4 +1,5 @@
 {% extends temp %}
+{% load static %}
 
 {% block title %}
 Event Details
@@ -25,8 +26,8 @@ Event Details
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="w-50">
                             <p>
-                            <div>From: <span class="text-muted">{{ event.start_time }}</span></div>
-                            <div>To: <span class="text-muted">{{ event.end_time }}</span></div>
+                            <div><span class="text-muted">From:</span> {{ event.start_time }}</div>
+                            <div><span class="text-muted">To:</span> {{ event.end_time }}</div>
                             </p>
                         </div>
                         <div class="button-section w-100 d-flex justify-content-end">
@@ -38,7 +39,7 @@ Event Details
                     </div>
     
                     <div>
-                        Description: <p>{{ event.description }}</p>
+                        <span class="text-muted">Description:</span> <p>{{ event.description }}</p>
                     </div>
     
                 </div>
@@ -58,22 +59,22 @@ Event Details
                     <table class="table table-bordered table-hover mt-3">
                         <thead class="thead-dark">
                             <tr>
-                                <th style="width: 80px;">Sr. No</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Action</th>
+                                <th class="text-center" style="width: 80px;">Sr. No</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for member in eventmember %}
                             <tr role="row">
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
-                                <td>{{ member.user.username }}</td>
-                                <td>{{ member.user.email }}</td>
-                                <td>
-                                    <a class="btn btn-danger" style="border-radius:.5rem;" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
+                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td class="text-center">{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                                <td class="text-center">{{ member.user.username }}</td>
+                                <td class="text-center">{{ member.user.email }}</td>
+                                <td class="text-center">
+                                    <a style="border-radius:.5rem;" href="{% url 'calendarapp:remove_event' member.id %}"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
                                 </td>
                             </tr>
                             {% endfor %}

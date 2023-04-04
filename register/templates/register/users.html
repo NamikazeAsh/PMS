@@ -185,8 +185,8 @@
             <table class="table table-responsive-sm table-hover table-bordered mb-5" style="border-radius: .5rem; width: 80vw;" id="users_table">
                 <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>User</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">User</th>
                     <th class="text-center">Role</th>
                     <th class="text-center">Campus</th>
                     <th class="text-center">Tasks</th>
@@ -199,10 +199,10 @@
 
                         <tr>
 
-                            <td>
+                            <td class="text-center">
                                 {{ user1.user.id }}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <a href="{% url 'register:user' profile_id=user1.user.id %}"> <span class="text-dark">{% if user1.user.get_full_name %}</span>
                                 <div><b>{{ user1.user.get_full_name }}{% if user1.user.is_staff %}</b> <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
                                 {% else %}

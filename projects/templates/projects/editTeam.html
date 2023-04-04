@@ -25,20 +25,20 @@
                     <div class="card p-4 mb-5"
                         style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width: 70vw;  border-radius: 1rem;">
                         <div class="card-body p-0">
-                            {% if created %}
+                            {% comment %} {% if created %}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                Congratulations, your team was updated!
+                                Congratulations, your team was created!
                             </div>
                             {% endif %}
-                            {% csrf_token %}
+                            {% csrf_token %} {% endcomment %}
 
                             <form action="" method="post">
                                 {% csrf_token %}
 
-
+                                
                                 <div class="form-group mt-3">
                                     <label class="form-control-label">Name</label>
                                     <div class="input-group border-top">
@@ -46,27 +46,27 @@
 
                                         {{ form.team_name }}
                                         {% if form.team_name.errors %}
-                                        <ol>
+                                            <ol>
                                             {% for error in form.team_name.errors %}
-                                            <li><strong>{{ error|escape }}</strong></li>
+                                                <li><strong>{{ error|escape }}</strong></li>
                                             {% endfor %}
-                                        </ol>
+                                            </ol>
                                         {% endif %}
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group">
                                     <label class="col-form-label">Assign To <div><small><i class="text-muted">Crtl+click for multiple selection</i></small></div></label>
                                     <div class="input-group border-top">
                                         <img src="{% static "icons/users.svg" %}"></img>
-
+                                        
                                         {{ form.assign }}
                                         {% if form.assign.errors %}
-                                        <ol>
+                                            <ol>
                                             {% for error in form.assign.errors %}
-                                            <li><strong>{{ error|escape }}</strong></li>
+                                                <li><strong>{{ error|escape }}</strong></li>
                                             {% endfor %}
-                                        </ol>
+                                            </ol>
                                         {% endif %}
                                     </div>
                                 </div>

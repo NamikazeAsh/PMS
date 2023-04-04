@@ -175,11 +175,7 @@ class TeamRegistrationForm(forms.ModelForm):
         self.fields['team_name'].widget.attrs['placeholder'] = 'Team Name'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
         
-        
 class FileForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["documents"]
-        
-        
-        

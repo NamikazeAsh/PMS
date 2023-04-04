@@ -474,45 +474,38 @@ def UploadRefProjectDocs(request,id):
     
     return projects(request)
 
-def editTeamInfo(request, teamname):
-    # Edit Team Code Here
-    pass
-
-#     return redirect('/projects/team-views/')
-
-def deleteTeamInfo(request, teamname):
-    # Delete Team Code Here
-    # teamname is the id of the table
-    # remove key pair from table where key is teamname
-    # return redirect('/projects/team-views/')
-    pass
-
 # @login_required(login_url='login')
-# def editTeamInfo(request, teamname):
+# def edit_task(request,id):
+#     task = Task.objects.get(id=id)
+#     current_user = request.user
+#     form=TaskRegistrationForm(instance=task)
 #     if request.method == 'POST':
-#         form = TeamRegistrationForm(request.POST)
-#         context = {'form': form}
+        
+#         form = TaskRegistrationForm(request.POST,instance=task)
 #         if form.is_valid():
 #             form.save()
-#             created = True
-#             form = TeamRegistrationForm()
-#             var = findtemp(request)
-#             context = {
-#                 'created': created,
-#                 'form': form,
-#                 'temp':var,
-#             }
-#             return render(request, 'projects/editTeam.html', context)
-#         else:
-#             return render(request, 'projects/editTeam.html', context)
-#     else:
-#         form = TeamRegistrationForm()
-#         var = findtemp(request)
-#         context = {
-#             'form': form,
-#             'temp':var,
-#         }
-#         return render(request,'projects/editTeam.html', context)
+#             return redirect('projects:task',id= current_user.id)
+#     var = findtemp(request)
+    
+#     context = {'form':form,'temp':var,}
+#     return render(request, 'projects/edit_task.html', context)   
+
+@login_required(login_url='login')
+def editTeamInfo(request, id):
+
+    task = Team.objects.get(id=id)
+    current_user = request.user
+    form=TeamRegistrationForm(instance=task)
+    
+    if request.method == 'POST':
+        form = TeamRegistrationForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect("/projects/team-views/")
+
+    var = findtemp(request)
+    context = {'form': form, 'temp':var,}
+    return render(request, 'projects/editTeam.html', context) 
 
 def deleteExpenseInfo(request, id, eid):
     # Expense Information Delete Code Here

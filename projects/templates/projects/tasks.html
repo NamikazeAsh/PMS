@@ -53,8 +53,8 @@ body {
                                 {% endif %}
                                 
                                 </div>
-                                <div class="button-section d-flex align-item-center justify-content-end mb-4 flex-column">
-                                    <a href="/projects/projects/edit_task/{{tk.id}}"><button class="btn btn-dark"  style="width: 5rem;">Edit</button></a>
+                                <div class="button-section d-flex align-items-end justify-content-start mb-4 flex-column pt-3" style="width: fit-content; height: 100%;">
+                                    <a href="/projects/projects/edit_task/{{tk.id}}" style="width: fit-content;"><div style="width: fit-content;"><img src="{% static "icons/edit.svg" %}" style="cursor: pointer;"></img></div></a>
                                     <!-- <a href="{% url 'projects:deletetask' task=tk.id %}"><button class="btn btn-dark" style="width: 5rem;">Delete</button></a> -->
                                 </div>
                             </div>
