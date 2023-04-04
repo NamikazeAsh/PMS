@@ -64,28 +64,43 @@
                 </div>
                 <div class="row" style="margin-top: 2.1rem;">
                     <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
-                                
+                        {% autoescape off %}
+                            {{ plot_div_main }} 
+                        {% endautoescape %}       
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center align-item-center flex-wrap">
-                    {% comment %} <div class="card m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:40%">
-                        <div class="card-body">
-                              <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:40%">
-                        <div class="card-body">
-                              <canvas id="myChart2"></canvas>
-                        </div>
-                    </div> {% endcomment %}
-                    <div class="card m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:40%">
+                    {% comment %} {% for name in projectNames %} {% endcomment %}
+                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
                         <div class="card-body">
                             {% autoescape off %}
-                                {{ plot_div }}
+                                {{ Project1 }}
                             {% endautoescape %}
                         </div>
                     </div>
+                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
+                        <div class="card-body">
+                            {% autoescape off %}
+                                {{ Project2 }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
+                        <div class="card-body">
+                            {% autoescape off %}
+                                {{ TestProject3 }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
+                        <div class="card-body">
+                            {% autoescape off %}
+                                {{ Project4 }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    {% comment %} {% endfor %} {% endcomment %}
                 </div>
             </div>
         </div>
@@ -100,41 +115,6 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    
-    {% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('myChart');
-        const ctx2 = document.getElementById('myChart2');
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: {{labels|safe}},
-                datasets: [{
-                    label: '',
-                    data: {{data|safe}},
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: {{labels|safe}},
-                datasets: [{
-                    label: '',
-                    data: {{data|safe}},
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
-    </script> {% endcomment %}
 
 {% block excerpt%}
 {% endblock %}

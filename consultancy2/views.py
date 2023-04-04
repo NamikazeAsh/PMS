@@ -27,7 +27,9 @@ import datetime
 import json
 
 from plotly.offline import plot
+import plotly.express as px
 import plotly.graph_objects as go
+import numpy as np
 
 
 from .decorators import unauthorized_users,allowed_users
@@ -113,31 +115,60 @@ def SignIn(request):
         elif request.user.groups.filter(name='Head Consultant').exists():
 
             finanaceData = FinanceModel.objects.all()
-            print(finanaceData[0].project_id_id)
 
-            fig = go.Figure(go.Waterfall(
-                # name = "20", orientation = "v",
-                measure = ["relative", "relative", "relative", "relative", "total"],
-                x = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"],
-                textposition = "outside",
-                text = ["5000", "-500", "-500", "4000", "Total"],
-                y = [5000, -500, -500, 4000, 8000],
-                connector = {"line":{"color":"rgb(63, 63, 63)"}},
-            ))
+            # Making Bar Graph for Highest total Income
+            net_amount = []
+            tempDict = dict()
 
-            fig.update_layout(
-                title = "Project1",
-                showlegend = False
-            )
+            for project in finanaceData:
+                projectName = Project.objects.filter(id=project.project_id_id)[0].name
+                tempDict[projectName] = project.net_amt
+            tempDict = sorted(tempDict.items(), key=lambda x:x[1], reverse=True)
+            tempDict = dict(tempDict[:10])
+            random_x = list(tempDict.keys())
+            random_y = list(tempDict.values())
+            fig = px.bar(x = random_x, y = random_y, title = "Projects with Top Total Amount", labels={"x": "Project name","y": "Total Amount"},) 
+            bar_plot = plot(fig, output_type="div")
+            context = {'plot_div_main': bar_plot}
 
-            waterfall_plot = plot(fig, output_type="div")
-            context = {'plot_div': waterfall_plot}
+            # Making Waterfall Graph for Every Project
+            projectNameWaterfall = []
+            initialAmount = []
+            amountToCU = []
+            expenses = [-5000,-500,-68200,0]
+            incomes = [6000,1000,69000,0]
+            totalAmount = []
+
+            for project in finanaceData:
+                projectNameWaterfall.append(Project.objects.filter(id=project.project_id_id)[0].name)
+                initialAmount.append(project.amtreceived)
+                amountToCU.append(-abs(project.amtreceived * (project.cupercentage/100)))
+                # expenses.append(0 if finanaceData[3].expenses == None else -abs(project.net_expenses))
+                # expenses.append(project.net_expenses)
+                # incomes.append(0 if finanaceData[3].expenses == None else project.net_incomes)
+                # incomes.append(project.net_incomes)
+                totalAmount.append(project.net_amt)
+
+            for i in range(len(projectNameWaterfall)):
+                fig = go.Figure(go.Waterfall(
+                    measure = ["relative", "relative", "relative", "relative", "total"],
+                    x = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"],
+                    textposition = "outside",
+                    text = [f"{initialAmount[i]}", f"{amountToCU[i]}", f"{expenses[i]}", f"{incomes[i]}", f"{totalAmount[i]}"],
+                    y = [initialAmount[i], amountToCU[i], expenses[i], incomes[i], totalAmount[i]],
+                    connector = {"line":{"color":"rgb(63, 63, 63)"}},
+                ))
+                fig.update_layout(
+                    title = projectNameWaterfall[i],
+                    showlegend = False,
+                    width = 500, height =  550, 
+                )
+                waterfall_plot = plot(fig, output_type="div")
+                context[f"{projectNameWaterfall[i]}"] = waterfall_plot
+
+            # print(context["Project1"])
+            context["projectNames"] = projectNameWaterfall
             return render(request, 'consultant/tempheadc.html', context)
-
-            # labels = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"]
-            # data = [5000, 500, 500, 4000, 8000]
-            # return render(request,'consultant/tempheadc.html', {"labels": labels, "data": data})
-            # return render(request,'consultant/tempheadc.html')
         
         else:
             return AdminDashboard(request)

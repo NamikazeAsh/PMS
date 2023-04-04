@@ -473,22 +473,6 @@ def UploadRefProjectDocs(request,id):
     
     return projects(request)
 
-# @login_required(login_url='login')
-# def edit_task(request,id):
-#     task = Task.objects.get(id=id)
-#     current_user = request.user
-#     form=TaskRegistrationForm(instance=task)
-#     if request.method == 'POST':
-        
-#         form = TaskRegistrationForm(request.POST,instance=task)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('projects:task',id= current_user.id)
-#     var = findtemp(request)
-    
-#     context = {'form':form,'temp':var,}
-#     return render(request, 'projects/edit_task.html', context)   
-
 @login_required(login_url='login')
 def editTeamInfo(request, id):
 
