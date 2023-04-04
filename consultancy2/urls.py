@@ -52,7 +52,7 @@ urlpatterns = [
     path("adminuserdelete/<int:id>",views.AdminUserDelete),
     path("adminteamdelete/<int:id>",views.AdminTeamDelete),
     path("adminprojectdelete/<int:id>",views.AdminProjectDelete),
-    path("adminrequest",views.SendAdminRequest),
+    path("adminrequest",views.SendAdminRequest,name='adminrequest'),
     path("adminrequestdel/<int:id>",views.AdminDelRequest),
     
     path("finance/", include("finance.urls")),

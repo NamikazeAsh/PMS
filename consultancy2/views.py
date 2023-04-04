@@ -362,15 +362,15 @@ def UserHourTrackingDeny(request,id):
 @allowed_users(allowed_roles=['Admin'])
 def AdminDashboard(request):
     users = User.objects.all()
-    vusers = AdminValidation.objects.all()
     teams = Team.objects.all()
     projects = Project.objects.all()
+    requests = RequestModel.objects.all()
     
     context = {
         'users':users,
-        'vusers':vusers,
         'teams':teams,
-        'projects':projects
+        'projects':projects,
+        'requests':requests,
     }
     return render(request,"admindashboard.html",context=context)
 
@@ -742,11 +742,14 @@ def AdminProjectDelete(request,id):
     return HttpResponseRedirect(reverse('admindashboard'))
 
 def SendAdminRequest(request):
+    
     if request.method == 'POST':
+        
         requesto = RequestModel()
         requesto.name = request.user.username
-        requesto.requestmsg = request.POST.get('requestmsg')
-
+        requesto.requestmsg = request.POST.get('feedback')
+        requesto.save()
+        
     return SignIn(request)
             
 

@@ -6,7 +6,9 @@
                 <h1 class="modal-title fs-5" id="feedbackModalLabel">Give Your Feedback Here</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
+
+            
+            <form action="{% url 'adminrequest' %}" method="POST">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div>
@@ -14,8 +16,7 @@
                             <label class="col-form-label pl-2">Feedback</label>
                             <div class="input-group border-top pt-2">
                                 <img src="{% static "icons/description.svg" %}"></img>
-                                <textarea class="btn-block border-0 pl-2" style="width:90%; height:6rem" name="feedback" placeholder="Feedback"
-                                    required></textarea>
+                                <textarea class="btn-block border-0 pl-2" style="width:90%; height:6rem" name="feedback" placeholder="Feedback" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -25,6 +26,8 @@
                     <button type="button" class="btn btn-dark col-3 ml-5" style="border-radius:.5rem;" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
+
+
         </div>
     </div>
 </div>
