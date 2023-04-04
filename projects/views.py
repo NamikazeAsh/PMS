@@ -278,7 +278,6 @@ def ProjectProfile(request, id):
     for tm in projteam:    
         team_id.append(tm[0])
     for tid in team_id:
-        print("TID: ",tid)
         if tid != None:
             team_name.append(Team.objects.get(id = tid))
         else:
@@ -340,6 +339,8 @@ def ProjectProfile(request, id):
                 
         netAmount = ((basicDetails.amtreceived)-(cuShare)-(totalExpense) 
         + (totalIncome))
+        finance_details[0].net_amt = netAmount
+        finance_details[0].save()
 
         for i in profDetails:
             i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
@@ -528,7 +529,7 @@ def deleteExpenseInfo(request, id, eid):
     return redirect(f'/projects/projects/project/{id}')
 
 def deleteIncomeInfo(request, id, iid):
-    # Income Information Edit Code Here
+    # Income Information Delete Code Here
     financeIncome = FinanceModel.objects.get(project_id = id)
     existingincome = json.loads(financeIncome.incomes)['add']
 
@@ -550,7 +551,7 @@ def deleteIncomeInfo(request, id, iid):
     return redirect(f'/projects/projects/project/{id}')
 
 def deleteProfessorInfo(request, id, pid):
-    # Professor Information Edit Code Here
+    # Professor Information Delete Code Here
     financeProf = FinanceModel.objects.get(project_id = id)
     existingprof = json.loads(financeProf.professor)['professors']
 
