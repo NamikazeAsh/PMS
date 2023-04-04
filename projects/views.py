@@ -278,7 +278,6 @@ def ProjectProfile(request, id):
     for tm in projteam:    
         team_id.append(tm[0])
     for tid in team_id:
-        print("TID: ",tid)
         if tid != None:
             team_name.append(Team.objects.get(id = tid))
         else:
@@ -340,6 +339,8 @@ def ProjectProfile(request, id):
                 
         netAmount = ((basicDetails.amtreceived)-(cuShare)-(totalExpense) 
         + (totalIncome))
+        finance_details[0].net_amt = netAmount
+        finance_details[0].save()
 
         for i in profDetails:
             i['ratioAmount'] = (int(i['ratio']) * netAmount)/10
