@@ -135,20 +135,21 @@ def SignIn(request):
             projectNameWaterfall = []
             initialAmount = []
             amountToCU = []
-            expenses = [-5000,-500,-68200,0]
-            incomes = [6000,1000,69000,0]
+            expenses = []
+            incomes = []
             totalAmount = []
 
             for project in finanaceData:
                 projectNameWaterfall.append(Project.objects.filter(id=project.project_id_id)[0].name)
                 initialAmount.append(project.amtreceived)
                 amountToCU.append(-abs(project.amtreceived * (project.cupercentage/100)))
-                # expenses.append(0 if finanaceData[3].expenses == None else -abs(project.net_expenses))
+                expenses.append(0 if project.total_expenses == None else -abs(project.total_expenses))
                 # expenses.append(project.net_expenses)
-                # incomes.append(0 if finanaceData[3].expenses == None else project.net_incomes)
+                incomes.append(0 if project.total_incomes == None else project.total_incomes)
                 # incomes.append(project.net_incomes)
                 totalAmount.append(project.net_amt)
 
+            tempDictForGraph = {}
             for i in range(len(projectNameWaterfall)):
                 fig = go.Figure(go.Waterfall(
                     measure = ["relative", "relative", "relative", "relative", "total"],
@@ -164,10 +165,14 @@ def SignIn(request):
                     width = 500, height =  550, 
                 )
                 waterfall_plot = plot(fig, output_type="div")
-                context[f"{projectNameWaterfall[i]}"] = waterfall_plot
+                tempDictForGraph[f"{projectNameWaterfall[i]}"] = waterfall_plot
 
             # print(context["Project1"])
-            context["projectNames"] = projectNameWaterfall
+            demo = {'projectNames': {'project1': 'graph', 'project2': 'graph'}}
+
+            # for key, value in demo['projectNames'].items():
+            # print(tempDictForGraph)
+            context["projectNames"] = tempDictForGraph
             return render(request, 'consultant/tempheadc.html', context)
         
         else:

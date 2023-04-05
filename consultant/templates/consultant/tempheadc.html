@@ -71,36 +71,15 @@
                 </div>
 
                 <div class="d-flex justify-content-center align-item-center flex-wrap">
-                    {% comment %} {% for name in projectNames %} {% endcomment %}
+                    {% for key, value in projectNames.items %}
                     <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
                         <div class="card-body">
                             {% autoescape off %}
-                                {{ Project1 }}
+                                {{ value }}
                             {% endautoescape %}
                         </div>
                     </div>
-                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
-                        <div class="card-body">
-                            {% autoescape off %}
-                                {{ Project2 }}
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
-                        <div class="card-body">
-                            {% autoescape off %}
-                                {{ TestProject3 }}
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="card m-3" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75); width:45%">
-                        <div class="card-body">
-                            {% autoescape off %}
-                                {{ Project4 }}
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    {% comment %} {% endfor %} {% endcomment %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
