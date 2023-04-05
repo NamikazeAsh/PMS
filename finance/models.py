@@ -10,6 +10,8 @@ class FinanceModel(models.Model):
     cupercentage =models.FloatField(default=0)
     expenses = models.JSONField(null = True)
     incomes = models.JSONField(null = True)
-    net_amt = models.FloatField(default=0)
+    total_expenses = models.FloatField(null = True)
+    total_incomes = models.FloatField(null = True)
+    net_amt = models.FloatField(default=0,null=True)
     professor = models.JSONField(null = True)
 

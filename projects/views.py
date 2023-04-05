@@ -326,12 +326,19 @@ def ProjectProfile(request, id):
             for i in incomeDetails:
                 totalIncome = totalIncome + (int(i['amount']))
 
+            finance_details[0].total_incomes = totalIncome
+            print(finance_details[0].total_incomes)
+            finance_details[0].save()
+
         if finance_details[0].expenses:
             expenseDetails = json.loads(finance_details[0].expenses)['less']
             expenseDetails = list(map(returnJson, expenseDetails))
 
             for i in expenseDetails:
                 totalExpense = totalExpense + (int(i['amount']))
+
+            finance_details[0].total_expenses = totalExpense
+            finance_details[0].save()
 
         if finance_details[0].professor:
             profDetails = json.loads(finance_details[0].professor)['professors']
