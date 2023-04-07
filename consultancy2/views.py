@@ -167,11 +167,7 @@ def SignIn(request):
                 waterfall_plot = plot(fig, output_type="div")
                 tempDictForGraph[f"{projectNameWaterfall[i]}"] = waterfall_plot
 
-            # print(context["Project1"])
             demo = {'projectNames': {'project1': 'graph', 'project2': 'graph'}}
-
-            # for key, value in demo['projectNames'].items():
-            # print(tempDictForGraph)
             context["projectNames"] = tempDictForGraph
             return render(request, 'consultant/tempheadc.html', context)
         
@@ -235,11 +231,62 @@ def LogIn(request):
                     elif request.user.groups.filter(name='Lead Consultant').exists():
                         return render(request,'consultant/templeadc.html')
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        labels = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"]
-                        data = [5000, 500, 500, 4000, 8000]
-                        context = {'labels': labels, 'data': data}
-                        return render(request,'consultant/tempheadc.html', context)
-                        # return render(request,'consultant/tempheadc.html')
+                        finanaceData = FinanceModel.objects.all()
+
+                        # Making Bar Graph for Highest total Income
+                        net_amount = []
+                        tempDict = dict()
+            
+                        for project in finanaceData:
+                            projectName = Project.objects.filter(id=project.project_id_id)[0].name
+                            tempDict[projectName] = project.net_amt
+                        tempDict = sorted(tempDict.items(), key=lambda x:x[1], reverse=True)
+                        tempDict = dict(tempDict[:10])
+                        random_x = list(tempDict.keys())
+                        random_y = list(tempDict.values())
+                        fig = px.bar(x = random_x, y = random_y, title = "Projects with Top Total Amount", labels={"x": "Project name","y": "Total Amount"},) 
+                        bar_plot = plot(fig, output_type="div")
+                        context = {'plot_div_main': bar_plot}
+            
+                        # Making Waterfall Graph for Every Project
+                        projectNameWaterfall = []
+                        initialAmount = []
+                        amountToCU = []
+                        expenses = []
+                        incomes = []
+                        totalAmount = []
+            
+                        for project in finanaceData:
+                            projectNameWaterfall.append(Project.objects.filter(id=project.project_id_id)[0].name)
+                            initialAmount.append(project.amtreceived)
+                            amountToCU.append(-abs(project.amtreceived * (project.cupercentage/100)))
+                            expenses.append(0 if project.total_expenses == None else -abs(project.total_expenses))
+                            # expenses.append(project.net_expenses)
+                            incomes.append(0 if project.total_incomes == None else project.total_incomes)
+                            # incomes.append(project.net_incomes)
+                            totalAmount.append(project.net_amt)
+            
+                        tempDictForGraph = {}
+                        for i in range(len(projectNameWaterfall)):
+                            fig = go.Figure(go.Waterfall(
+                                measure = ["relative", "relative", "relative", "relative", "total"],
+                                x = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"],
+                                textposition = "outside",
+                                text = [f"{initialAmount[i]}", f"{amountToCU[i]}", f"{expenses[i]}", f"{incomes[i]}", f"{totalAmount[i]}"],
+                                y = [initialAmount[i], amountToCU[i], expenses[i], incomes[i], totalAmount[i]],
+                                connector = {"line":{"color":"rgb(63, 63, 63)"}},
+                            ))
+                            fig.update_layout(
+                                title = projectNameWaterfall[i],
+                                showlegend = False,
+                                width = 500, height =  550, 
+                            )
+                            waterfall_plot = plot(fig, output_type="div")
+                            tempDictForGraph[f"{projectNameWaterfall[i]}"] = waterfall_plot
+            
+                        demo = {'projectNames': {'project1': 'graph', 'project2': 'graph'}}
+                        context["projectNames"] = tempDictForGraph
+                        return render(request, 'consultant/tempheadc.html', context)
 
                     elif request.user.groups.filter(name='Admin').exists():
                         return redirect('admindashboard')
