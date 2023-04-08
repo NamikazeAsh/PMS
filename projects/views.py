@@ -421,14 +421,6 @@ def newTeam(request):
 @login_required(login_url='login')
 def DownloadProjectReport(request,id):
     
-    # dfd = Project.objects.filter(id = id).values()
-    # df = pd.DataFrame(dfd)
-    # csvtitle = Project.objects.filter(id=id).values('name')
-    # for title in csvtitle:
-    #     df.to_csv("Reports/Project/" + title["name"] + ".csv")
-    
-    # return projects(request)
-    
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     dfd = Project.objects.filter(id = id).values()
