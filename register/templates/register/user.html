@@ -26,6 +26,9 @@
     background-color: transparent;
     text-decoration: underline;
   }
+  label {
+    margin-right: 1rem
+  }
   </style>
 
   <link href="{% static 'css/theme.css' %}" rel="stylesheet">
@@ -62,38 +65,34 @@
                             <img src="{% static '/images/default.jpg' %}" class="avatar-xxl rounded-circle border border-4 border-white-color-40" alt="profile">
                             {% endif %}
                           </div>
+                          <div class="lh-1">
+                            <h2 class="mb-0">{{ user_val.username }}</h2>
+                            <p class="mb-0 d-block">{{ user_val.role}}</p>
+                          </div>
+                          <button class="btn btn-dark" data-target="#UploadImage" data-toggle="modal"  style="position:absolute; right:2rem;">Upload Profile Picture</button> 
                           
-                            <button class="btn btn-secondary" data-target="#UploadImage" data-toggle="modal">Change</button> 
-                            <form method="POST" action="" enctype="multipart/form-data">
-                              {% csrf_token %}
+                          <form method="POST" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <div class="modal" tabindex="-1" role="dialog" id="UploadImage">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Upload Profile Picture</h5>
+                                    <h5>Upload Profile Picture</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">
-                                    
-                                      
+                                  <div class="modal-body text-dark">
                                       {{ form.as_p}}
-                                    
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Upload</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <div class="d-flex justify-content-around mb-5">
+                                    <button type="submit" class="btn btn-dark">Upload</button>
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </form>
-                          
-                          <div class="lh-1">
-                            <h2 class="mb-0">{{ user_val.username }}</h2>
-                            <p class="mb-0 d-block">{{ user_val.role}}</p>
-                          </div>
                         </div>
                       </div>
                     </div>
