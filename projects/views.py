@@ -421,13 +421,30 @@ def newTeam(request):
 @login_required(login_url='login')
 def DownloadProjectReport(request,id):
     
+    # dfd = Project.objects.filter(id = id).values()
+    # df = pd.DataFrame(dfd)
+    # csvtitle = Project.objects.filter(id=id).values('name')
+    # for title in csvtitle:
+    #     df.to_csv("Reports/Project/" + title["name"] + ".csv")
+    
+    # return projects(request)
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     dfd = Project.objects.filter(id = id).values()
     df = pd.DataFrame(dfd)
-    csvtitle = Project.objects.filter(id=id).values('name')
-    for title in csvtitle:
-        df.to_csv("Reports/Project/" + title["name"] + ".csv")
+    csvtitle = str(Project.objects.filter(id = id)[0])
+    df.to_csv("Reports/Project/" + csvtitle + ".csv",index=False)
     
-    return projects(request)
+    filename = csvtitle + '.csv'
+    filepath =  BASE_DIR + '/Reports/Project/' + filename
+    path = open(filepath,'r')
+    mime_type = mimetypes.guess_type(filepath)
+    response = HttpResponse(path,content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    
+    return response
+
 
 
 import os
