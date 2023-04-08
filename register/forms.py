@@ -2,6 +2,7 @@ from django import forms
 from register.models import UserProfile
 from django.contrib.auth.models import User
 from projects.models import Project
+from consultancy2.models import *
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -53,5 +54,11 @@ class RegistrationForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Password'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['placeholder'] = 'Retype Password'
+        
+        
 
-
+class ProfileForm(forms.ModelForm):
+    profile_pic=forms.ImageField(label="Profile Picture")
+    class Meta:
+        model = AdminValidation
+        fields = ('profile_pic', )

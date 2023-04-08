@@ -34,6 +34,7 @@ class AdminValidation(models.Model):
     campus = models.CharField(max_length = 100)
     role = models.CharField(max_length = 100)
     hours = models.IntegerField(default=0)
+    profile_pic = models.ImageField(upload_to='images/profile_pics/', blank=True)
     
     class Meta:
         db_table = "val_users"

@@ -5,7 +5,7 @@ from django.urls import reverse
 from projects.models import Task
 from django.contrib.auth.models import User
 from .models import UserProfile
-from .forms import RegistrationForm
+from .forms import RegistrationForm,ProfileForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from consultancy2.models import *
 from django.contrib.auth.decorators import login_required
@@ -71,6 +71,9 @@ def user_view(request, profile_id):
     prof=request.user.groups.filter(name='Professor')
     srintern=request.user.groups.filter(name='Sr Intern')
     user_val = AdminValidation.objects.get(username=user.user.username)
+    form = ProfileForm(request.POST or None,request.FILES or None,instance=user_val)
+    if form.is_valid():
+        form.save()
     var = findtemp(request)
     baseurl = "core"
     context = {
@@ -80,6 +83,7 @@ def user_view(request, profile_id):
         'temp':var,
         'prof':prof,
         'srintern':srintern,
+        'form':form,
     }
     return render(request, 'register/user.html', context)
 
@@ -93,3 +97,4 @@ def deltask(request,task):
         task.delete()
     uid=profile_id
     return redirect('register:user',uid)
+
