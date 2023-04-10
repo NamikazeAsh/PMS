@@ -193,6 +193,8 @@
           </div>
         </div>
       
+
+        {% if head_consultant %}
         <div class="row" style="margin-top: 2.1rem; ">
           <div class="col-md-12 col-12">
             <div class="card " style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
@@ -341,6 +343,9 @@
         {% include 'addProfessorModal.html' with projectid=pid %}
         {% include 'addIncomeModal.html' with projectid=pid %}
         {% include 'addExpenseModal.html' with projectid=pid %}
+
+
+        {% endif %}
 
 
 

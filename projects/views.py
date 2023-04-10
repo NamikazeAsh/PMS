@@ -254,7 +254,7 @@ def edit_project(request,id):
     return render(request, 'projects/edit_project.html', context)    
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Head Consultant'])
+@allowed_users(allowed_roles=['Head Consultant', 'Lead Consultant'])
 def ProjectProfile(request, id):
     projdet = Project.objects.filter(id = id)
     
@@ -262,6 +262,7 @@ def ProjectProfile(request, id):
     pcomments = get_object_or_404(Project, id=id)
     username = request.user.is_authenticated
     allcomments = pcomments.proj_comments.filter(status=True)
+    headconsultant = request.user.groups.filter(name='Head Consultant')
     
     page = request.GET.get('page', 1)
 
@@ -365,6 +366,7 @@ def ProjectProfile(request, id):
     return render(request, 'projectprofile.html', {'projdet': projdet,
         'pid':id,
         'temp':var,
+        'head_consultant': headconsultant,
         'team_name':team_name,
         'team_members':team_members,
         'pcname':pcname,
