@@ -1,5 +1,3 @@
-# cal/views.py
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -128,9 +126,7 @@ def add_eventmember(request, event_id):
                 user = forms.cleaned_data["user"]
                 print(user)
                 EventMember.objects.create(event=event, user=user)
-                # instance=EventMember.objects.create(event=event)
-                # instance.user.set(user)
-                return redirect("calendarapp:calendar")
+                return event_details(request,event_id)
             else:
                 print("--------------User limit exceed!-----------------")
     var = findtemp(request)
@@ -170,12 +166,9 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         for item in s:
             if item.user == request.user:
                 k.append(item.event)
-        # s = EventMember.objects.filter(user_id=request.user.id, is_active=True, is_deleted=False).values_list('event_id')
-        # k = Event.objects.get()
         eve = Event.objects.get_running_events(user=request.user)
         m =[]
         event_list = []
-        # start: '2020-09-16T16:00:00'
         for event in events:
             event_list.append(
                 {
@@ -214,17 +207,6 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             form = forms.save(commit=False)
             form.user = request.user
             form.save()
-            
-            # print("Milestone created")
-            # # ------------------------------- Email Section ------------------------------ #
-            # send_mail(
-            #         '[Christ Consulting] Milestone created!',
-            #         'Milestone has been created, please check it out!',
-            #         'ashwin.satish@science.christuniversity.in',
-            #         ['pervnamisenpai@gmail.com'],
-            #         fail_silently=False,
-            #     )
-            # print("Email Sent")
             return redirect("calendarapp:calendar")
         var = findtemp(request)
         context = {"form": forms,'temp':var,}

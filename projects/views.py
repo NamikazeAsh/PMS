@@ -1,3 +1,5 @@
+from django.forms import modelformset_factory
+
 from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect,HttpResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
@@ -240,14 +242,17 @@ def projects(request):
 
 @login_required(login_url='login')
 def edit_project(request,id):
-    project = Project.objects.get(id=id)
-    form=ProjectRegistrationForm(instance=project)
+    project = get_object_or_404(Project,id=id)
     if request.method == 'POST':
-        
         form = ProjectRegistrationForm(request.POST,instance=project)
         if form.is_valid():
+            project.assign.clear()
+            for team in form.cleaned_data['assign']:
+                project.assign.add(team)
             form.save()
             return redirect('projects:projects')
+    else:
+        form = ProjectRegistrationForm(instance=project)
     var = findtemp(request)
     
     context = {'form':form,'temp':var,}
@@ -305,8 +310,9 @@ def ProjectProfile(request, id):
             user_comment.username=request.user.username
             user_comment.project = pcomments
             user_comment.save()
-            print('User saved')
-            return redirect('projects:project-profile',id= pcomments.id)
+            url = reverse('projects:project-profile', args=[pcomments.id]) + '#comment_section'
+            
+            return redirect(url)
         
     else:
         comment_form = ProjectCommentForm()
@@ -397,7 +403,8 @@ def deletecomment(request,id):
     
     users_comment.delete()
     pid = users_comment.project.id
-    return redirect('projects:project-profile',pid)
+    url = reverse('projects:project-profile', args=[pid]) + '#comment_section'
+    return redirect(url)
 
 @login_required(login_url='login')
 def newTeam(request):
@@ -499,17 +506,17 @@ def UploadRefProjectDocs(request,id):
 
 @login_required(login_url='login')
 def editTeamInfo(request, id):
-
-    task = Team.objects.get(id=id)
-    current_user = request.user
-    form=TeamRegistrationForm(instance=task)
-    
+    team = get_object_or_404(Team,id=id)    
     if request.method == 'POST':
-        form = TeamRegistrationForm(request.POST, instance=task)
+        form = TeamRegistrationForm(request.POST, instance=team)
         if form.is_valid():
+            team.assign.clear()
+            for user in form.cleaned_data['assign']:
+                team.assign.add(user)
             form.save()
             return redirect("/projects/team-views/")
-
+    else:
+        form = TeamRegistrationForm(instance=team)
     var = findtemp(request)
     context = {'form': form, 'temp':var,}
     return render(request, 'projects/editTeam.html', context) 
