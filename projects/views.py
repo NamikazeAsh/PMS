@@ -309,8 +309,9 @@ def ProjectProfile(request, id):
             user_comment.username=request.user.username
             user_comment.project = pcomments
             user_comment.save()
-            print('User saved')
-            return redirect('projects:project-profile',id= pcomments.id)
+            url = reverse('projects:project-profile', args=[pcomments.id]) + '#comment_section'
+            
+            return redirect(url)
         
     else:
         comment_form = ProjectCommentForm()
@@ -400,7 +401,8 @@ def deletecomment(request,id):
     
     users_comment.delete()
     pid = users_comment.project.id
-    return redirect('projects:project-profile',pid)
+    url = reverse('projects:project-profile', args=[pid]) + '#comment_section'
+    return redirect(url)
 
 @login_required(login_url='login')
 def newTeam(request):
