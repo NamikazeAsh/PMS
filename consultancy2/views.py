@@ -865,6 +865,7 @@ def SendAdminRequest(request):
         requesto = RequestModel()
         requesto.name = request.user.username
         requesto.requestmsg = request.POST.get('feedback')
+        requesto.reqdate = datetime.datetime.now()
         requesto.save()
         
     return HttpResponseRedirect(reverse('signup'))

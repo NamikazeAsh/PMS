@@ -252,6 +252,7 @@
                                 <tr role="row">
                                     <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
                                     <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Requests</th>
+                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Date of Request</th>
                                     <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
@@ -260,6 +261,7 @@
                                 <tr role="row" class="odd text-center">
                                     <td>{{request.name}}</td>
                                     <td>{{request.requestmsg}}</td>
+                                    <td>{{request.reqdate}}</td>
                                     <td><a href="/adminrequestdel/{{request.id}}" style="color:red;text-decoration: none;font-weight: bolder;"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></td>
                                 </tr>
                                 {% endfor %}
