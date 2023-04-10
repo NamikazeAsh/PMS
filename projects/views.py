@@ -1,3 +1,5 @@
+from django.forms import modelformset_factory
+
 from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect,HttpResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
@@ -234,14 +236,17 @@ def projects(request):
 
 @login_required(login_url='login')
 def edit_project(request,id):
-    project = Project.objects.get(id=id)
-    form=ProjectRegistrationForm(instance=project)
+    project = get_object_or_404(Project,id=id)
     if request.method == 'POST':
-        
         form = ProjectRegistrationForm(request.POST,instance=project)
         if form.is_valid():
+            project.assign.clear()
+            for team in form.cleaned_data['assign']:
+                project.assign.add(team)
             form.save()
             return redirect('projects:projects')
+    else:
+        form = ProjectRegistrationForm(instance=project)
     var = findtemp(request)
     
     context = {'form':form,'temp':var,}
@@ -491,17 +496,17 @@ def UploadRefProjectDocs(request,id):
 
 @login_required(login_url='login')
 def editTeamInfo(request, id):
-
-    task = Team.objects.get(id=id)
-    current_user = request.user
-    form=TeamRegistrationForm(instance=task)
-    
+    team = get_object_or_404(Team,id=id)    
     if request.method == 'POST':
-        form = TeamRegistrationForm(request.POST, instance=task)
+        form = TeamRegistrationForm(request.POST, instance=team)
         if form.is_valid():
+            team.assign.clear()
+            for user in form.cleaned_data['assign']:
+                team.assign.add(user)
             form.save()
             return redirect("/projects/team-views/")
-
+    else:
+        form = TeamRegistrationForm(instance=team)
     var = findtemp(request)
     context = {'form': form, 'temp':var,}
     return render(request, 'projects/editTeam.html', context) 
