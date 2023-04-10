@@ -1,12 +1,13 @@
+import datetime
 from distutils.command.upload import upload
 from email.policy import default
 from enum import unique
 from pickle import TRUE
 from tabnanny import verbose
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,AbstractUser
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
+                                        BaseUserManager, User)
+from django.db import models
 
 
 class SignInInsert(models.Model):
@@ -50,6 +51,7 @@ class HourVal(models.Model):
 class RequestModel(models.Model):
 
     name = models.CharField(max_length=100)
+    reqdate = models.DateTimeField(max_length=100,default=datetime.datetime.now())
     requestmsg = models.CharField(max_length=1000)
 
 

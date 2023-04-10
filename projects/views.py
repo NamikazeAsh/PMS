@@ -49,11 +49,13 @@ def findtemp(request):
 def teams(request):
     
     teams = Team.objects.all()
-    teamd = {}
+    teamd = []
     tl = teams.values_list()
 
     team_name = []
+    team_id =[]
     for tname in tl:
+        team_id.append(tname[0])
         team_name.append(tname[1])
         
     team_members = []
@@ -65,8 +67,12 @@ def teams(request):
         team_members.append(members)
     
     for i in range(len(team_name)):
-        teamd[team_name[i]] = team_members[i]
-    
+        teamDict = {}
+        teamDict['id'] = team_id[i]
+        teamDict['teamName'] = team_name[i]
+        teamDict['members'] = team_members[i]
+        teamd.append(teamDict)
+
     var = findtemp(request)
     context = {
         'temp':var,

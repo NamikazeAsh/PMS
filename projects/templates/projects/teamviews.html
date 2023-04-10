@@ -128,16 +128,16 @@
                                     <th class="text-center h4" style="width: 20% !important;"><b>Edit</b></th>
                                 </tr>
 
-                                {% for key,value in teamd.items %}
+                                {% for team in teamd %}
                                     <tr>
-                                        <td class="text-center h5">{{key}}</td>
+                                        <td class="text-center h5">{{team.teamName}}</td>
                                         <td class="text-center h5">
-                                            {% for c in value %}
+                                            {% for c in team.members %}
                                                 <li class="my-1">{{c}}</li>
                                             {% endfor %}
                                         </td>
                                         <td class="text-center align-items-center border-0 h-100">
-                                            <a href="/projects/projects/editteam/1" class="btn"><div class="" style="width: 5rem;"><img src="{% static "icons/edit.svg" %}" style="cursor: pointer;"></img></div></a>
+                                            <a href="/projects/projects/editteam/{{team.id}}" class="btn"><div class="" style="width: 5rem;"><img src="{% static "icons/edit.svg" %}" style="cursor: pointer;"></img></div></a>
                                         </td>
                                     </tr>
                                 {% endfor %}
