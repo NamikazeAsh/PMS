@@ -130,7 +130,7 @@ def add_eventmember(request, event_id):
                 EventMember.objects.create(event=event, user=user)
                 # instance=EventMember.objects.create(event=event)
                 # instance.user.set(user)
-                return redirect("calendarapp:calendar")
+                return event_details(request,event_id)
             else:
                 print("--------------User limit exceed!-----------------")
     var = findtemp(request)
