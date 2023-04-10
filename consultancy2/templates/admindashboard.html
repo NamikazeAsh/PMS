@@ -131,8 +131,48 @@
                     rows[i].style.display = "";
                 }
             }
+
+            function search_user2()
+            {
+                var input,table,tr,td,filter,txtdata;
+                input=document.getElementById("request_search");
+                filter=input.value.toUpperCase();
+                table=document.getElementById("sampleTable");
+                tr=table.getElementsByTagName("tr");
+                
+                for(i=0;i<tr.length;i++)
+                {
+                    td=tr[i].getElementsByTagName("td")[0];
+                    if(td)
+                    {
+                        txtdata=td.innerText;
+                        if(txtdata.toUpperCase().indexOf(filter)>-1)
+                        {
+                            tr[i].style.display="";
+                        }
+                        else
+                        {
+                            tr[i].style.display="none";
+                        }
+                    }
+                }
+
+            }
+
+
+            function clearField3()
+            {
+                var table = document.getElementById("sampleTable");
+                var searchBox = document.getElementById("request_search");
+                searchBox.value = "";
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].style.display = "";
+                }
+            }
         </script>
-        </script>
+
+        
 
         
     </head>
@@ -200,13 +240,18 @@
                 <div class="card p-4 m-5" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
                     <h3 class="text-center">Requests</h3>
                     <div class="col-sm-12">
-                        Search Bar
+                        <div class = "Filters" style="text-align:center; margin: 20px; padding-top: 2rem;">
+                            <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>                                
+                                <input type="text" id="request_search" placeholder="Search Records" onkeyup="search_user2();" style="height: 2rem; border-radius: .5rem; border: 1px solid black" class="ml-1">
+                                <input type="button" value="Clear" onclick= "clearField3();" class="ml-1 btn btn-dark position-relative py-0" style="height: 2rem; top: -2px; border-radius: .5rem;">
+                        </div>
+
                         <table class="table table-hover table-bordered mt-3 mb-5" id="sampleTable" role="grid"
                             aria-describedby="sampleTable_info">
                             <thead class="thead-dark">
                                 <tr role="row">
                                     <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
-                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >User</th>
+                                    <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Requests</th>
                                     <th class="sorting text-center" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" >Delete</th>
                                 </tr>
                             </thead>
