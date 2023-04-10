@@ -546,7 +546,9 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#finance_section'
+    return redirect(url)
 
 
 def addIncome(request, id) :
@@ -596,7 +598,9 @@ def addIncome(request, id) :
             saveIncome.incomes = finalJson
             saveIncome.project_id = projDetails
             saveIncome.save()
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#income_section'
+    return redirect(url)
 
 
 def addExpense(request,id) :
@@ -647,7 +651,9 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#expense_section'
+    return redirect(url)
 
 
 def addProfessor(request, id) :
@@ -700,7 +706,9 @@ def addProfessor(request, id) :
             saveProfessor.project_id = projDetails
             saveProfessor.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#disbursement_section'
+    return redirect(url)
 
 
 def editExpenseInfo(request, id, eid):
@@ -729,7 +737,9 @@ def editExpenseInfo(request, id, eid):
         financeExpense.expenses = json.dumps(updatedExpenseDict)
         financeExpense.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#expense_section'
+    return redirect(url)
 
 
 def editIncomeInfo(request, id, iid):
@@ -759,7 +769,9 @@ def editIncomeInfo(request, id, iid):
         finance.incomes = json.dumps(updatedIncomeDict)
         finance.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#income_section'
+    return redirect(url)
 
 
 def editProfessorInfo(request, id, pid):
@@ -788,7 +800,9 @@ def editProfessorInfo(request, id, pid):
 
         financeProf.professor = json.dumps(updatedProfDict)
         financeProf.save()
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#disbursement_section'
+    return redirect(url)
 
 
 @allowed_users(allowed_roles=['Admin'])

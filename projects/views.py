@@ -310,7 +310,6 @@ def ProjectProfile(request, id):
             user_comment.project = pcomments
             user_comment.save()
             url = reverse('projects:project-profile', args=[pcomments.id]) + '#comment_section'
-            
             return redirect(url)
         
     else:
@@ -486,7 +485,9 @@ def UploadProjectDocs(request,id):
         else:
             print("Nothing to upload")
     
-    return projects(request)
+    # return projects(request)
+    url = reverse('projects:projects') +'#projects'
+    return redirect(url)
 
 @login_required(login_url='login')
 def UploadRefProjectDocs(request,id):
