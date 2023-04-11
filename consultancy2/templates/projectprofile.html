@@ -93,7 +93,7 @@
     align-items: center;
   }
   #newForm {
-    width: 30%;
+    width: 50%;
     border: 1px grey solid;
     border-radius: 1rem;
     display: block;
@@ -101,9 +101,6 @@
   #newForm button {
     border-radius: .5rem;
     width: fit-content;
-  }
-  #newForm textarea {
-    {% comment %} width: 50%; {% endcomment %}
   }
 </style>
 {% endblock extracss %}
@@ -120,8 +117,8 @@
     }
 
     var d1 = document.getElementById(id);
-    d1.insertAdjacentHTML('afterend',
-      '<form id="newForm" class="form-insert py-2 d-flex flex-column justify-content-center align-items-center" method="post"> \
+    d1.insertAdjacentHTML('beforeend',
+                '<form id="newForm" class="form-insert py-2 d-flex flex-column justify-content-center align-items-center ml-5" method="post"> \
                   <h3>Reply:</h3> \
                   <select name="parent" class="d-none" id="id_parentt"> \
                   <option value="' + id + '" selected="' + id + '"></option> \
