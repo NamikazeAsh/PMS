@@ -69,9 +69,12 @@ def SignIn(request):
             refprojectslist = []
             for tid in teamslist:
                 project = Project.objects.filter(assign = tid)
-                if project.exists(): 
-                    if project[0].refdocuments:
-                        refprojectslist.append(project[0])
+                print("Project: ",project)
+                if project.exists():
+                    for x in range(len(project)):
+                        if project[x].refdocuments:
+                            if project[x] not in refprojectslist:    
+                                refprojectslist.append(project[x])
             
             return render(request,'intern/tempintern.html',{"refprojectslist":refprojectslist})
         
@@ -86,9 +89,12 @@ def SignIn(request):
             refprojectslist = []
             for tid in teamslist:
                 project = Project.objects.filter(assign = tid)
-                if project.exists():    
-                    if project[0].refdocuments:
-                        refprojectslist.append(project[0])
+                print("Project: ",project)
+                if project.exists():
+                    for x in range(len(project)):
+                        if project[x].refdocuments:
+                            if project[x] not in refprojectslist:    
+                                refprojectslist.append(project[x])
             
             return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
         
@@ -103,9 +109,12 @@ def SignIn(request):
             refprojectslist = []
             for tid in teamslist:
                 project = Project.objects.filter(assign = tid)
-                if project.exists():    
-                    if project[0].refdocuments:
-                        refprojectslist.append(project[0])
+                print("Project: ",project)
+                if project.exists():
+                    for x in range(len(project)):
+                        if project[x].refdocuments:
+                            if project[x] not in refprojectslist:    
+                                refprojectslist.append(project[x])
                         
             return render(request,'srintern/tempsrintern.html',{"refprojectslist":refprojectslist})
         
