@@ -487,7 +487,6 @@ def UploadProjectDocs(request,id):
         else:
             print("Nothing to upload")
     
-    # return projects(request)
     url = reverse('projects:projects') +'#projects'
     return redirect(url)
 
@@ -503,7 +502,8 @@ def UploadRefProjectDocs(request,id):
         else:
             print("Nothing to upload")
     
-    return projects(request)
+    url = reverse('projects:projects') +'#projects'
+    return redirect(url)
 
 @login_required(login_url='login')
 def editTeamInfo(request, id):
