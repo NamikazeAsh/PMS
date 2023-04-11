@@ -1,3 +1,4 @@
+from urllib.parse import urlencode
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -137,8 +138,11 @@ def add_eventmember(request, event_id):
 class EventMemberDeleteView(generic.DeleteView):
     model = EventMember
     template_name = "calendarapp/event_delete.html"
-    success_url = reverse_lazy("calendarapp:calendar")
-
+    
+    def get_success_url(self):
+        event_id = self.object.event_id
+        return reverse_lazy("calendarapp:event-detail", kwargs={"event_id": event_id})
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get("month", None))
@@ -150,6 +154,8 @@ class EventMemberDeleteView(generic.DeleteView):
         context["next_month"] = next_month(d)
         context["temp"] = var
         return context
+    
+
 
 
 class CalendarViewNew(LoginRequiredMixin, generic.View):

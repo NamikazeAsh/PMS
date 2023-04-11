@@ -223,70 +223,15 @@ def LogIn(request):
                     authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
                     login(request, authenticated_user)
                     if request.user.groups.filter(name='Intern').exists():
-                        return render(request,'intern/tempintern.html')
+                        return redirect('signup')
                     elif request.user.groups.filter(name='Sr Intern').exists():
-                        return render(request,'srintern/tempsrintern.html')
+                        return redirect('signup')
                     elif request.user.groups.filter(name='Professor').exists():
-                        return render(request,'srintern/tempsrintern.html')
+                        return redirect('signup')
                     elif request.user.groups.filter(name='Lead Consultant').exists():
-                        return render(request,'consultant/templeadc.html')
+                        return redirect('signup')
                     elif request.user.groups.filter(name='Head Consultant').exists():
-                        finanaceData = FinanceModel.objects.all()
-
-                        # Making Bar Graph for Highest total Income
-                        net_amount = []
-                        tempDict = dict()
-            
-                        for project in finanaceData:
-                            projectName = Project.objects.filter(id=project.project_id_id)[0].name
-                            tempDict[projectName] = project.net_amt
-                        tempDict = sorted(tempDict.items(), key=lambda x:x[1], reverse=True)
-                        tempDict = dict(tempDict[:10])
-                        random_x = list(tempDict.keys())
-                        random_y = list(tempDict.values())
-                        fig = px.bar(x = random_x, y = random_y, title = "Projects with Top Total Amount", labels={"x": "Project name","y": "Total Amount"},) 
-                        bar_plot = plot(fig, output_type="div")
-                        context = {'plot_div_main': bar_plot}
-            
-                        # Making Waterfall Graph for Every Project
-                        projectNameWaterfall = []
-                        initialAmount = []
-                        amountToCU = []
-                        expenses = []
-                        incomes = []
-                        totalAmount = []
-            
-                        for project in finanaceData:
-                            projectNameWaterfall.append(Project.objects.filter(id=project.project_id_id)[0].name)
-                            initialAmount.append(project.amtreceived)
-                            amountToCU.append(-abs(project.amtreceived * (project.cupercentage/100)))
-                            expenses.append(0 if project.total_expenses == None else -abs(project.total_expenses))
-                            # expenses.append(project.net_expenses)
-                            incomes.append(0 if project.total_incomes == None else project.total_incomes)
-                            # incomes.append(project.net_incomes)
-                            totalAmount.append(project.net_amt)
-            
-                        tempDictForGraph = {}
-                        for i in range(len(projectNameWaterfall)):
-                            fig = go.Figure(go.Waterfall(
-                                measure = ["relative", "relative", "relative", "relative", "total"],
-                                x = ["Recieved Amount", "Amount to CU", "Expenses", "Incomes", "Total"],
-                                textposition = "outside",
-                                text = [f"{initialAmount[i]}", f"{amountToCU[i]}", f"{expenses[i]}", f"{incomes[i]}", f"{totalAmount[i]}"],
-                                y = [initialAmount[i], amountToCU[i], expenses[i], incomes[i], totalAmount[i]],
-                                connector = {"line":{"color":"rgb(63, 63, 63)"}},
-                            ))
-                            fig.update_layout(
-                                title = projectNameWaterfall[i],
-                                showlegend = False,
-                                width = 500, height =  550, 
-                            )
-                            waterfall_plot = plot(fig, output_type="div")
-                            tempDictForGraph[f"{projectNameWaterfall[i]}"] = waterfall_plot
-            
-                        demo = {'projectNames': {'project1': 'graph', 'project2': 'graph'}}
-                        context["projectNames"] = tempDictForGraph
-                        return render(request, 'consultant/tempheadc.html', context)
+                        return redirect('signup')
 
                     elif request.user.groups.filter(name='Admin').exists():
                         return redirect('admindashboard')
@@ -546,7 +491,9 @@ def editBasicFinanceInfo(request,id) :
             savebasicinfo.cupercentage = cuPercent
             savebasicinfo.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#finance_section'
+    return redirect(url)
 
 
 def addIncome(request, id) :
@@ -596,7 +543,9 @@ def addIncome(request, id) :
             saveIncome.incomes = finalJson
             saveIncome.project_id = projDetails
             saveIncome.save()
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#income_section'
+    return redirect(url)
 
 
 def addExpense(request,id) :
@@ -647,7 +596,9 @@ def addExpense(request,id) :
             saveExpense.project_id = projDetails
             saveExpense.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#expense_section'
+    return redirect(url)
 
 
 def addProfessor(request, id) :
@@ -700,7 +651,9 @@ def addProfessor(request, id) :
             saveProfessor.project_id = projDetails
             saveProfessor.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#disbursement_section'
+    return redirect(url)
 
 
 def editExpenseInfo(request, id, eid):
@@ -729,7 +682,9 @@ def editExpenseInfo(request, id, eid):
         financeExpense.expenses = json.dumps(updatedExpenseDict)
         financeExpense.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#expense_section'
+    return redirect(url)
 
 
 def editIncomeInfo(request, id, iid):
@@ -759,7 +714,9 @@ def editIncomeInfo(request, id, iid):
         finance.incomes = json.dumps(updatedIncomeDict)
         finance.save()
 
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#income_section'
+    return redirect(url)
 
 
 def editProfessorInfo(request, id, pid):
@@ -788,7 +745,9 @@ def editProfessorInfo(request, id, pid):
 
         financeProf.professor = json.dumps(updatedProfDict)
         financeProf.save()
-    return redirect(f'/projects/projects/project/{id}')
+    # return redirect(f'/projects/projects/project/{id}')
+    url = reverse('projects:project-profile', args=[id]) + '#disbursement_section'
+    return redirect(url)
 
 
 @allowed_users(allowed_roles=['Admin'])
