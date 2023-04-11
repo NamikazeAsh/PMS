@@ -85,6 +85,26 @@
     background-color: #000000;
     border: 2px solid #555555;
   }
+  .children {
+    width:70%;
+    padding-left: 0px !important;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  #newForm {
+    width: 30%;
+    border: 1px grey solid;
+    border-radius: 1rem;
+    display: block;
+  }
+  #newForm button {
+    border-radius: .5rem;
+    width: fit-content;
+  }
+  #newForm textarea {
+    {% comment %} width: 50%; {% endcomment %}
+  }
 </style>
 {% endblock extracss %}
 
@@ -101,15 +121,14 @@
 
     var d1 = document.getElementById(id);
     d1.insertAdjacentHTML('afterend',
-      '<form id="newForm" class="form-insert py-2" method="post"> \
-                  <div class="d-flex justify-content-between"><h3>Reply:</h3><div><button type="button" class="btn btn-outline-secondary" onclick="formExit()"">Close</button></div></div> \
+      '<form id="newForm" class="form-insert py-2 d-flex flex-column justify-content-center align-items-center" method="post"> \
+                  <h3>Reply:</h3> \
                   <select name="parent" class="d-none" id="id_parentt"> \
                   <option value="' + id + '" selected="' + id + '"></option> \
                   </select> \
-                  <label for="id_content">Content:</label> \
-                  <textarea name="content" cols="0" rows="1" class="ml-3 mb-3 form-control border-0 comment-add rounded-0" required id="id_content" placeholder="Add a comment"></textarea> \
+                  <textarea name="content" cols="0" rows="1" class="ml-3 mb-3 form-control border-0 comment-add rounded-0" style="width: 80%;" required id="id_content" placeholder="Add a reply"></textarea> \
                   {% csrf_token %} \
-                  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button> \
+                  <div class="d-flex justify-content-around w-100"><button type="submit" class="btn btn-dark btn-block text-light">Submit</button><button type="button" class="btn btn-dark text-light" onclick="formExit()"">Close</button></div> \
                 </form>');
 
     //document.querySelector('#id_parentt [value="' + id + '"]').selected = true;
@@ -382,7 +401,7 @@
                 {% endrecursetree %}
               </div>
 
-              <div class="py-4">
+              <div class="py-4 d-flex justify-content-center align-items-center">
                 <nav aria-label="Page navigation example">
                   {% if comments.has_other_pages %}
                   <ul class="pagination">
