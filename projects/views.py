@@ -339,7 +339,6 @@ def ProjectProfile(request, id):
                 totalIncome = totalIncome + (int(i['amount']))
 
             finance_details[0].total_incomes = totalIncome
-            print(finance_details[0].total_incomes)
             finance_details[0].save()
 
         if finance_details[0].expenses:
