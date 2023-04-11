@@ -123,6 +123,7 @@
 
                             <table class="table table-bordered table-hover" style="width:70%;" id="teams_table">
                                 <tr class="thead-dark">
+                                    <th class="text-center h4" style="width: 40% !important;"><b>ID</b></th>
                                     <th class="text-center h4" style="width: 40% !important;"><b>Name</b></th>
                                     <th class="text-center h4" style="width: 40% !important;"><b>Members</b></th>
                                     <th class="text-center h4" style="width: 20% !important;"><b>Edit</b></th>
@@ -130,6 +131,7 @@
 
                                 {% for team in teamd %}
                                     <tr>
+                                        <td class="text-center h5">{{team.id}}</td>
                                         <td class="text-center h5">{{team.teamName}}</td>
                                         <td class="text-center h5">
                                             {% for c in team.members %}
