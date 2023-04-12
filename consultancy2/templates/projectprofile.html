@@ -2,107 +2,6 @@
 {% load static %}
 
 {% block extracss %}
-{% comment %} <style>
- @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
-
-  .h1 {
-    font-family: 'PT Serif', serif;
-    font-size: 2.55rem;
-    line-height: 2.6rem;
-    letter-spacing: -0.063px;
-  }
-
-  h2 {
-    font-family: 'PT Serif', serif;
-    font-size: 1.9rem;
-    line-height: 2.6rem;
-    letter-spacing: -0.063px;
-    font-weight: 700;
-    padding-top: 48px;
-  }
-
-  p {
-    font-family: 'PT Serif', serif;
-    line-height: 2rem;
-    font-size: 1.3rem
-  }
-
-  @media screen and (min-width: 600px) {
-    .children form {
-      margin-left: -48px;
-      /* will touch very left side */
-    }
-
-    .children .children form {
-      margin-left: -96px;
-      /* will touch very left side */
-    }
-  }
-
-  .avatar_comment,
-  .avatar_single {
-    height: 48px;
-    width: 48px;
-    background-color: #000;
-    border-radius: 50%;
-    display: inline-block;
-
-  }
-
-  .smaller {
-    font-size: 0.8rem;
-  }
-
-  .thumb-active {
-    fill: blue
-  }
-
-  .comment-add {
-    border-bottom: 1px solid #ccc !important;
-  }
-
-  .comment-add:focus {
-    border-color: #1497ff;
-    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
-  }
-
-  .node-content {
-    padding-left: 64px;
-  }
-  #style-4::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
-  }
-
-  #style-4::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-    background-color: #F5F5F5;
-  }
-
-  #style-4::-webkit-scrollbar-thumb {
-    background-color: #000000;
-    border: 2px solid #555555;
-  }
-  .children {
-    width:70%;
-    padding-left: 0px !important;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-  }
-  #newForm {
-    width: 50%;
-    border: 1px grey solid;
-    border-radius: 1rem;
-    display: block;
-  }
-  #newForm button {
-    border-radius: .5rem;
-    width: fit-content;
-  }
-</style> {% endcomment %}
 <style>
  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
@@ -170,6 +69,28 @@
 
   .node-content {
     padding-left: 64px;
+  }
+
+  #style-4::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+  }
+
+  #style-4::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: #F5F5F5;
+  }
+
+  #style-4::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border: 2px solid #555555;
+  }
+
+  .container button {
+    width: fit-content;
+    border-radius: .5rem;
+    background-color: #29363d;
   }
 
 </style>
@@ -440,84 +361,7 @@
           <div class="col-md-12 col-12">
             <div class="card" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
 
-
-
-
-              {% comment %} <div class="py-4">
-                {% with allcomments.count as total_comments %}
-                <center><h4 class="mb-0 pl-4">{{ total_comments }} Comments</h4></center>
-                {% endwith %}
-              </div>
-
-              {% load mptt_tags %}
-              
-
-              <div class="d-flex justify-content-center align-items-center flex-column">
-                {% recursetree comments %}
-                <div id="{{ node.id }}" class="my-2 p-4" style="border: 1px solid grey; border-radius: 1rem; width:70%">
-                  <div class="d-flex justify-content-between"><b>By {{ node.username }}</b><div class="text-muted">{{node.date_time }}</div></div>
-                  <div>{{ node.content }}</div>
-                  <div class="d-flex align-items-center justify-content-end">
-                  {% if node.level < 3 %} 
-                  <button class="btn btn-dark mx-2" style="border-radius:.5rem;" onclick="myFunction({{node.id}})">Reply</button>
-                  <a href="/projects/projects/deletecomment/{{node.id}}" class="text-light mx-2"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a>
-                  {% endif %}
-                </div>
-                <hr>
-                </div>
-                {% if not node.is_leaf_node %}
-                <div class="children pl-2 pl-md-5">
-                  {{ children }}
-                </div>
-                {% endif %}
-                {% endrecursetree %}
-              </div>
-
-              <div class="py-4 d-flex justify-content-center align-items-center">
-                <nav aria-label="Page navigation example">
-                  {% if comments.has_other_pages %}
-                  <ul class="pagination">
-                    {% if comments.has_previous %}
-                    <li class="page-item"><a class="page-link"
-                        href="?page={{ comments.previous_page_number }}">Previous</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    {% endif %}
-                    {% for num in comments.paginator.page_range %}
-                    {% if comments.number == l %}
-                    <li class="page-item active"><span class="page-link">{{ num }} <span
-                          class="sr-only">(current)</span></span>
-                    </li>
-                    {% else %}
-                    <li><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                    {% if comments.has_next %}
-                    <li class="page-item"><a class="page-link"
-                        href="?page={{ comments.next_page_number }}">Next</a></li>
-                    {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                    {% endif %}
-                  </ul>
-                  {% endif %}
-                </nav>
-              </div>
-
-              <div id="myDIV" style="display:block;">
-                <form id="myForm" method="post">
-                  <h2 class="text-center">Create new comment</h2>
-                  <div class="d-flex justify-content-center align-items-center flex-column">
-                    {{ comment_form.as_p }}
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-dark px-5 mb-4" style="border-radius:.5rem;" >Submit</button>
-                  </div>
-                </form>
-              </div> {% endcomment %}
-
-
-
-              <div class="container">
+              <div class="container mb-5">
                       <div class="row justify-content-md-center pt-5">
 
                         <div class="col-md-7">
@@ -532,15 +376,15 @@
 
                           <div>
                             {% recursetree comments %}
-                            <div id="{{ node.id }}" class="my-2 p-2" style="border: 1px solid grey">
-                              <div class="d-flex justify-content-between">By {{ node.username }}<div></div>{{node.date_time }}</div>
+                            <div id="{{ node.id }}" class="my-4 p-3 pb-3" style="border: 1px solid grey; border-radius:1rem;">
+                              <div class="d-flex justify-content-between text-muted"><b>By: {{ node.username }}</b><div></div>{{node.date_time }}</div>
                               <div>{{ node.content }}</div>
                               <div class="d-flex flex-row-reverse">
-                              {% if node.level < 3 %} <button class="btn btn-primary btn-sm" onclick="myFunction({{node.id}})">Reply</button>
-                              <button class="btn btn-outline-secondary btn-sm mr-2"><a href="/projects/projects/deletecomment/{{node.id}}">Delete</a></button>
+                              {% if node.level < 3 %} <button class="btn btn-dark btn-sm mr-2" onclick="myFunction({{node.id}})">Reply</button>
+                              <div class="mr-4"><a href="/projects/projects/deletecomment/{{node.id}}"><img src="{% static "icons/delete.svg" %}" style="cursor: pointer;"></img></a></div>
                                 {% endif %}
                             </div>
-                            <hr>
+                            {% comment %} <hr> {% endcomment %}
                             </div>
                             {% if not node.is_leaf_node %}
                             <div class="children pl-2 pl-md-5">
@@ -551,7 +395,7 @@
                           </div>
 
                           <div class="py-4">
-                            <nav aria-label="Page navigation example">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center align-items-center">
                               {% if comments.has_other_pages %}
                               <ul class="pagination">
                                 {% if comments.has_previous %}
@@ -593,14 +437,6 @@
                         </div>
                       </div>
                     </div>
-
-
-
-
-
-
-
-
 
             </div>
           </div>
