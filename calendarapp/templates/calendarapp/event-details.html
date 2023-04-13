@@ -70,7 +70,11 @@ Event Details
                             {% for member in eventmember %}
                             <tr role="row">
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td class="text-center">{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                                <td class="text-center">{% for ex in users2 %}
+                                    {% if member.user.username == ex.username %}
+                                    {{ex.firstname}} {{ex.lastname}}
+                                    {%endif%}
+                                    {%endfor%}</td>
                                 <td class="text-center">{{ member.user.username }}</td>
                                 <td class="text-center">{{ member.user.email }}</td>
                                 <td class="text-center">

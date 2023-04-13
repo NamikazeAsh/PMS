@@ -172,7 +172,7 @@
         <div class = "Filters mt-0 pt-5" style="text-align:center; margin: 20px;">
             <p style="display:inline; color: #000000; border-color: #a4b7c1;font-size: 16px;"><b> Filters</b></p>
                 <select id="choice" style="text-align:center; margin-left: 20px; height: 2rem; border-radius: .5rem;" class="ml-1">
-                    <option value="name">Name</option>
+                    <option value="name">Username</option>
                     <option value="role">Role</option>
                     <option value="campus">Campus</option>
                     <option value="exp">Hours worked</option>
@@ -203,11 +203,17 @@
                                 {{ user1.user.id }}
                             </td>
                             <td class="text-center">
-                                <a href="{% url 'register:user' profile_id=user1.user.id %}"> <span class="text-dark">{% if user1.user.get_full_name %}</span>
-                                <div><b>{{ user1.user.get_full_name }}{% if user1.user.is_staff %}</b> <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
-                                {% else %}
+                                <a href="{% url 'register:user' profile_id=user1.user.id %}" style="color: #212529;"> 
                                 <div>{{ user1.user.username }}{% if user1.user.is_staff %} <span class="badge badge-pill badge-dark"> staff</span> {% endif %}</div>
-                                {% endif %}
+                                <div class="small text-muted">
+                                    <span>Name</span> | <span class="text-dark"> 
+                                        {% for ex in users2 %}
+                                        {% if user1.user.username == ex.username %}
+                                        {{ex.firstname}} {{ex.lastname}}
+                                        {%endif%}
+                                        {%endfor%}
+                                    </span>
+                                    </div>
                                 <div class="small text-muted">
                                     <span>Email</span> | <span class="text-dark"> {{ user1.user.email }} </span>
                                     </div>

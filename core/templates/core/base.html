@@ -130,7 +130,9 @@
             <a class="nav-link nav-dropdown-toggle" href="#"><img class="mr-2" style="width:12%" src="{% static "core/icons/user.svg" %}" ></img>Users</a>
             <ul class="nav-dropdown-items">
               {% if user.is_authenticated %}
-              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register:user' user.id%}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Profile</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'user-hours' %}"><img class="mr-2" style="width:12%" src="{% static "core/icons/plus.svg" %}" ></img>Hours</a>
               </li>
