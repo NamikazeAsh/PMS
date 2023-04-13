@@ -195,7 +195,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                     "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                 }
             )
-            if event.end_time.date() >= datetime.datetime.now()(tz=timezone.utc).date():
+            if event.end_time.date() >= datetime.datetime.now(tz=timezone.utc).date():
                 m.append(
                     {
                         "id": event.id,
