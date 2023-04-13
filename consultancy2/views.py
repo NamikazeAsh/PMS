@@ -136,6 +136,9 @@ def SignIn(request):
             tempDict = dict(tempDict[:10])
             random_x = list(tempDict.keys())
             random_y = list(tempDict.values())
+            if len(random_x) == 0 or len(random_y ) == 0:
+                random_x = [0]
+                random_y = [0]
             fig = px.bar(x = random_x, y = random_y, title = "Projects with Top Total Amount", labels={"x": "Project name","y": "Total Amount"},) 
             bar_plot = plot(fig, output_type="div")
             context = {'plot_div_main': bar_plot}
