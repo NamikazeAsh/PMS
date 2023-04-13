@@ -133,9 +133,9 @@
                                     <tr>
                                         <td class="text-center h5">{{team.id}}</td>
                                         <td class="text-center h5">{{team.teamName}}</td>
-                                        <td class="text-center h5">
+                                        <td class="text-left h5" style="padding-left: 13%;">
                                             {% for c in team.members %}
-                                                <li class="my-1">{{c}}</li>
+                                                <li class="my-1" style="align-items:flex-start;">{{c}}</li>
                                             {% endfor %}
                                         </td>
                                         <td class="text-center align-items-center border-0 h-100">
@@ -157,4 +157,4 @@
 </div>
 
 
-{% endblock %}
+{% endblock %}  

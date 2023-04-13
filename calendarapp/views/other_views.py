@@ -119,22 +119,31 @@ def event_details(request, event_id):
 
 def add_eventmember(request, event_id):
     forms = AddMemberForm()
+    event = Event.objects.get(id=event_id)
+    member_count = EventMember.objects.filter(event=event).count()
+    is_member_warning = False
+    
     if request.method == "POST":
         forms = AddMemberForm(request.POST)
         if forms.is_valid():
-            member = EventMember.objects.filter(event=event_id)
-            event = Event.objects.get(id=event_id)
-            if member.count() <= 9:
-                
-                user = forms.cleaned_data["user"]
-                print(user)
+            user = forms.cleaned_data["user"]
+            member = EventMember.objects.filter(event=event, user=user)
+            if member.exists():
+                is_member_warning = True
+            else:
                 EventMember.objects.create(event=event, user=user)
                 return event_details(request,event_id)
-            else:
-                print("--------------User limit exceed!-----------------")
+
     var = findtemp(request)
-    context = {"form": forms,'temp':var,}
+    context = {
+        "form": forms,
+        "temp": var,
+        "event": event,
+        "member_count": member_count,
+        "is_member_warning": is_member_warning,
+    }
     return render(request, "calendarapp/add_member.html", context)
+
 
 
 class EventMemberDeleteView(generic.DeleteView):

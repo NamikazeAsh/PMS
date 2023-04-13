@@ -37,6 +37,11 @@ Add EventMember
       <div class="container-fluid w-50">
         <div class="animated fade-in">
           <div class="card p-4" style="box-shadow: 14px 12px 32px -5px rgba(0,0,0,0.75);">
+            {% if is_member_warning %}
+                <div class="alert alert-warning" role="alert">
+                  This user is already a member of the event.
+                </div>
+              {% endif %}
             <div class="d-flex justify-content-center align-items-center">
               <div class="w-100">
                 <form method="post">
