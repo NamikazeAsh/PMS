@@ -26,6 +26,7 @@ urlpatterns = [
     path("projects/project/<int:id>/deleteexpense/<int:eid>", views.deleteExpenseInfo, name="deleteExpenseInfo"),
     path("projects/project/<int:id>/deleteincome/<int:iid>", views.deleteIncomeInfo, name="deleteIncomeInfo"),
     path("projects/project/<int:id>/deleteprofessor/<int:pid>", views.deleteProfessorInfo, name="deleteProfessorInfo"),
+    path('projects/project/<int:id>/downloadfinancereport',views.DownloadFinanceReport,name='DownloadFinanceReport'),
 ]
 
 if settings.DEBUG:

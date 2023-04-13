@@ -585,3 +585,22 @@ def deleteProfessorInfo(request, id, pid):
         financeProf.save()
 
     return redirect(f'/projects/projects/project/{id}')
+
+@login_required(login_url='login')
+def DownloadFinanceReport(request, id):
+
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    dfd = FinanceModel.objects.filter(project_id = id).values()
+    df = pd.DataFrame(dfd)
+    csvtitle = Project.objects.get(id=id).name
+    df.to_csv("Reports/Project/" + csvtitle + " Fianance Report.csv",index=False)
+    
+    filename = csvtitle + ' Fianances Report.csv'
+    filepath =  BASE_DIR + '/Reports/Project/' + filename
+    path = open(filepath,'r')
+    mime_type = mimetypes.guess_type(filepath)
+    response = HttpResponse(path,content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    
+    return response
