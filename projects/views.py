@@ -13,10 +13,10 @@ from projects.forms import TeamRegistrationForm
 from consultancy2.decorators import *
 from finance.models import FinanceModel
 from consultancy2.decorators import allowed_users
-
+from django.http import FileResponse
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+import xlsxwriter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.core.mail import send_mail
@@ -438,6 +438,44 @@ def DownloadProjectReport(request,id):
 
     dfd = Project.objects.filter(id = id).values()
     df = pd.DataFrame(dfd)
+    df["status"] = df["status"].replace({'1': 'Working', '2': 'Stuck', '3': 'Done'})
+    df["category"] = df["category"].replace({'1': 'Extension Based', '2': 'Functional Based', '3': 'Research Based','4': 'Government'})
+    df = df.drop(['description'], axis=1)
+    df = df.drop(['id'], axis=1)
+    df = df.drop(['upd_date'], axis=1)
+    df = df.drop(['add_date'], axis=1)
+    df['serial_number'] = df.reset_index().index + 1
+    
+    # Move the 'serial_number' column to the beginning of the DataFrame
+    cols = df.columns.tolist()
+    cols = cols[-1:] + cols[:-1]
+    df = df[cols]
+    
+    csvtitle = request.user.username
+    df = df.rename(columns={"dead_line": "deadline"}) # Renaming the column heading
+    df = df.rename(columns={"complete_per": "Complete percentage"})
+    filepath = "Reports/Project/" + csvtitle + ".xlsx"
+    
+    # Capitalize the first letter of column headings
+    df.columns = df.columns.str.capitalize()
+        
+    # Create a Pandas Excel writer using XlsxWriter as the engine.
+    writer = pd.ExcelWriter(filepath, engine='xlsxwriter')
+    
+    # Convert the dataframe to an XlsxWriter Excel object.
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+    # Get the xlsxwriter workbook and worksheet objects.
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    
+    # Auto-fit column width for all columns in the worksheet
+    for i, col in enumerate(df.columns):
+        column_len = df[col].astype(str).str.len().max()
+        column_len = max(column_len, len(col))
+        worksheet.set_column(i, i, column_len+1)
+        
+    writer.save()
     csvtitle = str(Project.objects.filter(id = id)[0])
     df.to_csv("Reports/Project/" + csvtitle + ".csv",index=False)
     
@@ -462,17 +500,55 @@ def DownloadAllProjectReport(request):
 
     dfd = Project.objects.all().values()
     df = pd.DataFrame(dfd)
+    
+    # Use the replace method to replace string values with their corresponding string values
+    df["status"] = df["status"].replace({'1': 'Working', '2': 'Stuck', '3': 'Done'})
+    df["category"] = df["category"].replace({'1': 'Extension Based', '2': 'Functional Based', '3': 'Research Based','4': 'Government'})
+    df = df.drop(['description'], axis=1)
+    df = df.drop(['id'], axis=1)
+    df = df.drop(['upd_date'], axis=1)
+    df = df.drop(['add_date'], axis=1)
+    df['serial_number'] = df.reset_index().index + 1
+    
+    # Move the 'serial_number' column to the beginning of the DataFrame
+    cols = df.columns.tolist()
+    cols = cols[-1:] + cols[:-1]
+    df = df[cols]
+    
     csvtitle = request.user.username
-    df.to_csv("Reports/Project/" + csvtitle + ".csv",index=False)
+    df = df.rename(columns={"dead_line": "deadline"}) # Renaming the column heading
+    df = df.rename(columns={"complete_per": "Complete percentage"})
+    filepath = "Reports/Project/" + csvtitle + ".xlsx"
     
-    filename = csvtitle + '.csv'
-    filepath =  BASE_DIR + '/Reports/Project/' + filename
-    path = open(filepath,'r')
-    mime_type = mimetypes.guess_type(filepath)
-    response = HttpResponse(path,content_type=mime_type)
-    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    # Capitalize the first letter of column headings
+    df.columns = df.columns.str.capitalize()
+        
+    # Create a Pandas Excel writer using XlsxWriter as the engine.
+    writer = pd.ExcelWriter(filepath, engine='xlsxwriter')
     
-    return response
+    # Convert the dataframe to an XlsxWriter Excel object.
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+    # Get the xlsxwriter workbook and worksheet objects.
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    
+    # Auto-fit column width for all columns in the worksheet
+    for i, col in enumerate(df.columns):
+        column_len = df[col].astype(str).str.len().max()
+        column_len = max(column_len, len(col))
+        worksheet.set_column(i, i, column_len+1)
+        
+
+    
+    writer.save()
+    
+    # Use FileResponse to set the file as the content of the response
+    response = FileResponse(open(filepath, 'rb'))
+    response['Content-Disposition'] = "attachment; filename=%s" % csvtitle + '.xlsx'
+    
+    return response 
+
 
 @login_required(login_url='login')
 def UploadProjectDocs(request,id):
