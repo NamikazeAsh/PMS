@@ -1,4 +1,5 @@
 from django.forms import modelformset_factory
+import os
 
 from django.shortcuts import render,get_object_or_404, HttpResponseRedirect, redirect,HttpResponse
 from django.views import generic
@@ -689,5 +690,6 @@ def DownloadFinanceReport(request, id):
     mime_type = mimetypes.guess_type(filepath)
     response = HttpResponse(path, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename
+    os.remove("Reports/Project/" + csvtitle + " Finance Report.csv") 
     
     return response
