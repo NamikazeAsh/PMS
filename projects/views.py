@@ -672,12 +672,33 @@ def DownloadFinanceReport(request, id):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     dfd = FinanceModel.objects.filter(project_id=id).values()
+    financeExpense = FinanceModel.objects.get(project_id = id)
+
+    existingexpenses = json.loads(financeExpense.expenses)['less']
+    expenseStr = ""
+    for expense in existingexpenses:
+        tempDictExpense = json.loads(expense)
+        expenseStr += tempDictExpense["particular"] + ": " +  tempDictExpense["amount"] + ", "
+
+    existingincomes = json.loads(financeExpense.incomes)['add']
+    incomeStr = ""
+    for income in existingincomes:
+        tempDictIncome = json.loads(income)
+        incomeStr += tempDictIncome["particular"] + ": " +  tempDictIncome["amount"] + ", "
+
+    existingprofessors = json.loads(financeExpense.professor)['professors']
+    professorStr = ""
+    for professor in existingprofessors:
+        tempDictProfessor = json.loads(professor)
+        professorStr += tempDictProfessor["Professor"] + ": " +  tempDictProfessor["ratio"] + ": " +  tempDictProfessor["desc"] + ", "
+    
     
     # convert JSON data to DataFrame
     df_list = []
     for item in dfd:
-        expenses = json.loads(item['expenses'])
-        item['expenses'] = json.dumps(expenses)
+        item['expenses'] = expenseStr
+        item['incomes'] = incomeStr
+        item['professor'] = professorStr
         df_list.append(item)
     df = pd.DataFrame(df_list)
 
