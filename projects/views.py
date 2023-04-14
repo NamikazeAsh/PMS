@@ -662,21 +662,32 @@ def deleteProfessorInfo(request, id, pid):
 
     return redirect(f'/projects/projects/project/{id}')
 
+
+import pandas as pd
+import json
+
 @login_required(login_url='login')
 def DownloadFinanceReport(request, id):
-
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    dfd = FinanceModel.objects.filter(project_id = id).values()
-    df = pd.DataFrame(dfd)
-    csvtitle = Project.objects.get(id=id).name
-    df.to_csv("Reports/Project/" + csvtitle + " Fianance Report.csv",index=False)
+    dfd = FinanceModel.objects.filter(project_id=id).values()
     
-    filename = csvtitle + ' Fianances Report.csv'
+    # convert JSON data to DataFrame
+    df_list = []
+    for item in dfd:
+        expenses = json.loads(item['expenses'])
+        item['expenses'] = json.dumps(expenses)
+        df_list.append(item)
+    df = pd.DataFrame(df_list)
+
+    csvtitle = Project.objects.get(id=id).name
+    df.to_csv("Reports/Project/" + csvtitle + " Finance Report.csv", index=False)
+    
+    filename = csvtitle + ' Finance Report.csv'
     filepath =  BASE_DIR + '/Reports/Project/' + filename
-    path = open(filepath,'r')
+    path = open(filepath, 'r')
     mime_type = mimetypes.guess_type(filepath)
-    response = HttpResponse(path,content_type=mime_type)
+    response = HttpResponse(path, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     
     return response
