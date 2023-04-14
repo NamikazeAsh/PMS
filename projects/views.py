@@ -683,7 +683,7 @@ def DownloadFinanceReport(request, id):
     csvtitle = Project.objects.get(id=id).name
     df.to_csv("Reports/Project/" + csvtitle + " Finance Report.csv", index=False)
     
-    filename = csvtitle + ' Finance Report.csv'
+    filename = csvtitle + ' Fianance Report.csv'
     filepath =  BASE_DIR + '/Reports/Project/' + filename
     path = open(filepath, 'r')
     mime_type = mimetypes.guess_type(filepath)
