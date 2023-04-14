@@ -687,10 +687,11 @@ def DownloadFinanceReport(request, id):
         incomeStr += tempDictIncome["particular"] + ": " +  tempDictIncome["amount"] + ", "
 
     existingprofessors = json.loads(financeExpense.professor)['professors']
+    netAmount = financeExpense.net_amt
     professorStr = ""
     for professor in existingprofessors:
         tempDictProfessor = json.loads(professor)
-        professorStr += tempDictProfessor["Professor"] + ": " +  tempDictProfessor["ratio"] + ": " +  tempDictProfessor["desc"] + ", "
+        professorStr += tempDictProfessor["Professor"] + ": " +  tempDictProfessor["ratio"] + ": " + "Rs. " +  str(netAmount*((float(tempDictProfessor["ratio"]))/10)) + ": " +  tempDictProfessor["desc"] + ", "
     
     
     # convert JSON data to DataFrame
