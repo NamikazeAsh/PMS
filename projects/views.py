@@ -509,7 +509,7 @@ def DownloadAllProjectReport(request):
     df = df.drop(['id'], axis=1)
     df = df.drop(['upd_date'], axis=1)
     df = df.drop(['add_date'], axis=1)
-    df['serial_number'] = df.reset_index().index + 1
+    df['serial number'] = df.reset_index().index + 1
     
     # Move the 'serial_number' column to the beginning of the DataFrame
     cols = df.columns.tolist()
@@ -691,8 +691,8 @@ def DownloadFinanceReport(request, id):
     professorStr = ""
     for professor in existingprofessors:
         tempDictProfessor = json.loads(professor)
-        professorStr += tempDictProfessor["Professor"] + ": " +  tempDictProfessor["ratio"] + ": " + "Rs. " +  str(netAmount*((float(tempDictProfessor["ratio"]))/10)) + ": " +  tempDictProfessor["desc"] + ", "
-    
+        professorStr += tempDictProfessor["Professor"] + ": " +  str(netAmount*((float(tempDictProfessor["ratio"]))/10)) + ": " +  tempDictProfessor["desc"] + ", "
+        
     
     # convert JSON data to DataFrame
     df_list = []
@@ -702,12 +702,30 @@ def DownloadFinanceReport(request, id):
         item['professor'] = professorStr
         df_list.append(item)
     df = pd.DataFrame(df_list)
+    
+    df = df.drop(['id'], axis=1)
+    df = df.drop(['project_id_id'], axis=1)
+    df = df.rename(columns={"amtreceived": "Amount Recieved"})
+    df = df.rename(columns={"cupercentage": "CU Percentage"})
+    df = df.rename(columns={"total_expenses": "Total Expenses"})
+    df = df.rename(columns={"total_incomes": "Total Incomes"})
+    df = df.rename(columns={"net_amt": "Net Amount"})
+    df['serial number'] = df.reset_index().index + 1
+    
+    # Move the 'serial_number' column to the beginning of the DataFrame
+    cols = df.columns.tolist()
+    cols = cols[-1:] + cols[:-1]
+    df = df[cols]
+    # Capitalize the first letter of column headings
+    df.columns = df.columns.str.capitalize()
+    df = df.rename(columns={"Cu percentage": "CU percentage"})
+    
 
     csvtitle = Project.objects.get(id=id).name
     df.to_csv("Reports/Project/" + csvtitle + " Finance Report.csv", index=False)
     
     filename = csvtitle + ' Finance Report.csv'
-    filepath =  BASE_DIR + '/Reports/Project/' + filename
+    filepath =  BASE_DIR + '/Reports/Project/' + filename   
     path = open(filepath, 'r')
     mime_type = mimetypes.guess_type(filepath)
     response = HttpResponse(path, content_type=mime_type)
