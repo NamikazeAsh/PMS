@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'consultancy2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'finaldb1',
-        'USER' : 'root',
-        'PASSWORD' : '',
+        'NAME': 'PMSDB',
+        'USER' : 'Pms',
+        'PASSWORD' : 'Christ@2023',
         'HOST' : 'localhost',
         'PORT' : '3306',
         'OPTIONS' : {
