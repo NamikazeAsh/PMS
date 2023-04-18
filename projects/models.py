@@ -97,6 +97,5 @@ class ProjectComment(MPTTModel):
 
     def __str__(self):
         return self.content
-    
 
-    
+  
